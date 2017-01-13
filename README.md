@@ -1,4 +1,4 @@
-# Actinolite: Exam Machine / Code
+# Actinolite: Exam Machine
 
 Team members:
 
