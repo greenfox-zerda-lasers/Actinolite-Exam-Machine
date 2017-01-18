@@ -37,7 +37,7 @@ strong {
   margin: 1em 0 1em 0;
   opacity: .7;
 }
-
+/*
 .login span {
   width: 2em;
   height: 2em;
@@ -46,7 +46,7 @@ strong {
   background-color: teal;
   background-position: center;
   background-repeat: no-repeat;
-}
+}*/
 
 .login input {
   width: 15em;
