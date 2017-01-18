@@ -8,6 +8,12 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
 
+// Imports for loading & configuring the in-memory web api
+import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
+import { InMemoryDataService }  from './in-memory-data.service';
+
+// import { AppService } from './app.service';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -18,6 +24,7 @@ import { SignupComponent } from './signup/signup.component';
     BrowserModule,
     FormsModule,
     HttpModule,
+    InMemoryWebApiModule.forRoot(InMemoryDataService), // fake web api
     RouterModule.forRoot([
       { path: '', component: LoginComponent},
       { path: 'login', component: LoginComponent },
@@ -25,6 +32,7 @@ import { SignupComponent } from './signup/signup.component';
     ])
   ],
   providers: [
+    // AppService
   ],
   bootstrap: [AppComponent]
 })
