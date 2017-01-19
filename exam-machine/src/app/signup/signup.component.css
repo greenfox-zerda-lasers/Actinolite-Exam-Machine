@@ -38,6 +38,14 @@ strong {
   opacity: .7;
 }
 
+.login sup {
+  opacity: .7;
+}
+
+.login sup:hover {
+  cursor: pointer;
+}
+
 .login input, .login textarea {
   width: 15em;
   padding: 5px;
