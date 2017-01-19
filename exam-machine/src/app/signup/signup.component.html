@@ -6,21 +6,21 @@
     <sup>?</sup>
   </p>
 
-  <input type="text" name="name" />
+  <input #newName (keyup.enter)="newUser(newName.value, newEmail.value, newPass.value, newHint.value)" type="text" name="name" />
 
   <p>
     <label for="user">E-mail address</label>
     <sup>?</sup>
   </p>
 
-  <input type="text" name="user" />
+  <input #newEmail (keyup.enter)="newUser(newName.value, newEmail.value, newPass.value, newHint.value)" type="text" name="user" />
 
   <p>
     <label for="pass">Pick a password</label>
     <sup>?</sup>
   </p>
 
-  <input type="password" name="pass" />
+  <input #newPass (keyup.enter)="newUser(newName.value, newEmail.value, newPass.value, newHint.value)" type="password" name="pass" />
 
   <p>
     <label for="pass-again">Retype password</label>
@@ -34,7 +34,8 @@
     <sup>?</sup>
   </p>
 
-  <textarea name="hint"></textarea>
+  <textarea #newHint (keyup.enter)="newUser(newName.value, newEmail.value, newPass.value, newHint.value)" name="hint"></textarea>
 
-  <button [routerLink]="['../']">Sign up</button>
+  <!-- <button (click)="newUser(newName.value, newEmail.value, newPass.value, newHint.value)">Sign up</button> -->
+  <button [routerLink]="['/']">Sign up</button>
 </section>
