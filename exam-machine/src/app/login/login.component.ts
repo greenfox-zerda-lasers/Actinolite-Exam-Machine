@@ -14,28 +14,23 @@ import 'rxjs/add/operator/toPromise';
 
 export class LoginComponent implements OnInit {
 
-  // user = [];
+  user;
 
   checkUser(loginUser: string, loginPass: string) {
-    var user;
     this.dataService.fetchData(loginUser, loginPass)
       .toPromise()
-      .then((data) => user = data)
+      .then((data) => this.user = data)
       .then(() => this.navigate())
-        // function() {
-        // console.log(user)
-        // if (user.status === 'ok') {
-        //   console.log('login success');
-        //   this.router.navigateByUrl('/dashboard');
-        // } else {
-        //   console.log('login error');
-        // }
-      // })
       .catch(this.handleError);
   }
 
   navigate() {
-    this.router.navigateByUrl('/dashboard');
+    if (this.user.status === 'ok') {
+      console.log('login success');
+      this.router.navigateByUrl('/dashboard');
+    } else {
+      console.log('login error');
+    }
   }
 
   private handleError(error: any): Promise<any> {
@@ -43,34 +38,9 @@ export class LoginComponent implements OnInit {
     return Promise.reject(error.message || error);
   }
 
-  // checkUser(loginUser: string, loginPass: string) {
-  //   let temp = this.users.slice(1);
-  //   console.log(temp);
-  //   // console.log(this.users);
-  //   let result = false;
-  //   let user;
-  //   temp.forEach(function(e) {
-  //     // console.log(e);
-  //     if (e.email === loginUser) {
-  //       if (e.password === loginPass) {
-  //         result = true;
-  //         user = e;
-  //       }
-  //     }
-  //   })
-  //   if (result) {
-  //     console.log('login success');
-  //     this.router.navigateByUrl('/dashboard');
-  //   } else {
-  //     console.log('login error')
-  //   }
-  // }
-
   constructor(private dataService: DataService, private router: Router) { }
 
   ngOnInit() {
-    // this.dataService.fetchData().subscribe(
-    //   (data) => this.users = data
-    // );
+
   }
 }
