@@ -11,6 +11,8 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { MentorComponent } from './dashboard/mentor/mentor.component';
+import { StudentComponent } from './dashboard/student/student.component';
 
 // Imports for loading & configuring the in-memory web api
 // import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
@@ -23,7 +25,9 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     AppComponent,
     LoginComponent,
     SignupComponent,
-    DashboardComponent
+    DashboardComponent,
+    MentorComponent,
+    StudentComponent
   ],
   imports: [
     BrowserModule,
@@ -34,7 +38,9 @@ import { DashboardComponent } from './dashboard/dashboard.component';
       { path: '', component: LoginComponent},
       { path: 'login', component: LoginComponent },
       { path: 'signup', component: SignupComponent },
-      { path: 'dashboard', component: DashboardComponent }
+      { path: 'dashboard', component: DashboardComponent },
+      { path: 'dashboard/mentor', component: MentorComponent },
+      { path: 'dashboard/student', component: StudentComponent }
     ])
   ],
   providers: [

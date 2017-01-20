@@ -1,0 +1,108 @@
+header {
+  box-sizing: border-box;
+  margin: 0;
+  padding: .2em 0 .6em 3em;
+  width: auto;
+  min-width: 550px;
+  height: 4em;
+  color: white;
+  background-color: rgba(255, 255, 255, .4);
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+button {
+  border: 0;
+  margin-right: 1em;
+  color: teal;
+  font-size: 1em;
+  font-weight: bold;
+  padding: 5px;
+  height: 2em;
+  width: 7em;
+  background-color: rgba(255, 255, 255, .5);
+  transition: .3s ease;
+  -webkit-transition: .3s ease;
+  -moz-transition: .3s ease;
+}
+
+button:hover {
+  color: white;
+  background-color: orange;
+  cursor: pointer;
+  transition: .3s ease;
+  -webkit-transition: .3s ease;
+  -moz-transition: .3s ease;
+}
+
+strong {
+  font-weight: bold;
+}
+
+h1 {
+  padding: 0;
+  font-size: 1.5em;
+  font-weight: normal;
+  text-align: left;
+  width: 100%;
+}
+
+section {
+  display: flex;
+}
+
+nav {
+  width: 20em;
+  height: calc(100vh - 4em);
+  background-color: rgba(255, 255, 255, .7);
+  overflow: hidden;
+}
+
+/*this will go to its own component*/
+
+h2 {
+  font-size: 1.2em;
+  color: teal;
+  font-weight: normal;
+  margin-left: 1em;
+}
+
+
+hr {
+  width: 90%;
+  height: 1px;
+  border: 0;
+  background-color: teal;
+}
+
+ul {
+  width: auto;
+}
+
+li {
+  list-style-type: none;
+  margin-left: -2em;
+  width: auto;
+  padding: .5em;
+  font-size: 1.1em;
+  color: teal;
+  opacity: .7;
+  transition: .3s ease;
+  -webkit-transition: .3s ease;
+  -moz-transition: .3s ease;
+}
+
+li:hover {
+  opacity: 1;
+  /*background-image: linear-gradient(to right, white 0%, teal 50%, white 100%);*/
+  cursor: pointer;
+  transition: .3s ease;
+  -webkit-transition: .3s ease;
+  -moz-transition: .3s ease;
+}
+
+article {
+  width: 100%;
+}

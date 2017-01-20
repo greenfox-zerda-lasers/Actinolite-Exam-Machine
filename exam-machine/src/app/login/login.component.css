@@ -36,6 +36,7 @@ strong {
 .login label {
   margin: 1em 0 1em 0;
   opacity: .7;
+  font-weight: normal;
 }
 /*
 .login span {
