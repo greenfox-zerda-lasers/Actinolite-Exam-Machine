@@ -14,27 +14,29 @@ import 'rxjs/add/operator/toPromise';
 
 export class LoginComponent implements OnInit {
 
-  user;
+  response;
 
-  checkUser(loginUser: string, loginPass: string) {
-    this.dataService.fetchData(loginUser, loginPass)
+  verifyUser(loginUser: string, loginPass: string) {
+    this.dataService.userLogin(loginUser, loginPass)
       .toPromise()
-      .then((data) => this.user = data)
+      .then((data) => this.response = data)
       .then(() => this.navigate())
       .catch(this.handleError);
   }
 
   navigate() {
-    if (this.user.status === 'ok') {
+    if (this.response.result === 'success') {
       console.log('login success');
       this.router.navigateByUrl('/dashboard');
+    } else if (this.response.result === 'fail') {
+      console.log(this.response.message);
     } else {
       console.log('login error');
     }
   }
 
   private handleError(error: any): Promise<any> {
-    console.error('An error occurred', error); // for demo purposes only
+    console.error('An error occurred', error);
     return Promise.reject(error.message || error);
   }
 

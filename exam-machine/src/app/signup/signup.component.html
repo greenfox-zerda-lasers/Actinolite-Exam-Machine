@@ -1,41 +1,33 @@
-<section class="login">
+<section class="signup">
   <h1>Sign up for Exam<strong>Machine</strong></h1>
-  <hr />
   <p>
     <label for="name">Your name</label>
     <sup>?</sup>
   </p>
 
-  <input #newName (keyup.enter)="newUser(newName.value, newEmail.value, newPass.value, newHint.value)" type="text" name="name" />
+  <input #newName (keyup.enter)="sendUserData(newName.value, newEmail.value, newPass.value)" type="text" name="name" />
 
   <p>
     <label for="user">E-mail address</label>
     <sup>?</sup>
   </p>
 
-  <input #newEmail (keyup.enter)="newUser(newName.value, newEmail.value, newPass.value, newHint.value)" type="text" name="user" />
+  <input #newEmail (keyup.enter)="sendUserData(newName.value, newEmail.value, newPass.value)" type="text" name="user" />
 
   <p>
     <label for="pass">Pick a password</label>
     <sup>?</sup>
   </p>
 
-  <input #newPass (keyup.enter)="newUser(newName.value, newEmail.value, newPass.value, newHint.value)" type="password" name="pass" />
+  <input #newPass (keyup.enter)="sendUserData(newName.value, newEmail.value, newPass.value)" type="password" name="pass" />
 
-  <p>
+  <!-- <p>
     <label for="pass-again">Retype password</label>
     <sup>?</sup>
   </p>
 
-  <input type="password" name="pass-again" />
+  <input #rePass (blur)="checkPass(newPass.value, rePass.value)" type="password" name="pass-again" /> -->
 
-  <p>
-    <label for="hint">Hint:</label>
-    <sup>?</sup>
-  </p>
-
-  <textarea #newHint (keyup.enter)="newUser(newName.value, newEmail.value, newPass.value, newHint.value)" name="hint"></textarea>
-
-  <!-- <button (click)="newUser(newName.value, newEmail.value, newPass.value, newHint.value)">Sign up</button> -->
-  <button [routerLink]="['/']">Sign up</button>
+  <button (click)="sendUserData(newName.value, newEmail.value, newPass.value)">Sign up</button>
+  <!-- <button [routerLink]="['/']">Sign up</button> -->
 </section>

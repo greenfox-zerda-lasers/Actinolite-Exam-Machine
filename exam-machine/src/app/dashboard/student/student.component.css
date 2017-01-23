@@ -8,39 +8,94 @@ section {
 
 article {
   margin: 1em;
-  padding: 1em;
+  padding: 2em;
   width: 500px;
   color: teal;
-  background-color: rgba(255, 255, 255, .4);
+  border: 1px solid white;
+  /*background-color: rgba(255, 255, 255, .7);*/
+  position: relative;
   transition: .3s ease;
   -webkit-transition: .3s ease;
   -moz-transition: .3s ease;
 }
-
+/*
 article:hover {
   background-color: rgba(255, 255, 255, .7);
   transition: .3s ease;
   -webkit-transition: .3s ease;
   -moz-transition: .3s ease;
-}
+}*/
 
 h1 {
-  font-size: 1.5em;
-  font-weight: normal;
-  margin-left: 1em;
+  font-size: 18px;
+  font-weight: bold;
+  margin: 0 0 10px 10px;
+  padding: 0;
 }
 
 h2 {
   font-size: 1em;
   font-weight: normal;
-  margin: 1em 1em 2em 2em;
+  margin: 10px 10px 20px 20px;
+  text-transform: uppercase;
   display: inline-block;
 }
 
-hr {
+/*hr {
   width: 450px;
   height: 1px;
   align-self: center;
   border: 0;
   background-color: teal;
+}
+*/
+.description {
+  margin: 20px 20px 0 20px;
+}
+
+.repo {
+  box-sizing: border-box;
+  margin: 10px 20px 10px 20px;
+  padding: 10px;
+  background-color: rgba(255, 255, 255, .5);
+  border: 1px dotted teal;
+  color: teal;
+  line-height: 14px;
+  border-radius: 3px;
+}
+
+.repo-label, .repo-url {
+  margin: 0;
+}
+
+.repo-url {
+  margin-top: 5px;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+button {
+  position: absolute;
+  right: 3em;
+  bottom: 1.5em;
+  margin: 10px 0 10px 0;
+  border: 0;
+  color: teal;
+  font-size: 1.5em;
+  font-weight: bold;
+  padding: 5px;
+  width: 5em;
+  background-color: rgba(255, 255, 255, .5);
+  transition: .3s ease;
+  -webkit-transition: .3s ease;
+  -moz-transition: .3s ease;
+}
+
+button:hover {
+  color: white;
+  background-color: orange;
+  cursor: pointer;
+  transition: .3s ease;
+  -webkit-transition: .3s ease;
+  -moz-transition: .3s ease;
 }
