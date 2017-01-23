@@ -49,11 +49,13 @@ strong {
 }
 
 .signup input:focus {
+  background: none;
   outline: none;
   opacity: 1;
 }
 
 .signup input:active {
+  background: none;
   opacity: 1;
 }
 

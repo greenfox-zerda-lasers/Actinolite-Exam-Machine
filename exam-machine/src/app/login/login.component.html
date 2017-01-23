@@ -1,7 +1,6 @@
 <section class="login">
   <h1>Exam<strong>Machine</strong></h1>
   <h2>Your new favorite web app</h2>
-  <hr />
 
   <label for="user">E-mail</label>
   <input #loginUser (keyup.enter)="verifyUser(loginUser.value, loginPass.value)" type="text" name="user" />
@@ -10,6 +9,5 @@
   <input #loginPass (keyup.enter)="verifyUser(loginUser.value, loginPass.value)" type="password" name="pass" />
 
   <button (click)="verifyUser(loginUser.value, loginPass.value)">Log In</button>
-  <hr />
   <p>New to ExamMachine? <a [routerLink]="['/signup']">Sign up!</a></p>
 </section>
