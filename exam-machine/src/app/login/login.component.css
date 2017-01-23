@@ -38,16 +38,6 @@ strong {
   opacity: .7;
   font-weight: normal;
 }
-/*
-.login span {
-  width: 2em;
-  height: 2em;
-  background-image: url("../assets/round.svg");
-  background-size: 1.3em;
-  background-color: teal;
-  background-position: center;
-  background-repeat: no-repeat;
-}*/
 
 .login input {
   width: 15em;

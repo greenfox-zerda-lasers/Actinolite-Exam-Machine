@@ -14,12 +14,6 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { MentorComponent } from './dashboard/mentor/mentor.component';
 import { StudentComponent } from './dashboard/student/student.component';
 
-// Imports for loading & configuring the in-memory web api
-// import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
-// import { InMemoryDataService }  from './in-memory-data.service';
-
-// import { AppService } from './app.service';
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -33,7 +27,6 @@ import { StudentComponent } from './dashboard/student/student.component';
     BrowserModule,
     FormsModule,
     HttpModule,
-    // InMemoryWebApiModule.forRoot(InMemoryDataService), // fake web api
     RouterModule.forRoot([
       { path: '', component: LoginComponent},
       { path: 'login', component: LoginComponent },

@@ -4,12 +4,12 @@
   <hr />
 
   <label for="user">E-mail</label>
-  <input #loginUser (keyup.enter)="checkUser(loginUser.value, loginPass.value)" type="text" name="user" />
+  <input #loginUser (keyup.enter)="verifyUser(loginUser.value, loginPass.value)" type="text" name="user" />
 
   <label for="pass">Password</label>
-  <input #loginPass (keyup.enter)="checkUser(loginUser.value, loginPass.value)" type="password" name="pass" />
+  <input #loginPass (keyup.enter)="verifyUser(loginUser.value, loginPass.value)" type="password" name="pass" />
 
-  <button (click)="checkUser(loginUser.value, loginPass.value)">Log In</button>
+  <button (click)="verifyUser(loginUser.value, loginPass.value)">Log In</button>
   <hr />
   <p>New to ExamMachine? <a [routerLink]="['/signup']">Sign up!</a></p>
 </section>

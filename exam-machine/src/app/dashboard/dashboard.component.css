@@ -98,9 +98,17 @@ li:hover {
   opacity: 1;
   /*background-image: linear-gradient(to right, white 0%, teal 50%, white 100%);*/
   cursor: pointer;
+  background-color: teal;
+  color: white;
   transition: .3s ease;
   -webkit-transition: .3s ease;
   -moz-transition: .3s ease;
+}
+
+.selected {
+  background-color: teal;
+  color: white;
+  opacity: 1;
 }
 
 article {

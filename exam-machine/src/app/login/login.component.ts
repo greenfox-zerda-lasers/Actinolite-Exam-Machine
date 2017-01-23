@@ -16,8 +16,8 @@ export class LoginComponent implements OnInit {
 
   user;
 
-  checkUser(loginUser: string, loginPass: string) {
-    this.dataService.fetchData(loginUser, loginPass)
+  verifyUser(loginUser: string, loginPass: string) {
+    this.dataService.userLogin(loginUser, loginPass)
       .toPromise()
       .then((data) => this.user = data)
       .then(() => this.navigate())
@@ -25,7 +25,7 @@ export class LoginComponent implements OnInit {
   }
 
   navigate() {
-    if (this.user.status === 'ok') {
+    if (this.user.result === 'success') {
       console.log('login success');
       this.router.navigateByUrl('/dashboard');
     } else {
@@ -34,7 +34,7 @@ export class LoginComponent implements OnInit {
   }
 
   private handleError(error: any): Promise<any> {
-    console.error('An error occurred', error); // for demo purposes only
+    console.error('An error occurred', error);
     return Promise.reject(error.message || error);
   }
 
