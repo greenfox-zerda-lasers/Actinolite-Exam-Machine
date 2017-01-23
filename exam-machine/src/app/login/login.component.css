@@ -2,7 +2,7 @@
   margin: 0 auto;
   margin-top: 3em;
   padding: 3em 1em 3em 1em;
-  width: 25em;
+  width: 26em;
   color: white;
   display: flex;
   flex-direction: column;
@@ -40,14 +40,18 @@ strong {
 }
 
 .login input {
+  background: none;
   width: 15em;
   padding: 5px;
+  color: white;
+  text-align: center;
   border: 0;
+  border-bottom: 1px solid white;
   opacity: .5;
 }
 
 .login input:focus {
-  border: .1em orange;
+  outline: none;
   opacity: 1;
 }
 
@@ -67,13 +71,13 @@ input.username {
 }
 
 .login button {
-  margin: 1em 0 1em 0;
+  margin: 2em 0 2em 0;
   border: 0;
   color: teal;
-  font-size: 1em;
+  font-size: 1.2em;
   font-weight: bold;
   padding: 5px;
-  width: 5em;
+  width: 7em;
   background-color: rgba(255, 255, 255, .5);
   transition: .3s ease;
   -webkit-transition: .3s ease;
