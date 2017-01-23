@@ -1,8 +1,8 @@
 .login {
   margin: 0 auto;
-  margin-top: 3em;
-  padding: 3em 1em 3em 1em;
-  width: 26em;
+  margin-top: 30px;
+  padding: 25px 10px 25px 10px;
+  width: 270px;
   color: white;
   display: flex;
   flex-direction: column;
@@ -16,8 +16,8 @@ strong {
 
 .login h1 {
   padding: 0;
-  margin: 0 0 0.3em 3em;
-  font-size: 1.5em;
+  margin: 0 0 5px 35px;
+  font-size: 16px;
   font-weight: normal;
   text-align: left;
   width: 100%;
@@ -25,8 +25,8 @@ strong {
 
 .login h2 {
   padding: 0;
-  margin: 0 0 1em 4em;
-  font-size: 1.1em;
+  margin: 0 0 15px 35px;
+  font-size: 12px;
   font-weight: normal;
   text-align: left;
   width: 100%;
@@ -34,18 +34,18 @@ strong {
 }
 
 .login label {
-  margin: 1em 0 1em 0;
+  margin: 10px 0 10px 0;
   opacity: .7;
   font-weight: normal;
 }
 
 .login input {
-  background: none;
-  width: 15em;
+  width: 200px;
   padding: 5px;
   color: white;
   text-align: center;
   border: 0;
+  background: none;
   border-bottom: 1px solid white;
   opacity: .5;
 }
@@ -59,25 +59,14 @@ strong {
   opacity: 1;
 }
 
-input.username {
-  width: 13em;
-}
-
-.login hr {
-  padding: 0;
-  margin: 0 0 1em 0;
-  width: 80%;
-  opacity: .3;
-}
-
 .login button {
-  margin: 2em 0 2em 0;
+  margin: 20px 0 20px 0;
   border: 0;
   color: teal;
-  font-size: 1.2em;
+  font-size: 12px;
   font-weight: bold;
   padding: 5px;
-  width: 7em;
+  width: 70px;
   background-color: rgba(255, 255, 255, .5);
   transition: .3s ease;
   -webkit-transition: .3s ease;
