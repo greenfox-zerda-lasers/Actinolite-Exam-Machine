@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
+import { ClarityModule } from 'clarity-angular';
 import { RouterModule } from '@angular/router';
 
 import 'rxjs/add/operator/map';
@@ -21,12 +22,13 @@ import { StudentComponent } from './dashboard/student/student.component';
     SignupComponent,
     DashboardComponent,
     MentorComponent,
-    StudentComponent
+    StudentComponent,
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
+    ClarityModule.forChild(),
     RouterModule.forRoot([
       { path: '', component: LoginComponent},
       { path: 'login', component: LoginComponent },

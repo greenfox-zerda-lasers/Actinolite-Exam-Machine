@@ -6,7 +6,7 @@ header {
   min-width: 550px;
   height: 50px;
   color: white;
-  background-color: rgba(255, 255, 255, .4);
+  background-color: #007CBB;
   position: relative;
   display: flex;
   justify-content: space-between;
@@ -14,27 +14,20 @@ header {
 }
 
 button {
-  border: 0;
+  height: 30px;
   margin-right: 10px;
-  color: teal;
   font-size: 11px;
-  font-weight: bold;
-  padding: 5px;
-  height: 25px;
-  width: 70px;
-  background-color: rgba(255, 255, 255, .5);
-  transition: .3s ease;
-  -webkit-transition: .3s ease;
-  -moz-transition: .3s ease;
+  line-height: 11px;
+  min-width: 100px;
 }
 
-button:hover {
+.btn-outline {
+  border-color: white;
   color: white;
-  background-color: orange;
-  cursor: pointer;
-  transition: .3s ease;
-  -webkit-transition: .3s ease;
-  -moz-transition: .3s ease;
+}
+
+.btn-outline:hover {
+  color: #007CBB;
 }
 
 strong {
@@ -43,77 +36,16 @@ strong {
 
 h1 {
   padding: 0;
-  margin-left: 25px;
-  font-size: 16px;
+  margin: 0 0 0 25px;
+  font-size: 20px;
+  line-height: 20px;
   font-weight: normal;
   text-align: left;
+  color: white;
   width: 100%;
 }
 
 section {
-  display: flex;
-}
-
-nav {
-  width: 250px;
-  height: calc(100vh - 50px);
-  background-color: rgba(255, 255, 255, .7);
-  overflow: hidden;
-}
-
-/*this will go to its own component*/
-
-h2 {
-  font-size: 12px;
-  color: teal;
-  font-weight: normal;
-  margin: 20px 0 20px 30px;
-}
-
-
-hr {
-  width: 90%;
-  height: 1px;
-  border: 0;
-  background-color: teal;
-}
-
-ul {
-  width: auto;
-}
-
-li {
-  list-style-type: none;
-  margin-left: -10px;
-  width: auto;
-  padding: 5px;
-  font-size: 11px;
-  color: teal;
-  opacity: .7;
-  transition: .3s ease;
-  -webkit-transition: .3s ease;
-  -moz-transition: .3s ease;
-}
-
-li:hover {
-  opacity: 1;
-  /*background-image: linear-gradient(to right, white 0%, teal 50%, white 100%);*/
-  cursor: pointer;
-  /*background-color: teal;*/
-  /*color: white;*/
-  text-decoration: underline;
-  transition: .3s ease;
-  -webkit-transition: .3s ease;
-  -moz-transition: .3s ease;
-}
-
-.selected {
-  /*background-color: teal;*/
-  /*color: white;*/
-  text-decoration: underline;
-  opacity: 1;
-}
-
-article {
-  width: 100%;
+  margin: 0;
+  padding: 0;
 }

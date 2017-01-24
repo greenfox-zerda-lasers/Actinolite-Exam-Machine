@@ -1,13 +1,18 @@
-<section class="login">
+<section class="login-wrapper">
   <h1>Exam<strong>Machine</strong></h1>
   <h2>Your new favorite web app</h2>
 
-  <label for="user">E-mail</label>
-  <input #loginUser (keyup.enter)="verifyUser(loginUser.value, loginPass.value)" type="text" name="user" />
+  <input class="email" #loginUser (keyup.enter)="verifyUser(loginUser.value, loginPass.value)" placeholder="E-mail" type="email" />
 
-  <label for="pass">Password</label>
-  <input #loginPass (keyup.enter)="verifyUser(loginUser.value, loginPass.value)" type="password" name="pass" />
+  <input class="password" #loginPass (keyup.enter)="verifyUser(loginUser.value, loginPass.value)" placeholder="Password" type="password" />
 
-  <button (click)="verifyUser(loginUser.value, loginPass.value)">Log In</button>
+  <button type="submit"  class="btn btn-primary" (click)="verifyUser(loginUser.value, loginPass.value)">Log In</button>
+
   <p>New to ExamMachine? <a [routerLink]="['/signup']">Sign up!</a></p>
+</section>
+
+<section>
+  <footer>
+    2017 © Green Fox Academy
+  </footer>
 </section>

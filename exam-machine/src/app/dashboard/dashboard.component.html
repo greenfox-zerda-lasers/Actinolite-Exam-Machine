@@ -1,18 +1,7 @@
 <header>
   <h1>Exam<strong>Machine</strong></h1>
-  <button (click)="logOut()">Log out</button>
+  <button class="btn btn-outline" (click)="logOut()">Log out</button>
 </header>
 <section>
-  <nav>
-    <h2>Hi, <strong>{{name}}</strong>!</h2>
-    <!-- <hr /> -->
-    <ul>
-      <li class="selected">Available exams</li>
-      <li>Previous exams</li>
-      <li>Profile</li>
-    </ul>
-  </nav>
-  <article>
-    <app-student></app-student>
-  </article>
+    <app-mentor></app-mentor>
 </section>
