@@ -1,33 +1,26 @@
 <section class="signup">
-  <h1>Sign up for Exam<strong>Machine</strong></h1>
-  <p>
-    <label for="name">Your name</label>
-    <sup>?</sup>
-  </p>
+  <h2>Sign up for</h2>
+  <h1>Exam<strong>Machine</strong></h1>
 
-  <input #newName (keyup.enter)="sendUserData(newName.value, newEmail.value, newPass.value)" type="text" name="name" />
+  <input class="name" #newName (keyup.enter)="sendUserData(newName.value, newEmail.value, newPass.value)" placeholder="Name" type="text" />
 
-  <p>
-    <label for="user">E-mail address</label>
-    <sup>?</sup>
-  </p>
+  <input class="email" #newEmail (keyup.enter)="sendUserData(newName.value, newEmail.value, newPass.value)" placeholder="E-mail" type="email" />
 
-  <input #newEmail (keyup.enter)="sendUserData(newName.value, newEmail.value, newPass.value)" type="text" name="user" />
+  <input class="password" #newPass (keyup.enter)="sendUserData(newName.value, newEmail.value, newPass.value)" placeholder="Password" type="password" />
 
-  <p>
-    <label for="pass">Pick a password</label>
-    <sup>?</sup>
-  </p>
+  <input class="password" #rePass (keyup)="checkPass(newPass.value, rePass.value)" placeholder="Re-type password" type="password" />
 
-  <input #newPass (keyup.enter)="sendUserData(newName.value, newEmail.value, newPass.value)" type="password" name="pass" />
-
-  <!-- <p>
-    <label for="pass-again">Retype password</label>
-    <sup>?</sup>
-  </p>
-
-  <input #rePass (blur)="checkPass(newPass.value, rePass.value)" type="password" name="pass-again" /> -->
-
-  <button (click)="sendUserData(newName.value, newEmail.value, newPass.value)">Sign up</button>
+  <button type="submit" class="btn btn-primary" (click)="sendUserData(newName.value, newEmail.value, newPass.value)">Sign up</button>
   <!-- <button [routerLink]="['/']">Sign up</button> -->
+  <!-- <button type="submit" class="btn btn-primary" (click)="hideAlert = !hideAlert;">Sign up</button> -->
+</section>
+
+<section #signupAlert [ngClass]="{'hide': hideAlert}">
+  <div [ngClass]="{'alert-danger': dangerAlert, 'alert-success': successAlert}" class="alert">
+    <div class="alert-item">
+      <span class="alert-text">
+        {{message}}
+      </span>
+    </div>
+  </div>
 </section>

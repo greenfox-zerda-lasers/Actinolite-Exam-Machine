@@ -13,7 +13,6 @@ import 'rxjs/add/operator/toPromise';
 })
 
 export class DashboardComponent implements OnInit {
-  name = 'My Dear Student';
 
   logOut() {
     console.log('logout success');
