@@ -57,3 +57,11 @@ footer {
   font-size: 8px;
   opacity: .7;
 }
+
+.alert-container {
+  height: 0px;
+  overflow: hidden;
+  transition: .3s ease;
+  -webkit-transition: .3s ease;
+  -moz-transition: .3s ease;
+}
