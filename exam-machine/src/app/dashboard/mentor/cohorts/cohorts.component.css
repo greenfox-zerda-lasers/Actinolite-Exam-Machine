@@ -29,3 +29,8 @@ h2 {
 .centered {
   text-align: center;
 }
+
+button {
+  padding: 0;
+  margin: 0;
+}
