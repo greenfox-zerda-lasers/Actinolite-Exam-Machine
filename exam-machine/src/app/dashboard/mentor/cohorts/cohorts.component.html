@@ -14,11 +14,11 @@
   <button class="btn btn-primary add" (click)="opened = true">Add new Cohort</button>
       <clr-modal [(clrModalOpen)]="opened">
       <div class="modal-body">
-          <input type="text" placeholder ="Cohort name"/>
+          <input (keydown.enter)="addNewCohort(newCohort)" (keyup.enter)="opened = false" #newCohort type="text" placeholder ="Cohort name"/>
       </div>
       <div class="modal-footer">
           <button type="button" class="btn btn-outline" (click)="opened = false">Cancel</button>
-          <button type="button" class="btn btn-primary" (click)="opened = false">Add</button>
+          <button type="button" class="btn btn-primary" (click)="opened = false" (click)="addNewCohort(newCohort)">Add</button>
       </div>
   </clr-modal>
 </section>
