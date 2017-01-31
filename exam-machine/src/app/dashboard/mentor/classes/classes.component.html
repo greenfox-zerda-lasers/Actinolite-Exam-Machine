@@ -1,15 +1,11 @@
 <section>
   <div class="container">
     <h1>Classes</h1>
-    <clr-dropdown [clrMenuPosition]="'bottom-right'">
-    <button class="btn btn-outline-primary" clrDropdownToggle>
-        Cohorts
-        <clr-icon shape="caret down"></clr-icon>
-    </button>
-    <div class="dropdown-menu">
-      <p *ngFor="let cohort of cohorts" clrDropdownItem>{{cohort.name}}</p>
+    <div class="select">
+      <select id="cohorts">
+        <option *ngFor="let cohort of cohorts">{{cohort.name}}</option>
+      </select>
     </div>
-  </clr-dropdown>
   </div>
   <clr-datagrid>
       <clr-dg-column>Class name</clr-dg-column>
