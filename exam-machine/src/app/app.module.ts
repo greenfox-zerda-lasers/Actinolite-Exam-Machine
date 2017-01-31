@@ -21,6 +21,7 @@ import { StudentsComponent } from './dashboard/mentor/students/students.componen
 import { ExamsComponent } from './dashboard/mentor/exams/exams.component';
 import { ResultsComponent } from './dashboard/mentor/results/results.component';
 import { UnassignedComponent } from './dashboard/mentor/unassigned/unassigned.component';
+import { ExamstartComponent } from './dashboard/student/examstart/examstart.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { UnassignedComponent } from './dashboard/mentor/unassigned/unassigned.co
     ExamsComponent,
     ResultsComponent,
     UnassignedComponent,
+    ExamstartComponent,
   ],
   imports: [
     BrowserModule,
