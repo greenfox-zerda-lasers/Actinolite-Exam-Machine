@@ -37,6 +37,10 @@ export class ClassesComponent implements OnInit {
     newClassName.value = '';
   }
 
+  removeClass(index) {
+    this.classes.splice(index, 1);
+  }
+
   constructor() { }
 
   ngOnInit() {

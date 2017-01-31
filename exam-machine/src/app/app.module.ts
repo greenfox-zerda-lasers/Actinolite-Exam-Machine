@@ -56,8 +56,8 @@ import { ExamstartComponent } from './dashboard/student/examstart/examstart.comp
           { path: 'classes', component: ClassesComponent },
           { path: 'students', component: StudentsComponent },
           { path: 'exams', component: ExamsComponent },
-          { path: 'results', component: ResultsComponent },
-          { path: 'unassigned', component: UnassignedComponent },
+          { path: 'results', component: ResultsComponent }
+//        { path: 'unassigned', component: UnassignedComponent },
         ],
       }
     ])
