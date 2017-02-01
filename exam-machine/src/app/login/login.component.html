@@ -1,16 +1,16 @@
 <section class="login-wrapper">
   <h1>Exam<strong>Machine</strong></h1>
   <h2>Your new favorite web app</h2>
+  <input class="email" #loginUser (keyup.enter)="verifyUser(loginUser.value, loginPass.value)" (keyup.enter)="setSpinnerWithEnter()" placeholder="E-mail" type="email" />
 
-  <input class="email" #loginUser (keyup.enter)="verifyUser(loginUser.value, loginPass.value)" placeholder="E-mail" type="email" />
+  <input class="password" #loginPass (keyup.enter)="verifyUser(loginUser.value, loginPass.value)" (keyup.enter)="setSpinnerWithEnter()" placeholder="Password" type="password" />
 
-  <input class="password" #loginPass (keyup.enter)="verifyUser(loginUser.value, loginPass.value)" placeholder="Password" type="password" />
-
-  <button type="submit" class="btn btn-primary" (click)="verifyUser(loginUser.value, loginPass.value)">Log In</button>
-
+  <button type="submit" class="btn btn-primary" (click)="verifyUser(loginUser.value, loginPass.value)" (click)="setSpinner()">Log In
+  </button>
   <p>New to ExamMachine? <a [routerLink]="['/signup']">Sign up!</a></p>
+  <span [ngClass]="loadingSpinner">
+  </span>
 </section>
-
 <section class="alert-container" [ngStyle]="{'height': height}">
   <div [ngClass]="{'alert-danger': dangerAlert, 'alert-success': successAlert}" class="alert">
     <div class="alert-item">
