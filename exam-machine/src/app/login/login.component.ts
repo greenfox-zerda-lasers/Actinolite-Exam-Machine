@@ -57,11 +57,7 @@ export class LoginComponent implements OnInit {
   }
 
   setSpinner() {
-    if ( this.loadingSpinner === '' ) {
-      this.loadingSpinner = 'spinner spinner-sm';
-    } else if ( this.loadingSpinner === 'spinner spinner-sm' ) {
       this.loadingSpinner = '';
-    }
   }
 
   setStyle() {

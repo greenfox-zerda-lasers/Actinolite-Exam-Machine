@@ -5,7 +5,7 @@
 
   <input class="password" #loginPass (keyup.enter)="verifyUser(loginUser.value, loginPass.value)" (keyup.enter)="setSpinnerWithEnter()" placeholder="Password" type="password" />
 
-  <button type="submit" class="btn btn-primary" (click)="verifyUser(loginUser.value, loginPass.value)" (click)="setSpinner()">Log In
+  <button type="submit" class="btn btn-primary" (click)="verifyUser(loginUser.value, loginPass.value)" (click)="setSpinnerWithEnter()">Log In
   </button>
   <p>New to ExamMachine? <a [routerLink]="['/signup']">Sign up!</a></p>
   <span [ngClass]="loadingSpinner">
