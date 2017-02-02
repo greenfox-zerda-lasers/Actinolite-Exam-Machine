@@ -23,19 +23,15 @@ var LoginComponent = (function () {
         this.dataService.userLogin(loginUser, loginPass)
             .toPromise()
             .then(function (data) { return _this.response = data; })
-            .then(function () { return console.log(_this.response); })
             .then(function () { return _this.navigate(); })
-            .catch(this.handleError)
-            .then(function () { return _this.dataService.token = _this.response.token; })
-            .then(function () { return console.log(_this.response.token); });
+            .catch(this.handleError);
     };
     LoginComponent.prototype.navigate = function () {
+        this.dataService.token = this.response.token;
         if (this.response.result === 'success') {
-            console.log('login success');
             this.setClassSuccess(this.response.message);
             this.setStyle();
-            this.dataService.userToken(this.response.token).toPromise();
-            this.router.navigateByUrl('/dashboard');
+            this.dataService.userToken(this.dataService.token).toPromise();
         }
         else if (this.response.result === 'fail') {
             this.setClassDanger(this.response.message);

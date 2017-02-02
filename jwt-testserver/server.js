@@ -46,27 +46,27 @@ connection.connect(function(err) {
 
 app.use(morgan('dev'));
 
-app.get('/', function(req, res) {
-    res.send('Hello! The API is at http://localhost' + port + '/api');
-});
+// app.get('/', function(req, res) {
+//     res.send('Hello! The API is at http://localhost' + port + '/api');
+// });
 
 
-var nick = ({
-    name: 'Ni',
-    password: 'p',
-    admin: true
-});
-app.post('/', function(req, res) {
-    connection.query('INSERT INTO user_datas(name, password, admin) VALUES (?, ?, ?)', [nick.name, nick.password, nick.admin], function(err, rows) {
-        if (err) {
-            throw (err);
-        };
-    })
-
-    res.send({
-        success: true
-    });
-})
+// var nick = ({
+//     name: 'Ni',
+//     password: 'p',
+//     admin: true
+// });
+// app.post('/', function(req, res) {
+//     connection.query('INSERT INTO user_datas(name, password, admin) VALUES (?, ?, ?)', [nick.name, nick.password, nick.admin], function(err, rows) {
+//         if (err) {
+//             throw (err);
+//         };
+//     })
+//
+//     res.send({
+//         success: true
+//     });
+// })
 
 var apiRoutes = express.Router();
 

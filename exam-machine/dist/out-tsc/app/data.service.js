@@ -14,7 +14,11 @@ var DataService = (function () {
         this.http = http;
     }
     DataService.prototype.userLogin = function (email, password) {
-        return this.http.post('http://localhost:8080/login', { email: email, password: password })
+        return this.http.post('http://localhost:8080/authenticate', { email: email, password: password })
+            .map(function (res) { return res.json(); });
+    };
+    DataService.prototype.userToken = function (token) {
+        return this.http.post('http://localhost:8080/token', { token: token })
             .map(function (res) { return res.json(); });
     };
     DataService.prototype.userSignup = function (name, email, password) {

@@ -30,11 +30,12 @@ export class LoginComponent implements OnInit {
   }
 
   navigate() {
+    this.dataService.token = this.response.token;
     if (this.response.result === 'success') {
-      console.log('login success');
       this.setClassSuccess(this.response.message);
       this.setStyle();
-      this.router.navigateByUrl('/dashboard');
+      this.dataService.userToken(this.dataService.token).toPromise();
+      // this.router.navigateByUrl('/dashboard');
     } else if (this.response.result === 'fail') {
       this.setClassDanger(this.response.message);
       this.setStyle();
