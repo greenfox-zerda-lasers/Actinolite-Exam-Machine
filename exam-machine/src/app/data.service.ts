@@ -8,7 +8,7 @@ export class DataService {
   constructor(private http: Http) { }
 
   userLogin(email, password) {
-    return this.http.post('https://exam-machine-backend.gomix.me/user/login', {email: email, password: password})
+    return this.http.post('http://localhost:8080/login', {email: email, password: password})
       .map((res) => res.json());
   }
 

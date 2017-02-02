@@ -12,15 +12,9 @@ import { Http } from '@angular/http';
 var DataService = (function () {
     function DataService(http) {
         this.http = http;
-        this.token = '';
     }
     DataService.prototype.userLogin = function (email, password) {
-        return this.http.post('http://localhost:8080/authenticate', { email: email, password: password })
-            .map(function (res) { return res.json(); });
-    };
-    DataService.prototype.userToken = function (token) {
-        console.log('userToken is called');
-        return this.http.post('http://localhost:8080/token', { token: token })
+        return this.http.post('http://localhost:8080/login', { email: email, password: password })
             .map(function (res) { return res.json(); });
     };
     DataService.prototype.userSignup = function (name, email, password) {
