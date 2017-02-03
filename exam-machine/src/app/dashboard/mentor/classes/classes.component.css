@@ -29,3 +29,10 @@ h2 {
 .centered {
   text-align: center;
 }
+
+.container {
+  width: 30%;
+  margin-left: 0;
+  padding-left: 0;
+
+}

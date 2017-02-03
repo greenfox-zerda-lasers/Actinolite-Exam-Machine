@@ -29,6 +29,18 @@ export class ClassesComponent implements OnInit {
     }
 ];
 
+  addNewClass(newClassName: HTMLInputElement, newCohortName:string) {
+    if (newClassName.value.length > 0) {
+      var newClass = {name: newClassName.value, cohort: newCohortName};
+      this.classes.push(newClass);
+    }
+    newClassName.value = '';
+  }
+
+  removeClass(index) {
+    this.classes.splice(index, 1);
+  }
+
   constructor() { }
 
   ngOnInit() {

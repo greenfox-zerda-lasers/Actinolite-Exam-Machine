@@ -14,6 +14,9 @@ import 'rxjs/add/operator/toPromise';
 
 export class LoginComponent implements OnInit {
 
+
+
+  loadingSpinner = '';
   message: '';
   dangerAlert:boolean = false;
   successAlert:boolean = false;
@@ -34,16 +37,27 @@ export class LoginComponent implements OnInit {
       console.log('login success');
       this.setClassSuccess(this.response.message);
       this.setStyle();
+      this.setSpinner();
       this.router.navigateByUrl('/dashboard');
     } else if (this.response.result === 'fail') {
       this.setClassDanger(this.response.message);
       this.setStyle();
       console.log(this.response.message);
+      this.setSpinner();
     } else {
       console.log('login error');
       this.setClassDanger('An unknown error occured.');
       this.setStyle();
+      this.setSpinner();
     }
+  }
+
+  setSpinnerWithEnter() {
+    this.loadingSpinner = 'spinner spinner-sm';
+  }
+
+  setSpinner() {
+      this.loadingSpinner = '';
   }
 
   setStyle() {
