@@ -39,7 +39,7 @@ var config = {
 var pool = new pg.Pool(config);
 
 app.post('/user/login', function(req, res) {
-   //console.log('login request received');
+   console.log('login request received');
    pool.connect(function(err, client, done) {
     client.query('SELECT * FROM users', function(err, result) {
     //console.log(result.rows);
@@ -64,7 +64,7 @@ app.post('/user/signup', function(req, res) {
     console.log(err);
   }
   if (ver.emailValid(req.body.email) === true && ver.emailExist(req.body, result.rows) === false) {
-      client.query('INSERT INTO users (user_email, user_name, user_password) VALUES ($1, $2, $3)', [req.body.email, req.body.name, req.body.password]);
+      //client.query('INSERT INTO users (user_email, user_name, user_password) VALUES ($1, $2, $3)', [req.body.email, req.body.name, req.body.password]);
       res.json({result: "success", token: "A-Z", "id": 431});
   } else {
     res.json({"result": "Fail", "message": "Email address already exists."});
