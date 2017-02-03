@@ -6,7 +6,10 @@ import { LoadingComponent } from '../../loading/loading.component';
 @Component({
   selector: 'app-mentor',
   templateUrl: './mentor.component.html',
-  styleUrls: ['./mentor.component.css']
+  styleUrls: [
+    '../dashboard.component.css',
+    './mentor.component.css'
+  ]
 })
 export class MentorComponent implements OnInit {
   name = 'My Dearest Mentor';

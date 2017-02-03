@@ -47,6 +47,10 @@ body {
   font-family: 'Metropolis', sans-serif;
 }
 
+a {
+  text-decoration: none;
+}
+
 #mainspinner {
   left: 50%;
   top: 250px;

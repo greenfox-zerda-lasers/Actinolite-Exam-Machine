@@ -1,5 +1,6 @@
 <section>
   <h1>Results</h1>
+  <h2>Review exam results for each cohort, class or student, use the filter to find what you are looking for!</h2>
   <clr-datagrid>
       <clr-dg-column [clrDgField]="'name'">Name</clr-dg-column>
       <clr-dg-column [clrDgField]="'exam'">Exam</clr-dg-column>
@@ -17,6 +18,6 @@
           <clr-dg-cell><button class="btn btn-link modify">Edit</button></clr-dg-cell>
       </clr-dg-row>
 
-      <clr-dg-footer>{{users.length}} uesers</clr-dg-footer>
+      <clr-dg-footer>{{users.length}} users</clr-dg-footer>
   </clr-datagrid>
 </section>

@@ -1,23 +1,26 @@
 section {
-  padding: 0;
-  margin: 0;
-  display: flex;
-  align-items: flex-start;
-  width: auto;
-  background-color: #FAFAFA;
-}
-
-.sidenav {
-  width: 250px;
-  height: calc(100vh - 50px);
-  background-color: #313131;
-  padding: 20px 0 0 20px;
-  border: 0;
-  outline: 1px solid #313131;
-  overflow: hidden;
+  flex-direction: column;
 }
 
 h1 {
+  color: #313131;
+  padding: 0;
+  margin: 0 0 5px 0;
+  font-size: 22px;
+  line-height: 22px;
+  display: inline;
+}
+
+h2 {
+  color: #313131;
+  opacity: .7;
+  font-size: 14px;
+  line-height: 14px;
+  padding: 0;
+  margin: 0 0 20px 0;
+}
+
+.navi-name {
   color: white;
   font-size: 14px;
   line-height: 14px;
@@ -26,28 +29,7 @@ h1 {
   opacity: .5;
 }
 
-a {
-  text-decoration: none;
-}
-
-.nav-link {
-  padding: 10px;
-  margin-bottom: 10px;
-  color: #007CBB;
-  background-color: transparent;
-  font-size: 14px;
-  line-height: 14px;
-}
-
-.nav-link:hover, .active {
-  color: #313131;
-  background-color: #CCCCCC;
-  cursor: pointer;
-}
-
-article {
-  padding: 20px;
-  width: 100%;
-  height: auto;
-  color: #313131;
+button {
+  padding: 0;
+  margin: 0;
 }

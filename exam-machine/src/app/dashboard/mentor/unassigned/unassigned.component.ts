@@ -3,8 +3,13 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'app-unassigned',
   templateUrl: './unassigned.component.html',
-  styleUrls: ['./unassigned.component.css']
+  styleUrls: [
+    '../../dashboard.component.css',
+    '../mentor.component.css',
+    './unassigned.component.css'
+  ]
 })
+
 export class UnassignedComponent implements OnInit {
 
   unassigned = [
