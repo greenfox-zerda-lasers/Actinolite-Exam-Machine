@@ -8,7 +8,6 @@ var verification = function (req, obj) {
   obj.forEach(function (item) {
     if (item.email === req.email && item.password === req.password ) {
       statusSuccess.id = item.id;
-      console.log(item.password, obj.password)
       result = true;
     }
   });

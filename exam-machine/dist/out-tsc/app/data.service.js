@@ -18,8 +18,7 @@ var DataService = (function () {
             .map(function (res) { return res.json(); });
     };
     DataService.prototype.userToken = function (token) {
-        return this.http.post('http://localhost:8080/token', { token: token })
-            .map(function (res) { return res.json(); });
+        return this.http.post('http://localhost:8080/token', { token: token });
     };
     DataService.prototype.userSignup = function (name, email, password) {
         return this.http.post('https://exam-machine-backend.gomix.me/user/signup', { name: name, email: email, password: password })

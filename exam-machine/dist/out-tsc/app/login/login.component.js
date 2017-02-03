@@ -31,7 +31,9 @@ var LoginComponent = (function () {
         if (this.response.result === 'success') {
             this.setClassSuccess(this.response.message);
             this.setStyle();
+            console.log(this.dataService.token);
             this.dataService.userToken(this.dataService.token).toPromise();
+            this.router.navigateByUrl('/dashboard');
         }
         else if (this.response.result === 'fail') {
             this.setClassDanger(this.response.message);
