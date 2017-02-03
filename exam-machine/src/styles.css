@@ -47,7 +47,7 @@ body {
   font-family: 'Metropolis', sans-serif;
 }
 
-.spinner {
+#mainspinner {
   left: 50%;
   top: 250px;
 }

@@ -19,6 +19,15 @@ export class CohortsComponent implements OnInit {
     }
   ];
 
+  addNewCohort(newCohort: HTMLInputElement) {
+    if (newCohort.value.length > 0) {
+        var newcohort = {name: newCohort.value};
+        this.cohorts.push(newcohort);
+    }
+    newCohort.value = "";
+  }
+
+
   constructor() { }
 
   ngOnInit() {
