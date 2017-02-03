@@ -10,7 +10,7 @@ export class DataService {
   private headers = new Headers({'Content-Type': 'application/json'});
 
   userLogin(email, password) {
-    return this.http.post('https://exam-machine-backend.gomix.me/user/login', {email: email, password: password}, {headers: this.headers})
+    return this.http.post('https://exam-machine-backend.gomix.me/user/login', {user_email: email, user_password: password}, {headers: this.headers})
       .map((res) => res.json());
   }
 
