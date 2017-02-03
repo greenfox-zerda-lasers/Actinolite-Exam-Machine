@@ -14,8 +14,6 @@ import 'rxjs/add/operator/toPromise';
 
 export class LoginComponent implements OnInit {
 
-
-
   loadingSpinner = '';
   message: '';
   dangerAlert:boolean = false;

@@ -2,32 +2,16 @@ header {
   box-sizing: border-box;
   margin: 0;
   padding: 5px;
-  width: auto;
+  width: 100%;
   min-width: 550px;
   height: 50px;
   color: white;
   background-color: #007CBB;
-  position: relative;
+  position: fixed;
   display: flex;
   justify-content: space-between;
   align-items: center;
-}
-
-button {
-  height: 30px;
-  margin-right: 10px;
-  font-size: 11px;
-  line-height: 11px;
-  min-width: 100px;
-}
-
-.btn-outline {
-  border-color: white;
-  color: white;
-}
-
-.btn-outline:hover {
-  color: #007CBB;
+  z-index: 100;
 }
 
 strong {
@@ -48,4 +32,91 @@ h1 {
 section {
   margin: 0;
   padding: 0;
+  width: 100%;
+  position: relative;
+  background-color: #FAFAFA;
+}
+
+a {
+  text-decoration: none;
+}
+
+.sidenav {
+  box-sizing: border-box;
+  position: fixed;
+  top: 50px;
+  width: 250px;
+  height: calc(100vh - 50px);
+  background-color: #313131;
+  padding: 20px 0 0 20px;
+  border: 0;
+  overflow: hidden;
+  margin: 0;
+  z-index: 99;
+}
+
+.nav-link {
+  padding: 10px;
+  margin-bottom: 10px;
+  color: #007CBB;
+  background-color: transparent;
+  font-size: 14px;
+  line-height: 14px;
+}
+
+.nav-link:hover, .active {
+  color: #313131;
+  background-color: #CCCCCC;
+  cursor: pointer;
+}
+
+article {
+  position: relative;
+  top: 50px;
+  left: 250px;
+  padding: 20px;
+  width: calc(100% - 250px);
+  height: auto;
+  color: #313131;
+  background-color: #FAFAFA;
+}
+
+button {
+  height: 30px;
+  margin-right: 10px;
+  font-size: 11px;
+  line-height: 11px;
+  min-width: 100px;
+}
+
+.btn-outline {
+  border-color: white;
+  color: white;
+}
+
+.btn-outline:hover {
+  color: #007CBB;
+}
+
+.centered {
+  text-align: center;
+}
+
+.add {
+  padding: 0 10px 0 10px;
+  position: absolute;
+  right: 0;
+}
+
+clr-datagrid {
+  display: block;
+  width: 100%;
+  margin-bottom: 50px;
+}
+
+.datagrid-cell {
+  padding: 5px;
+  height: 35px;
+  font-size: 12px;
+  line-height: 35px;
 }
