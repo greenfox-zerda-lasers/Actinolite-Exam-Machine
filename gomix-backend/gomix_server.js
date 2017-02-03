@@ -6,7 +6,7 @@ var app = express();
 var pg = require('pg');
 // var mysql = require('mysql');
 //var pgp = require('pg-promise')();
-var ver = require('./validators')
+var ver = require('./gomix_validators')
 app.use(bodyParser.json());
 
 // postgres experimental
@@ -39,18 +39,16 @@ var config = {
 var pool = new pg.Pool(config);
 
 app.post('/user/login', function(req, res) {
-   console.log('login request received');
+   //console.log('login request received');
    pool.connect(function(err, client, done) {
     client.query('SELECT * FROM users', function(err, result) {
-    console.log(result.rows);
-    console.log('valami', req.body)
+    //console.log(result.rows);
     if (err) {
 
     }
     if (ver.verify(req.body, result.rows)){
       res.json(ver.statusSuccess);
-    } else{
-
+    } else {
       res.json(ver.statusErr);
       }
       done();
@@ -66,16 +64,14 @@ app.post('/user/signup', function(req, res) {
     console.log(err);
   }
   if (ver.emailValid(req.body.email) === true && ver.emailExist(req.body, result.rows) === false) {
-      console.log('na sziasztok');
       client.query('INSERT INTO users (user_email, user_name, user_password) VALUES ($1, $2, $3)', [req.body.email, req.body.name, req.body.password]);
       res.json({result: "success", token: "A-Z", "id": 431});
   } else {
-    console.log('itt nem sziasztok');
     res.json({"result": "Fail", "message": "Email address already exists."});
   }
    done();
- });
-});
+    });
+  });
 });
 
 // app.use(function(req, res, next) {
@@ -121,6 +117,8 @@ app.post('/user/signup', function(req, res) {
 // });
 
 // listen for requests :)
-var listener = app.listen(process.env.PORT, function () {
-  console.log('Your app is listening on port ' + listener.address().port);
-});
+// var listener = app.listen(process.env.PORT, function () {
+//   console.log('Your app is listening on port ' + listener.address().port);
+// });
+module.exports = app;
+app.listen(5000);

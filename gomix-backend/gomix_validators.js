@@ -1,14 +1,14 @@
 var verificationModule = (function () {
 
-var statusSuccess = {result: "success", token: "", id: ''};
+var statusSuccess = {result: "success", token: "", user_id: '', user_type: ''};
 var statusErr  = {result: "fail", message: "Invalid username or password"};
 
 var verification = function (req, obj) {
   var result = false
   obj.forEach(function (item) {
     if (item.user_email === req.email && item.user_password === req.password ) {
-      statusSuccess.id = item.id;
-      //console.log(item.password, obj.password)
+      statusSuccess.user_id = item.user_id;
+      statusSuccess.user_type = item.user_type;
       result = true;
     }
   });
