@@ -54,7 +54,17 @@ app.post('/authenticate', function(req, res) {
         };
         if (ver.verify(req.body, rows)) {
             console.log('verified');
-            var token = jwt.sign(req.body, app.get('superSecret'), {
+            connection.query('SELECT * FROM user_datas WHERE password ='+ req.body.password, function(err, adminrows){
+                if (err) {
+                    throw (err);
+                };
+            // console.log("adminvariable printed: ",adminrows[0].admin, adminrows);
+            var toToken = {
+              email: req.body.email,
+              password: req.body.password,
+              admin: adminrows[0].admin
+            }
+            var token = jwt.sign(toToken, app.get('superSecret'), {
                 expiresIn: '1440'
             });
             var message = {
@@ -65,8 +75,9 @@ app.post('/authenticate', function(req, res) {
             var tokenName = "token";
             ver.statusSuccess.token = token;
             res.setHeader(tokenName, token);
-            console.log(res, "headers kiirva");
+            // console.log(res, "headers kiirva");
             res.json(ver.statusSuccess);
+          })
         } else {
             console.log(ver.statusErr);
             res.json(ver.statusErr);
@@ -85,7 +96,8 @@ app.post('/token', function(req, res) {
         }
         jwt.verify(token, app.get('superSecret'), function(err, decoded) {
             if (err) {
-                throw (err);
+                return console.log('Token expired');
+                // thorw (err);
             } else {
                 req.decoded = decoded;
                 console.log(req.decoded);
