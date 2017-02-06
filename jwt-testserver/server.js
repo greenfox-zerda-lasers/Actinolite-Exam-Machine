@@ -16,7 +16,12 @@ var port = process.env.PORT || 8080;
 app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-    next();
+
+    if( req.method == "OPTIONS" ) {
+      res.send(200)
+    } else {
+      next();
+    }
 });
 
 app.set('superSecret', config.secret);
@@ -54,11 +59,11 @@ app.post('/authenticate', function(req, res) {
         };
         if (ver.verify(req.body, rows)) {
             console.log('verified');
-            connection.query('SELECT * FROM user_datas WHERE password ='+ req.body.password, function(err, adminrows){
+            connection.query('SELECT admin FROM user_datas WHERE password VALUE (?)', [req.body.password], function(err, adminrows){
                 if (err) {
                     throw (err);
                 };
-            // console.log("adminvariable printed: ",adminrows[0].admin, adminrows);
+            console.log("adminvariable printed: ",adminrows[0].admin, adminrows);
             var toToken = {
               email: req.body.email,
               password: req.body.password,
