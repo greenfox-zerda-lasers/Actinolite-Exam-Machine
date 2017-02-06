@@ -21,13 +21,17 @@
     "@angular/platform-browser": "^2.3.1",
     "@angular/platform-browser-dynamic": "^2.3.1",
     "@angular/router": "^3.3.1",
+    "@types/node": "^6.0.62",
     "@webcomponents/custom-elements": "^1.0.0-alpha.3",
     "angular-in-memory-web-api": "^0.2.4",
+    "bootstrap": "^3.3.7",
     "clarity-angular": "^0.8.3",
     "clarity-icons": "^0.8.3",
     "clarity-ui": "^0.8.3",
     "core-js": "^2.4.1",
     "mutationobserver-shim": "^0.3.2",
+    "ng-http-interceptor": "^2.0.1",
+    "ng2-http-interceptor": "^1.4.0",
     "rxjs": "^5.0.1",
     "ts-helpers": "^1.1.1",
     "zone.js": "^0.7.4"
@@ -49,6 +53,7 @@
     "protractor": "~4.0.13",
     "ts-node": "1.2.1",
     "tslint": "^4.3.0",
-    "typescript": "~2.0.3"
+    "typescript": "~2.0.3",
+    "webpack": "^2.2.0"
   }
 }

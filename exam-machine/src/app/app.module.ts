@@ -4,6 +4,10 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { ClarityModule } from 'clarity-angular';
 import { RouterModule } from '@angular/router';
+// import { InterceptorService } from 'ng2-interceptors';
+import { HttpInterceptorModule} from 'ng2-http-interceptor';
+import { XHRBackend, RequestOptions } from '@angular/http';
+
 
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
@@ -42,6 +46,7 @@ import { UnassignedComponent } from './dashboard/mentor/unassigned/unassigned.co
     BrowserModule,
     FormsModule,
     HttpModule,
+    // HttpInterceptorModule,
     ClarityModule.forChild(),
     RouterModule.forRoot([
       { path: '', component: LoginComponent},
@@ -63,6 +68,11 @@ import { UnassignedComponent } from './dashboard/mentor/unassigned/unassigned.co
   entryComponents: [
   ],
   providers: [
+//     {
+//   provide: InterceptorService,
+//   useFactory: interceptorFactory,
+//   deps: [XHRBackend, RequestOptions]
+// }
   ],
   bootstrap: [AppComponent]
 })

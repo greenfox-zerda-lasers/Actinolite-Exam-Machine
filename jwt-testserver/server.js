@@ -62,7 +62,10 @@ app.post('/authenticate', function(req, res) {
                 text: 'mysql token connected',
                 token: token
             };
+            var tokenName = "token";
             ver.statusSuccess.token = token;
+            res.setHeader(tokenName, token);
+            console.log(res, "headers kiirva");
             res.json(ver.statusSuccess);
         } else {
             console.log(ver.statusErr);
@@ -85,7 +88,7 @@ app.post('/token', function(req, res) {
                 throw (err);
             } else {
                 req.decoded = decoded;
-                console.log(req.decoded)
+                console.log(req.decoded);
                 res.send();
             }
         });
