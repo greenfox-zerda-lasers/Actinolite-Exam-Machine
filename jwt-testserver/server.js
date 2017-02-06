@@ -59,7 +59,7 @@ app.post('/authenticate', function(req, res) {
         };
         if (ver.verify(req.body, rows)) {
             console.log('verified');
-            connection.query('SELECT admin FROM user_datas WHERE password VALUE (?)', [req.body.password], function(err, adminrows){
+            connection.query('SELECT admin FROM user_datas WHERE password= ?', [req.body.password], function(err, adminrows){
                 if (err) {
                     throw (err);
                 };
