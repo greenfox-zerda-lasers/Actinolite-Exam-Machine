@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { DataService } from '../../../data.service';
+import 'rxjs/add/operator/toPromise';
 
 @Component({
   selector: 'app-class',
@@ -7,32 +9,15 @@ import { Component, OnInit } from '@angular/core';
     '../../dashboard.component.css',
     '../mentor.component.css',
     './classes.component.css'
+  ],
+  providers: [
+    DataService
   ]
 })
 
 export class ClassesComponent implements OnInit {
 
-  cohorts = [{name: "Zerda"}, {name: "Velox"}];
-
-
-
-  classes = [
-    {
-      name : "Laser",
-      cohort: "Zerda"
-    },
-    { name: "Sparta",
-      cohort: "Zerda"
-    },
-    {
-      name: "Raptor",
-      cohort: "Zerda"
-    },
-    {
-      name: "Valami",
-      cohort: "Velox"
-    }
-];
+  classes;
 
   addNewClass(newClassName: HTMLInputElement, newCohortName:string) {
     if (newClassName.value.length > 0) {
@@ -46,7 +31,14 @@ export class ClassesComponent implements OnInit {
     this.classes.splice(index, 1);
   }
 
-  constructor() { }
+  renderClasses() {
+    this.dataService.fetchClasses()
+      .toPromise()
+      .then((data) => this.classes = data);
+  }
+
+
+  constructor( private dataService: DataService ) { }
 
   ngOnInit() {
   }
