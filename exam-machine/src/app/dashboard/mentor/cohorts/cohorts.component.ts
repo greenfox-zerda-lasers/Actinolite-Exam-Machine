@@ -33,7 +33,8 @@ export class CohortsComponent implements OnInit {
   renderCohorts() {
     this.dataService.fetchCohorts()
       .toPromise()
-      .then((data) => this.cohorts = data.cohorts);
+      .then((data) => this.cohorts = data.cohorts)
+      .then(() => console.log(this.cohorts));
   }
 
 

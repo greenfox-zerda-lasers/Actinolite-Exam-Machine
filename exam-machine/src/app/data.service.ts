@@ -20,7 +20,7 @@ export class DataService {
   }
 
   fetchClasses() {
-    return this.http.get('https://exam-machine-backend.gomix.me/dashboard/classes')
+    return this.http.get('https://letstrysomething.gomix.me/dashboard/classes')
       .map((res) => res.json())
   }
 
@@ -36,6 +36,11 @@ export class DataService {
 
   editClass(name) {
     return this.http.put('https://exam-machine-backend.gomix.me/dashboard/classes', {class_name: name}, {headers: this.headers})
+      .map((res) => res.json())
+  }
+
+  deleteClass(name) {
+    return this.http.delete('https://letstrysomething.gomix.me/dashboard/classes/' + name)
       .map((res) => res.json())
   }
 

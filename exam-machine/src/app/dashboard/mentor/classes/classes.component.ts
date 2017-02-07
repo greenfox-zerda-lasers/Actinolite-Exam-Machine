@@ -18,6 +18,7 @@ import 'rxjs/add/operator/toPromise';
 export class ClassesComponent implements OnInit {
 
   classes;
+  classToDelete;
 
   addNewClass(newClassName: HTMLInputElement, newCohortName:string) {
     if (newClassName.value.length > 0) {
@@ -27,8 +28,16 @@ export class ClassesComponent implements OnInit {
     newClassName.value = '';
   }
 
-  removeClass(index) {
-    this.classes.splice(index, 1);
+
+  setClassForDelete(name) {
+    this.classToDelete = name;
+    console.log(this.classToDelete);
+  }
+
+  deleteClass() {
+    this.dataService.deleteClass(this.classToDelete)
+      .toPromise()
+      .then(() => this.renderClasses());
   }
 
   renderClasses() {
@@ -41,6 +50,7 @@ export class ClassesComponent implements OnInit {
   constructor( private dataService: DataService ) { }
 
   ngOnInit() {
+    this.renderClasses();
   }
 
 }
