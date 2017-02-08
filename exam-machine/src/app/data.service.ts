@@ -24,8 +24,8 @@ export class DataService {
       .map((res) => res.json())
   }
 
-  addNewClass(name) {
-    return this.http.post('https://exam-machine-backend.gomix.me/dashboard/classes', {class_name: name}, {headers: this.headers})
+  addNewClass(name, cohortId) {
+    return this.http.post('https://exam-machine-backend.gomix.me/dashboard/classes', {class_name: name, cohort_id: cohortId}, {headers: this.headers})
       .map((res) => res.json())
   }
 
@@ -54,8 +54,8 @@ export class DataService {
       .map((res) => res.json())
   }
 
-  editCohort(name, newName) {
-    return this.http.put('https://letstrysomething.gomix.me/dashboard/cohorts', {cohort_name: name, newCohort_name: newName}, {headers: this.headers})
+  editCohort(name, cohortId) {
+    return this.http.put('https://letstrysomething.gomix.me/dashboard/cohorts', {cohort_name: name, cohort_id: cohortId}, {headers: this.headers})
       .map((res) => res.json())
   }
 

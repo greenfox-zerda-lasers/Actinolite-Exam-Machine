@@ -37,18 +37,12 @@ export class CohortsComponent implements OnInit {
       .then(() => console.log(this.cohorts));
   }
 
-
   setCohortForDelete(name) {
-    this.cohortToDelete = name;
-    console.log(this.cohortToDelete);
-  }
-
-  setCohortForUpdate(name) {
     this.cohortToDelete = name;
   }
 
   editCohort(alma: HTMLInputElement) {
-    this.dataService.editCohort(this.cohortToDelete, alma.value)
+    this.dataService.editCohort(alma.value, this.cohortToDelete)
       .toPromise()
       .then(() => this.renderCohorts());
   }

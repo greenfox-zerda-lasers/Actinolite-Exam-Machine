@@ -19,15 +19,21 @@ export class ClassesComponent implements OnInit {
 
   classes;
   classToDelete;
+  cohorts;
 
-  addNewClass(newClassName: HTMLInputElement, newCohortName:string) {
-    if (newClassName.value.length > 0) {
-      var newClass = {name: newClassName.value, cohort: newCohortName};
-      this.classes.push(newClass);
+  addNewClass(newClass: HTMLInputElement, cohortId) {
+    if (newClass.value.length > 0) {
+        var newclass = newClass.value;
+        this.dataService.addNewClass(newclass, cohortId)
+          .toPromise()
+          .then(() => newClass.value = '')
+          .then(() => this.renderClasses());
     }
-    newClassName.value = '';
   }
 
+  showID(valami) {
+    console.log(valami.value);
+  }
 
   setClassForDelete(name) {
     this.classToDelete = name;
@@ -43,9 +49,9 @@ export class ClassesComponent implements OnInit {
   renderClasses() {
     this.dataService.fetchClasses()
       .toPromise()
-      .then((data) => this.classes = data);
+      .then((data) => { this.classes = data.classes, this.cohorts = data.cohorts })
+      .then(() => console.log(this.classes, this.cohorts));
   }
-
 
   constructor( private dataService: DataService ) { }
 
