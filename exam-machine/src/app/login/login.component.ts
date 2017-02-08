@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { DataService } from '../data.service';
+import { AuthGuardService } from '../auth-guard.service';
 import 'rxjs/add/operator/toPromise';
 
 @Component({
@@ -8,7 +9,8 @@ import 'rxjs/add/operator/toPromise';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
   providers: [
-    DataService
+    DataService,
+    AuthGuardService
   ]
 })
 
@@ -32,21 +34,26 @@ export class LoginComponent implements OnInit {
 
   navigate() {
     if (this.response.result === 'success') {
-      console.log('login success');
+      localStorage.setItem("user", this.response.user_id);
+      localStorage.setItem("type", this.response.user_type);
+      this.setStyle();
+      this.setSpinner();
       this.setClassSuccess(this.response.message);
-      this.setStyle();
-      this.setSpinner();
-      this.router.navigateByUrl('/dashboard');
+      console.log('login success');
+      this.authService.login();
+      setTimeout(() => {
+        this.router.navigateByUrl('/dashboard/' + this.response.user_type);
+      }, 1000);
     } else if (this.response.result === 'fail') {
-      this.setClassDanger(this.response.message);
       this.setStyle();
-      console.log(this.response.message);
       this.setSpinner();
+      this.setClassDanger(this.response.message);
+      console.log(this.response.message);
     } else {
       console.log('login error');
-      this.setClassDanger('An unknown error occured.');
       this.setStyle();
       this.setSpinner();
+      this.setClassDanger('An unknown error occured.');
     }
   }
 
@@ -79,7 +86,7 @@ export class LoginComponent implements OnInit {
     return Promise.reject(error.message || error);
   }
 
-  constructor(private dataService: DataService, private router: Router) { }
+  constructor(private dataService: DataService, private router: Router, private authService: AuthGuardService) { }
 
   ngOnInit() {
   }
