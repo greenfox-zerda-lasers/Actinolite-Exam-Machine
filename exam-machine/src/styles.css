@@ -55,3 +55,19 @@ a {
   left: 50%;
   top: 250px;
 }
+
+.alert-container {
+  height: 0px;
+  overflow: hidden;
+  transition: .3s ease;
+  -webkit-transition: .3s ease;
+  -moz-transition: .3s ease;
+}
+
+#top-alert-fade {
+  height: auto;
+  position: fixed;
+  top: -50px;
+  right: 15px;
+  z-index: 100;
+}

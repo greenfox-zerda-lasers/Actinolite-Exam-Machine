@@ -25,7 +25,7 @@ export class DashboardComponent implements OnInit {
   constructor(private router: Router, private dataService: DataService, private authService: AuthGuardService) { }
 
   ngOnInit() {
-    this.router.navigateByUrl('/dashboard/' + localStorage.getItem("type"));
+    this.router.navigateByUrl('/dashboard/' + localStorage.getItem("usertype"));
   }
 
 }

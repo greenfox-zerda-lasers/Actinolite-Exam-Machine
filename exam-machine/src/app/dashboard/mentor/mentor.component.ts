@@ -14,7 +14,7 @@ import { DataService } from '../../data.service';
   ]
 })
 export class MentorComponent implements OnInit {
-  name = 'My Dearest Mentor';
+  name = localStorage.getItem("username");
 
   navigate(page) {
     this.router.navigateByUrl('/dashboard/mentor' + page);
@@ -24,9 +24,6 @@ export class MentorComponent implements OnInit {
 
   ngOnInit() {
     this.router.navigateByUrl('/dashboard/mentor/cohorts');
-    this.dataService.getUserName(localStorage.getItem("user"))
-    .toPromise()
-    .then((data) => this.name = data.user[0].user_name)
   }
 
 }
