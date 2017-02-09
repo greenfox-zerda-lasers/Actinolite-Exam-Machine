@@ -12,12 +12,12 @@ export class DataService {
   // HTTP queries
 
   userLogin(email, password) {
-    return this.http.post('https://letstrysomething.gomix.me/user/login', {user_email: email, user_password: password}, {headers: this.headers})
+    return this.http.post('https://exam-machine-backend.gomix.me/user/login', {user_email: email, user_password: password}, {headers: this.headers})
       .map((res) => res.json());
   }
 
   userSignup(name, email, password) {
-    return this.http.post('https://letstrysomething.gomix.me/user/signup', {user_name: name, user_email: email, user_password: password}, {headers: this.headers})
+    return this.http.post('https://exam-machine-backend.gomix.me/user/signup', {user_name: name, user_email: email, user_password: password}, {headers: this.headers})
       .map((res) => res.json())
   }
 
@@ -32,13 +32,13 @@ export class DataService {
   }
 
   fetchClasses() {
-    return this.http.get('https://letstrysomething.gomix.me/dashboard/classes')
+    return this.http.get('https://exam-machine-backend.gomix.me/dashboard/classes')
       .map((res) => res.json())
   }
 
   addNewClass(name, cohortId) {
     console.log('add new class request sent');
-    return this.http.post('https://letstrysomething.gomix.me/dashboard/classes', {class_name: name, cohort_id: cohortId}, {headers: this.headers})
+    return this.http.post('https://exam-machine-backend.gomix.me/dashboard/classes', {class_name: name, cohort_id: cohortId}, {headers: this.headers})
       .map((res) => res.json())
   }
 
@@ -48,32 +48,32 @@ export class DataService {
   }
 
   editClass(name, cohortId, classId) {
-    return this.http.put('https://letstrysomething.gomix.me/dashboard/classes', {class_name: name, cohort_id: cohortId, class_id: classId }, {headers: this.headers})
+    return this.http.put('https://exam-machine-backend.gomix.me/dashboard/classes', {class_name: name, cohort_id: cohortId, class_id: classId }, {headers: this.headers})
       .map((res) => res.json())
   }
 
   deleteClass(id) {
-    return this.http.delete('https://letstrysomething.gomix.me/dashboard/classes/' + id)
+    return this.http.delete('https://exam-machine-backend.gomix.me/dashboard/classes/' + id)
       .map((res) => res.json())
   }
 
   fetchCohorts() {
-    return this.http.get('https://letstrysomething.gomix.me/dashboard/cohorts')
+    return this.http.get('https://exam-machine-backend.gomix.me/dashboard/cohorts')
       .map((res) => res.json())
   }
 
   addNewCohort(name) {
-    return this.http.post('https://letstrysomething.gomix.me/dashboard/cohorts', {cohort_name: name}, {headers: this.headers})
+    return this.http.post('https://exam-machine-backend.gomix.me/dashboard/cohorts', {cohort_name: name}, {headers: this.headers})
       .map((res) => res.json())
   }
 
   editCohort(name, cohortId) {
-    return this.http.put('https://letstrysomething.gomix.me/dashboard/cohorts', {cohort_name: name, cohort_id: cohortId}, {headers: this.headers})
+    return this.http.put('https://exam-machine-backend.gomix.me/dashboard/cohorts', {cohort_name: name, cohort_id: cohortId}, {headers: this.headers})
       .map((res) => res.json())
   }
 
   deleteCohort(name) {
-    return this.http.delete('https://letstrysomething.gomix.me/dashboard/cohorts/' + name )
+    return this.http.delete('https://exam-machine-backend.gomix.me/dashboard/cohorts/' + name )
       .map((res) => res.json())
   }
 
