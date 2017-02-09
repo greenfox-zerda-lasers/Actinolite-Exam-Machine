@@ -25,13 +25,13 @@ export class ClassesComponent implements OnInit {
   classNameToDelete;
 
   addNewClass(newClass: HTMLInputElement) {
-  //  if (newClass.value.length > 0) {
+    if (newClass.value.length > 0) {
         var newclass = newClass.value;
         this.dataService.addNewClass(newclass, this.cohortId)
           .toPromise()
           .then(() => newClass.value = '')
           .then(() => this.renderClasses());
-  //W  }
+    }
   }
 
   getCohortId(name) {
