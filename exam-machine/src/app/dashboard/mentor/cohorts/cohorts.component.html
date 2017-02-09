@@ -4,27 +4,48 @@
   <button class="btn btn-primary add" (click)="opened = true">Add new Cohort</button>
 
   <clr-datagrid>
-      <clr-dg-column [clrDgField]="'name'">Cohort name</clr-dg-column>
+      <clr-dg-column [clrDgField]="'cohort_name'">Cohort name</clr-dg-column>
       <clr-dg-column>Actions</clr-dg-column>
 
       <clr-dg-row *clrDgItems="let cohort of cohorts">
-          <clr-dg-cell>{{cohort.name}}</clr-dg-cell>
+          <clr-dg-cell>{{cohort.cohort_name}}</clr-dg-cell>
           <clr-dg-cell class="centered">
-            <button class="btn btn-link modify">Edit</button>
-            <button class="btn btn-link modify">Delete</button>
+            <button class="btn btn-link modify" (click)="setCohortNameInInput(newCohortName, cohort.cohort_name)" (click)="setCohortForDelete(cohort.cohort_id)" (click)="update = true">Edit</button>
+            <button class="btn btn-link modify" (click)="setCohortNameForDelete(cohort.cohort_name)" (click)="setCohortForDelete(cohort.cohort_id)" (click)="active = true">Delete</button>
           </clr-dg-cell>
       </clr-dg-row>
 
-      <clr-dg-footer>{{cohorts.length}} cohorts</clr-dg-footer>
+      <clr-dg-footer></clr-dg-footer>
   </clr-datagrid>
 
   <clr-modal [(clrModalOpen)]="opened">
       <div class="modal-body">
-          <input (keydown.enter)="addNewCohort(newCohort)" (keyup.enter)="opened = false" #newCohort type="text" placeholder ="Cohort name"/>
+        <h1>Create cohort:</h1>
+        <input (keydown.enter)="addNewCohort(newCohort)" (keyup.enter)="opened = false" #newCohort type="text" placeholder ="Cohort name"/>
       </div>
       <div class="modal-footer">
-          <button type="button" class="btn btn-outline" (click)="opened = false">Cancel</button>
+          <button type="button" class="btn btn-primary" (click)="opened = false">Cancel</button>
           <button type="button" class="btn btn-primary" (click)="opened = false" (click)="addNewCohort(newCohort)">Add</button>
+      </div>
+  </clr-modal>
+  <clr-modal [(clrModalOpen)]="active">
+      <div class="modal-body">
+        <p>
+          Are you sure you want to delete the cohort: {{cohortNameToDelete}}
+        </p>
+      </div>
+      <div class="modal-footer">
+          <button type="button" class="btn btn-primary" (click)="active = false">Cancel</button>
+          <button type="button" class="btn btn-primary" (click)="active = false" (click) = "deleteCohort()">Yes</button>
+      </div>
+  </clr-modal>
+  <clr-modal [(clrModalOpen)]="update">
+    <div class="modal-body">
+      <input #newCohortName type="text" placeholder="New cohort name" />
+    </div>
+      <div class="modal-footer">
+          <button type="button" class="btn btn-primary" (click)="update = false">Cancel</button>
+          <button type="button" class="btn btn-primary" (click)="update = false" (click)="editCohort(newCohortName)">Edit</button>
       </div>
   </clr-modal>
 </section>
