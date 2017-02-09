@@ -20,24 +20,46 @@ export class ClassesComponent implements OnInit {
   classes;
   classToDelete;
   cohorts;
+  cohortId;
+  classIdToEdit;
 
-  addNewClass(newClass: HTMLInputElement, cohortId) {
-    if (newClass.value.length > 0) {
+  addNewClass(newClass: HTMLInputElement) {
+  //  if (newClass.value.length > 0) {
         var newclass = newClass.value;
-        this.dataService.addNewClass(newclass, cohortId)
+        this.dataService.addNewClass(newclass, this.cohortId)
           .toPromise()
           .then(() => newClass.value = '')
           .then(() => this.renderClasses());
-    }
+  //W  }
   }
 
-  showID(valami) {
-    console.log(valami.value);
+  getCohortId(name) {
+    var thisCohortId;
+    this.cohorts.forEach(function(item){
+      if (item.cohort_name == name) {
+        thisCohortId = item.cohort_id;
+      }
+    });
+    this.cohortId = thisCohortId;
+    console.log(this.cohortId);
   }
 
   setClassForDelete(name) {
     this.classToDelete = name;
     console.log(this.classToDelete);
+  }
+
+
+  setClassIdToEdit(value) {
+    this.classIdToEdit = value;
+  }
+
+  editClass(name, cohort) {
+    console.log(this.classIdToEdit);
+    this.dataService.editClass(name, cohort, this.classIdToEdit)
+      .toPromise()
+      .then(() => console.log(cohort))
+      .then(() => this.renderClasses());
   }
 
   deleteClass() {
