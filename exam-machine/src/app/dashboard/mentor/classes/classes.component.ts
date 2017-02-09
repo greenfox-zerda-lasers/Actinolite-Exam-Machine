@@ -22,6 +22,7 @@ export class ClassesComponent implements OnInit {
   cohorts;
   cohortId;
   classIdToEdit;
+  classNameToDelete;
 
   addNewClass(newClass: HTMLInputElement) {
   //  if (newClass.value.length > 0) {
@@ -46,9 +47,16 @@ export class ClassesComponent implements OnInit {
 
   setClassForDelete(name) {
     this.classToDelete = name;
-    console.log(this.classToDelete);
   }
 
+
+  setClassNameForDelete(name) {
+    this.classNameToDelete = name;
+  }
+
+classNameInInput(element: HTMLInputElement, name) {
+  element.value = name;
+}
 
   setClassIdToEdit(value) {
     this.classIdToEdit = value;
@@ -58,7 +66,6 @@ export class ClassesComponent implements OnInit {
     console.log(this.classIdToEdit);
     this.dataService.editClass(name, cohort, this.classIdToEdit)
       .toPromise()
-      .then(() => console.log(cohort))
       .then(() => this.renderClasses());
   }
 

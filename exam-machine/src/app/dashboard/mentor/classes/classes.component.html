@@ -12,8 +12,8 @@
         <clr-dg-cell>{{class.class_name}}</clr-dg-cell>
         <clr-dg-cell>{{class.cohort_name}}</clr-dg-cell>
         <clr-dg-cell class="centered">
-          <button class="btn btn-link modify" (click)="edit_modal = true" (click)="setClassIdToEdit(class.class_id)" (click)="getCohortId(cohortNameId.value)">Edit</button>
-          <button class="btn btn-link modify" (click)="setClassForDelete(class.class_id)" (click)="active = true">Delete</button>
+          <button class="btn btn-link modify" (click)="classNameInInput(newClassName, class.class_name)" (click)="edit_modal = true" (click)="setClassIdToEdit(class.class_id)" (click)="getCohortId(cohortNameId.value)">Edit</button>
+          <button class="btn btn-link modify" (click)="setClassNameForDelete(class.class_name)" (click)="setClassForDelete(class.class_id)" (click)="active = true">Delete</button>
         </clr-dg-cell>
     </clr-dg-row>
 
@@ -40,7 +40,7 @@
   <clr-modal [(clrModalOpen)]="active">
       <div class="modal-body">
         <p>
-          Are you sure you want to delete the class: {{classToDelete}}
+          Are you sure you want to delete the class: {{classNameToDelete}}
         </p>
       </div>
       <div class="modal-footer">

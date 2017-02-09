@@ -19,6 +19,7 @@ export class CohortsComponent implements OnInit {
 
   cohorts;
   cohortToDelete;
+  cohortNameToDelete;
 
   addNewCohort(newCohort: HTMLInputElement) {
     if (newCohort.value.length > 0) {
@@ -39,6 +40,14 @@ export class CohortsComponent implements OnInit {
 
   setCohortForDelete(name) {
     this.cohortToDelete = name;
+  }
+
+  setCohortNameForDelete(name) {
+    this.cohortNameToDelete = name;
+  }
+
+  setCohortNameInInput(element: HTMLInputElement, name) {
+    element.value = name;
   }
 
   editCohort(alma: HTMLInputElement) {

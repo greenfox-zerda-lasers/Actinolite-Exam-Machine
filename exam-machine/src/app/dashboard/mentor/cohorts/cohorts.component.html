@@ -10,8 +10,8 @@
       <clr-dg-row *clrDgItems="let cohort of cohorts">
           <clr-dg-cell>{{cohort.cohort_name}}</clr-dg-cell>
           <clr-dg-cell class="centered">
-            <button class="btn btn-link modify" (click)="setCohortForDelete(cohort.cohort_id)" (click)="update = true">Edit</button>
-            <button class="btn btn-link modify" (click)="setCohortForDelete(cohort.cohort_id)" (click)="active = true">Delete</button>
+            <button class="btn btn-link modify" (click)="setCohortNameInInput(newCohortName, cohort.cohort_name)" (click)="setCohortForDelete(cohort.cohort_id)" (click)="update = true">Edit</button>
+            <button class="btn btn-link modify" (click)="setCohortNameForDelete(cohort.cohort_name)" (click)="setCohortForDelete(cohort.cohort_id)" (click)="active = true">Delete</button>
           </clr-dg-cell>
       </clr-dg-row>
 
@@ -31,7 +31,7 @@
   <clr-modal [(clrModalOpen)]="active">
       <div class="modal-body">
         <p>
-          Are you sure you want to delete the cohort: {{cohortToDelete}}
+          Are you sure you want to delete the cohort: {{cohortNameToDelete}}
         </p>
       </div>
       <div class="modal-footer">
