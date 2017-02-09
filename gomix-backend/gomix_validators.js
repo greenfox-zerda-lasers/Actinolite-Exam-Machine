@@ -4,12 +4,18 @@ var statusSuccess = {result: 'success', token: '', user_id: '', user_type: '', m
 var statusErr  = {result: 'fail', message: 'Invalid username or password'};
 
 var verification = function (req, obj) {
-  var result = false;
+  var result = {
+    id: "none",
+    result:false
+  }
   obj.forEach(function (item) {
     if (item.user_email === req.user_email && item.user_password === req.user_password ) {
       statusSuccess.user_id = item.user_id;
       statusSuccess.user_type = item.user_type;  // remove when we have token
-      result = true;
+      result = {
+        id:item.user_id,
+        result:true
+      }
     }
   });
   return result;

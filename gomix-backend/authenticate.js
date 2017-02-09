@@ -14,11 +14,17 @@
   app.set('tokenKey', config.secret);
 
 
-  function createToken(toToken) {
-    console.log('tokenrequest is running')
+  function createToken(toToken, id) {
+    console.log('tokenrequest is running');
 
-      var token = jwt.sign(toToken, 'tokenKey', {
-          expiresIn: '1440'
+      var fullToken = {
+        user_email: toToken.user_email,
+        user_password: toToken.user_password,
+        user_id: id.id
+      }
+
+      var token = jwt.sign(fullToken, 'tokenKey', {
+          expiresIn: '14400'
       });
 
       return token;

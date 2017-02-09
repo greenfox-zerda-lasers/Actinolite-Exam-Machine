@@ -50,12 +50,13 @@ app.post('/user/login', function(req, res) {
     if (err) {
 
     }
-    if (ver.verify(req.body, result.rows)){
+      var resul = ver.verify(req.body, result.rows);
+    if (resul.result){
       // console.log(req.body);
       // console.log(auth.createToken(req.body)); //Hozzaadott sor
       // res.json(auth.createToken(req.body));
        var tokenName = "token";
-       var token = auth.createToken(req.body);
+       var token = auth.createToken(req.body,resul);
        ver.statusSuccess.token = token;
       console.log("ver.statusSuccess.token: ",typeof(ver.statusSuccess.token));
        res.setHeader(tokenName, token);
