@@ -33,8 +33,9 @@ export class DataService {
       .map((res) => res.json())
   }
 
-  addNewClass(name) {
-    return this.http.post(this.currentURL + '/dashboard/classes', {class_name: name}, {headers: this.headers})
+  addNewClass(name, cohortId) {
+    console.log('add new class request sent');
+    return this.http.post(this.currentURL + '/dashboard/classes', {class_name: name, cohort_id: cohortId}, {headers: this.headers})
       .map((res) => res.json())
   }
 
@@ -43,8 +44,13 @@ export class DataService {
       .map((res) => res.json())
   }
 
-  editClass(name) {
-    return this.http.put(this.currentURL + '/dashboard/classes', {class_name: name}, {headers: this.headers})
+  editClass(name, cohortId, classId) {
+    return this.http.put(this.currentURL + '/dashboard/classes', {class_name: name, cohort_id: cohortId, class_id: classId }, {headers: this.headers})
+      .map((res) => res.json())
+  }
+
+  deleteClass(id) {
+    return this.http.delete(this.currentURL + '/dashboard/classes' + id)
       .map((res) => res.json())
   }
 
@@ -58,8 +64,13 @@ export class DataService {
       .map((res) => res.json())
   }
 
-  editCohort(name) {
-    return this.http.put(this.currentURL + '/dashboard/cohorts', {cohort_name: name}, {headers: this.headers})
+  editCohort(name, cohortId) {
+    return this.http.put(this.currentURL + '/dashboard/cohorts', {cohort_name: name, cohort_id: cohortId}, {headers: this.headers})
+      .map((res) => res.json())
+  }
+
+  deleteCohort(name) {
+    return this.http.delete(this.currentURL + '/dashboard/cohorts' + name )
       .map((res) => res.json())
   }
 
