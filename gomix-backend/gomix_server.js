@@ -4,10 +4,13 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var app = express();
 var pg = require('pg');
+var cors = require('cors');
 // var mysql = require('mysql');
 //var pgp = require('pg-promise')();
-var ver = require('./gomix_validators')
+var ver = require('./validators')
+var auth = require('./authenticate')
 app.use(bodyParser.json());
+app.use(cors());
 
 // postgres experimental
 
@@ -21,11 +24,11 @@ app.use(bodyParser.json());
 
 // app.use(allowCrossDomain);
 
-app.use(function(req, res, next) {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-    next();
-});
+// app.use(function(req, res, next) {
+//     res.header("Access-Control-Allow-Origin", "*");
+//     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+//     next();
+// });
 
 var config = {
   host: 'ec2-54-221-217-158.compute-1.amazonaws.com',
@@ -38,6 +41,7 @@ var config = {
 
 var pool = new pg.Pool(config);
 
+
 app.post('/user/login', function(req, res) {
    console.log('login request received');
    pool.connect(function(err, client, done) {
@@ -47,7 +51,16 @@ app.post('/user/login', function(req, res) {
 
     }
     if (ver.verify(req.body, result.rows)){
-      res.json(ver.statusSuccess);
+      // console.log(req.body);
+      // console.log(auth.createToken(req.body)); //Hozzaadott sor
+      // res.json(auth.createToken(req.body));
+       var tokenName = "token";
+       var token = auth.createToken(req.body);
+       ver.statusSuccess.token = token;
+      console.log("ver.statusSuccess.token: ",typeof(ver.statusSuccess.token));
+       res.setHeader(tokenName, token);
+       // res.json(auth.createToken(req.body));
+       res.json(ver.statusSuccess);
     } else {
       res.json(ver.statusErr);
       }
@@ -56,6 +69,30 @@ app.post('/user/login', function(req, res) {
   });
 });
 
+app.post('/token', function(req, res) {
+  console.log("req.body.headers: ",req.body.headers);
+    auth.decodeToken(req.body.headers).then(function(decoded){console.log("decoded token in server.js: ",decoded)});
+    console.log("decoded token in server.js: ")
+    var token = req.body.token || req.query.token || req.headers['x-access-token'];
+    // pool.query('SELECT * FROM users WHERE user_email= ?', [decoded.user_email], function(err, rows) {
+//         if (err) {
+//             throw (err);
+//             console.log(rows);
+//         }
+//               console.log("Here it fails...", rows);
+
+        // jwt.verify(token, app.get('superSecret'), function(err, decoded) {
+        //     if (err) {
+        //         return console.log('Token expired');
+        //         // thorw (err);
+        //     } else {
+        //         req.decoded = decoded;
+        //         console.log(req.decoded);
+        //         res.send();
+        //     }
+        // });
+    })
+// })
 
 app.post('/user/signup', function(req, res) {
  pool.connect(function(err, client, done) {

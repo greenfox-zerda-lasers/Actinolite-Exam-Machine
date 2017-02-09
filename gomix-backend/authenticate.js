@@ -1,38 +1,45 @@
 'use strict'
-
-var express = require('express');
-var app = express();
-
-var jwt = require('jsonwebtoken');
-var config = require('./config');
-app.set('tokenKey', config.secret);
-
 // var toToken = {
-//     email: "blabla@kutya.com",
-//     password: "pass",
-//     admin: 1
+//   email: "blabla@kutya.com",
+//   password: "pass",
+//   admin: 1
 // }
 // //Sample token for test purposes
 
-function createToken(toToken) {
-    var innertoken = toToken;
-    var token = jwt.sign(toToken, 'tokenKey', {
-        expiresIn: '1440'
-    });
+  var express = require('express');
+  var app = express();
 
-    return token;
-}
+  var jwt = require('jsonwebtoken');
+  var config = require('./config');
+  app.set('tokenKey', config.secret);
 
 
-function decodeToken(token) {
-    jwt.verify(token, 'tokenKey', function(err, decoded) {
-        if (err) {
-            thorw(err);
-        } else {
-            return decoded;
-        }
+  function createToken(toToken) {
+    console.log('tokenrequest is running')
+
+      var token = jwt.sign(toToken, 'tokenKey', {
+          expiresIn: '1440'
+      });
+
+      return token;
+  }
+  function decodeToken(token) {
+    var p = new Promise(function(resolve, reject){
+
+      jwt.verify(token, 'tokenKey', function(err, decoded) {
+
+          if (err) {
+              reject(err);
+          } else {
+          console.log('decoded token in authenticate.js: ', decoded); //has to be removed later
+              resolve(decoded);
+          }
+      })
     })
-}
+    return p;
+  }
 
-
-// decodeToken(createToken(toToken));
+  module.exports ={
+    createToken: createToken,
+    decodeToken: decodeToken
+  };

@@ -31,29 +31,22 @@ export class LoginComponent implements OnInit {
       .then(() => this.navigate())
       .catch(this.handleError);
   }
-
   navigate() {
+    this.dataService.token = this.response.token;
     if (this.response.result === 'success') {
-      localStorage.setItem("user", this.response.user_id);
-      localStorage.setItem("type", this.response.user_type);
-      this.setStyle();
-      this.setSpinner();
       this.setClassSuccess(this.response.message);
-      console.log('login success');
-      this.authService.login();
-      setTimeout(() => {
-        this.router.navigateByUrl('/dashboard/' + this.response.user_type);
-      }, 1000);
-    } else if (this.response.result === 'fail') {
       this.setStyle();
-      this.setSpinner();
+      console.log("login.component.ts navigate: ",this.dataService.token);
+      this.dataService.userToken(this.dataService.token).toPromise();
+      this.router.navigateByUrl('/dashboard');
+    } else if (this.response.result === 'fail') {
       this.setClassDanger(this.response.message);
+      this.setStyle();
       console.log(this.response.message);
     } else {
       console.log('login error');
-      this.setStyle();
-      this.setSpinner();
       this.setClassDanger('An unknown error occured.');
+      this.setStyle();
     }
   }
 
