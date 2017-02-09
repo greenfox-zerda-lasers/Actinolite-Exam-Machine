@@ -5,6 +5,8 @@ import { HttpModule } from '@angular/http';
 import { ClarityModule } from 'clarity-angular';
 import { RouterModule } from '@angular/router';
 
+import { ActivateService } from './activate.service';
+
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
 
@@ -52,20 +54,27 @@ import { ExamstartComponent } from './dashboard/student/examstart/examstart.comp
       { path: 'dashboard', component: DashboardComponent,
         children: [
           { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
-          { path: 'cohorts', component: CohortsComponent },
-          { path: 'classes', component: ClassesComponent },
-          { path: 'students', component: StudentsComponent },
-          { path: 'exams', component: ExamsComponent },
-          { path: 'results', component: ResultsComponent }
+          { path: 'mentor', component: MentorComponent, children: [
+            { path: '', redirectTo: 'mentor', pathMatch: 'full' },
+            { path: 'cohorts', component: CohortsComponent },
+            { path: 'classes', component: ClassesComponent },
+            { path: 'students', component: StudentsComponent },
+            { path: 'exams', component: ExamsComponent },
+            { path: 'results', component: ResultsComponent }
+          ]},
+          { path: 'student', component: StudentComponent, children: [
+            { path: '', redirectTo: 'student', pathMatch: 'full' },
+            { path: 'examstart', component: ExamstartComponent }
+          ]}
 //        { path: 'unassigned', component: UnassignedComponent },
+          // { path: '**', component: PagenotfoundComponent }
         ],
       }
     ])
   ],
   entryComponents: [
   ],
-  providers: [
-  ],
+  providers: [],
   bootstrap: [AppComponent]
 })
 

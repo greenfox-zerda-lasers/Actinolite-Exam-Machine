@@ -1,12 +1,14 @@
 <section>
   <h1>Classes</h1>
 
+
   <button class="btn btn-primary add" (click)="opened = true" (click)="getCohortId(selectCohorts.value)">Add new class</button>
 
   <clr-datagrid>
     <clr-dg-column [clrDgField]="'class'">Class name</clr-dg-column>
     <clr-dg-column [clrDgField]="'cohort'">Cohort name</clr-dg-column>
     <clr-dg-column>Actions</clr-dg-column>
+
 
     <clr-dg-row *clrDgItems="let class of classes; let i = index">
         <clr-dg-cell>{{class.class_name}}</clr-dg-cell>
@@ -15,6 +17,7 @@
           <button class="btn btn-link modify" (click)="classNameInInput(newClassName, class.class_name)" (click)="edit_modal = true" (click)="setClassIdToEdit(class.class_id)" (click)="getCohortId(cohortNameId.value)">Edit</button>
           <button class="btn btn-link modify" (click)="setClassNameForDelete(class.class_name)" (click)="setClassForDelete(class.class_id)" (click)="active = true">Delete</button>
         </clr-dg-cell>
+
     </clr-dg-row>
 
     <clr-dg-footer>classes</clr-dg-footer>
@@ -34,6 +37,7 @@
     <div class="modal-footer">
         <button type="button" class="btn btn-primary" (click)="opened = false">Cancel</button>
         <button type="button" class="btn btn-primary" (click)="opened = false" (click)="addNewClass(className)">Add</button>
+
     </div>
   </clr-modal>
 

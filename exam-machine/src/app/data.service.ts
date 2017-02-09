@@ -9,6 +9,8 @@ export class DataService {
 
   private headers = new Headers({'Content-Type': 'application/json'});
 
+  // HTTP queries
+
   userLogin(email, password) {
     return this.http.post('https://letstrysomething.gomix.me/user/login', {user_email: email, user_password: password}, {headers: this.headers})
       .map((res) => res.json());
@@ -16,6 +18,16 @@ export class DataService {
 
   userSignup(name, email, password) {
     return this.http.post('https://letstrysomething.gomix.me/user/signup', {user_name: name, user_email: email, user_password: password}, {headers: this.headers})
+      .map((res) => res.json())
+  }
+
+  getUserName(id) {
+    return this.http.post('https://exam-machine-backend.gomix.me/self', {user_id: id}, {headers: this.headers})
+      .map((res) => res.json())
+  }
+
+  fetchUsers() {
+    return this.http.get('https://exam-machine-backend.gomix.me/users')
       .map((res) => res.json())
   }
 
