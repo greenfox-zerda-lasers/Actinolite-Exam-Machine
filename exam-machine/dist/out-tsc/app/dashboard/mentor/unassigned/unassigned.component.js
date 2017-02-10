@@ -29,7 +29,6 @@ var UnassignedComponent = (function () {
             .toPromise()
             .then(function (data) { return _this.unassigned = data.students; });
         this.getClasses();
-        this.trigger.emit('render');
     };
     ;
     UnassignedComponent.prototype.getClasses = function () {
@@ -72,6 +71,7 @@ var UnassignedComponent = (function () {
     ;
     UnassignedComponent.prototype.displayResponse = function () {
         this.renderUnassigned();
+        this.trigger.emit('render');
         console.log('Rendering done, evaluating response');
         if (this.response.status === 'success') {
             this.alert.displaySuccess(this, this.response.message, this.alert.setStyleTop(this));
@@ -90,7 +90,7 @@ var UnassignedComponent = (function () {
     return UnassignedComponent;
 }());
 __decorate([
-    Output('change'),
+    Output('update'),
     __metadata("design:type", EventEmitter)
 ], UnassignedComponent.prototype, "trigger", void 0);
 UnassignedComponent = __decorate([

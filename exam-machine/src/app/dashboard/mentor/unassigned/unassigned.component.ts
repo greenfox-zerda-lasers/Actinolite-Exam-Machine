@@ -20,12 +20,8 @@ import 'rxjs/add/operator/toPromise';
 
 export class UnassignedComponent implements OnInit {
 
-  @Output('change')
+  @Output('update')
   trigger:EventEmitter<string> = new EventEmitter();
-
-  // forceRender() {
-  //   this.trigger.emit('render');
-  // }
 
   unassigned = [];
   classes = [];
@@ -41,9 +37,7 @@ export class UnassignedComponent implements OnInit {
     this.dataService.fetchUnassigned()
       .toPromise()
       .then((data) => this.unassigned = data.students)
-    // this.getClasses();
     this.getClasses();
-    this.trigger.emit('render');
   };
 
   getClasses() {
@@ -81,11 +75,8 @@ export class UnassignedComponent implements OnInit {
   };
 
   displayResponse() {
-    // this.mentor.renderUnassigned();
-    // this.forceRender();
-    // this.trigger.emit('render');
-    // this.unassigned = this.mentor.unassigned;
     this.renderUnassigned();
+    this.trigger.emit('render');
     console.log('Rendering done, evaluating response')
     if (this.response.status === 'success') {
       this.alert.displaySuccess(this, this.response.message, this.alert.setStyleTop(this));
@@ -100,7 +91,6 @@ export class UnassignedComponent implements OnInit {
 
   ngOnInit() {
     this.renderUnassigned();
-    // this.getClasses();
   }
 
 }
