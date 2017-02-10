@@ -19,21 +19,28 @@ import 'rxjs/add/operator/toPromise';
 export class StudentsComponent implements OnInit {
 
   users;
-  cohorts;
+  cohorts = [];
   studentIdToDelete;
-
+  current_cohort;
+  classes = [];
 
   renderStudents() {
     this.dataService.fetchStudents()
       .toPromise()
-      .then((data) => { this.users = data.students , this.cohorts = data.cohorts })
-      .then(() => console.log(this.users));
+      .then((data) => this.users = data.students );
   }
 
   getStudentIdToDelete(value) {
     this.studentIdToDelete = value;
-    console.log(this.studentIdToDelete);
   }
+
+  setCohort(value) {
+    for (let cohort of this.cohorts) {
+      if (cohort.cohort_name === value) {
+        this.current_cohort = cohort.cohort_id;
+      }
+    }
+  };
 
   deleteStudent() {
     console.log('delete request sent');
@@ -46,6 +53,10 @@ export class StudentsComponent implements OnInit {
 
   ngOnInit() {
     this.renderStudents();
+    this.dataService.fetchClasses()
+      .toPromise()
+      .then((data) => {this.classes = data.classes, this.cohorts = data.cohorts, this.current_cohort = this.cohorts[0].cohort_id})
+      .then(() => console.log('classes: ', this.classes, 'Current cohort', this.current_cohort));
   }
 
 }

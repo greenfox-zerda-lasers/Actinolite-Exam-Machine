@@ -13,7 +13,7 @@
     <clr-dg-cell>{{student.class_name}}</clr-dg-cell>
     <clr-dg-cell>{{student.cohort_name}}</clr-dg-cell>
     <clr-dg-cell class="centered">
-      <button class="btn btn-sm btn-link" (click)="edit_modal = true">Edit</button>
+      <button class="btn btn-sm btn-link" (click)="opened = true">Edit class</button>
       <button class="btn btn-sm btn-link" (click)="delete_modal = true" (click)="getStudentIdToDelete(student.user_id)">Delete</button>
     </clr-dg-cell>
   </clr-dg-row>
@@ -33,17 +33,31 @@
     </div>
 </clr-modal>
 
-<clr-modal [(clrModalOpen)]="edit_modal">
+<clr-modal [(clrModalOpen)]="opened" [clrModalStaticBackdrop]="true">
+    <h3 class="modal-title">Select a class for this student</h3>
     <div class="modal-body">
-      <select  #cohortNameId id="exampleSelect2">
-        <option *ngFor="let cohort of cohorts">{{cohort.cohort_name}}</option>
-      </select>
-      <input type=text/>
+      <div>
+        <label>Select a cohort</label>
+        <div class="select">
+          <select  #selectCohort (change)="setCohort($event.target.value)">
+            <option *ngFor="let cohort of cohorts">{{cohort.cohort_name}}</option>
+          </select>
+        </div>
+      </div>
+      <div>
+        <label>Select a class</label>
+        <div class="select">
+          <select #selectClass>
+            <option *ngFor="let class of classes | FilterPipe:current_cohort">{{class.class_name}}</option>
+          </select>
+        </div>
+      </div>
+      <input type="text" />
     </div>
     <div class="modal-footer">
-        <button type="button" class="btn btn-primary" (click)="edit_modal = false">Cancel</button>
-        <button type="button" class="btn btn-primary" (click)="edit_modal = false" (click)="deleteStudent()">Delete</button>
+      <button class="btn btn-link" type="button" (click)="opened = false">Cancel</button>
+      <button class="btn btn-primary" type="button" (click)="setClass(selectClass.value)" (click)="opened = false">Edit</button>
     </div>
-</clr-modal>
+  </clr-modal>
 
 </section>
