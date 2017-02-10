@@ -24,11 +24,12 @@ app.use(cors());
 
 // app.use(allowCrossDomain);
 
-// app.use(function(req, res, next) {
-//     res.header("Access-Control-Allow-Origin", "*");
-//     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-//     next();
-// });
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    res.header("Access-Control-Expose-Headers", "token");
+    next();
+});
 
 var config = {
   host: 'ec2-54-221-217-158.compute-1.amazonaws.com',
@@ -46,22 +47,25 @@ app.post('/user/login', function(req, res) {
    console.log('login request received');
    pool.connect(function(err, client, done) {
     client.query('SELECT * FROM users', function(err, result) {
-    //console.log(result.rows);
+
     if (err) {
 
     }
       var resul = ver.verify(req.body, result.rows);
     if (resul.result){
-      // console.log(req.body);
-      // console.log(auth.createToken(req.body)); //Hozzaadott sor
-      // res.json(auth.createToken(req.body));
+
        var tokenName = "token";
        var token = auth.createToken(req.body,resul);
        ver.statusSuccess.token = token;
-      console.log("ver.statusSuccess.token: ",typeof(ver.statusSuccess.token));
-       res.setHeader(tokenName, token);
-       // res.json(auth.createToken(req.body));
-       res.json(ver.statusSuccess);
+
+
+            res.setHeader('token',token )
+
+        console.log("response from server setHe; ",res.socket._httpMessage._headers.token);
+
+        res.json(ver.statusSuccess);
+        console.log('helloka')
+
     } else {
       res.json(ver.statusErr);
       }
