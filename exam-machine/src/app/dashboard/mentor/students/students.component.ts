@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import {DataService } from '../../../data.service';
+import { AlertService } from '../../../alert.service';
+import 'rxjs/add/operator/toPromise';
 
 @Component({
   selector: 'app-students',
@@ -7,28 +10,42 @@ import { Component, OnInit } from '@angular/core';
     '../../dashboard.component.css',
     '../mentor.component.css',
     './students.component.css'
+  ],
+  providers: [
+    DataService,
+    AlertService
   ]
 })
 export class StudentsComponent implements OnInit {
 
-  users = [];
+  users;
+  cohorts;
+  studentIdToDelete;
 
-  currentUser;
-  username;
 
-  openModal() {
-
+  renderStudents() {
+    this.dataService.fetchStudents()
+      .toPromise()
+      .then((data) => { this.users = data.students , this.cohorts = data.cohorts })
+      .then(() => console.log(this.users));
   }
 
-  changeClass() {
-
-    // offers to change the class of the current student
-    // sends PUT request to the USERS_CLASSES datatable to update student class
+  getStudentIdToDelete(value) {
+    this.studentIdToDelete = value;
+    console.log(this.studentIdToDelete);
   }
 
-  constructor() { }
+  deleteStudent() {
+    console.log('delete request sent');
+    this.dataService.deleteStudent(this.studentIdToDelete)
+      .toPromise()
+      .then(() => this.renderStudents());
+  }
+
+  constructor(private dataService: DataService, private alert: AlertService) { }
 
   ngOnInit() {
+    this.renderStudents();
   }
 
 }

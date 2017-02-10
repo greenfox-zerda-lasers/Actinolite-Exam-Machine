@@ -31,16 +31,21 @@ var DataService = (function () {
         return this.http.get(this.currentURL + '/dashboard/classes')
             .map(function (res) { return res.json(); });
     };
-    DataService.prototype.addNewClass = function (name) {
-        return this.http.post(this.currentURL + '/dashboard/classes', { class_name: name }, { headers: this.headers })
+    DataService.prototype.addNewClass = function (name, cohortId) {
+        console.log('add new class request sent');
+        return this.http.post(this.currentURL + '/dashboard/classes', { class_name: name, cohort_id: cohortId }, { headers: this.headers })
             .map(function (res) { return res.json(); });
     };
     DataService.prototype.assignClassToCohort = function (name, id) {
         return this.http.put(this.currentURL + '/dashboard/classes-to-cohorts', { class_name: name, cohort_id: id }, { headers: this.headers })
             .map(function (res) { return res.json(); });
     };
-    DataService.prototype.editClass = function (name) {
-        return this.http.put(this.currentURL + '/dashboard/classes', { class_name: name }, { headers: this.headers })
+    DataService.prototype.editClass = function (name, cohortId, classId) {
+        return this.http.put(this.currentURL + '/dashboard/classes', { class_name: name, cohort_id: cohortId, class_id: classId }, { headers: this.headers })
+            .map(function (res) { return res.json(); });
+    };
+    DataService.prototype.deleteClass = function (id) {
+        return this.http.delete(this.currentURL + '/dashboard/classes/' + id)
             .map(function (res) { return res.json(); });
     };
     DataService.prototype.fetchCohorts = function () {
@@ -51,12 +56,20 @@ var DataService = (function () {
         return this.http.post(this.currentURL + '/dashboard/cohorts', { cohort_name: name }, { headers: this.headers })
             .map(function (res) { return res.json(); });
     };
-    DataService.prototype.editCohort = function (name) {
-        return this.http.put(this.currentURL + '/dashboard/cohorts', { cohort_name: name }, { headers: this.headers })
+    DataService.prototype.editCohort = function (name, cohortId) {
+        return this.http.put(this.currentURL + '/dashboard/cohorts', { cohort_name: name, cohort_id: cohortId }, { headers: this.headers })
+            .map(function (res) { return res.json(); });
+    };
+    DataService.prototype.deleteCohort = function (name) {
+        return this.http.delete(this.currentURL + '/dashboard/cohorts/' + name)
             .map(function (res) { return res.json(); });
     };
     DataService.prototype.fetchStudents = function () {
         return this.http.get(this.currentURL + '/dashboard/students')
+            .map(function (res) { return res.json(); });
+    };
+    DataService.prototype.deleteStudent = function (userId) {
+        return this.http.delete(this.currentURL + '/dashboard/students/' + userId)
             .map(function (res) { return res.json(); });
     };
     DataService.prototype.fetchUnassigned = function () {

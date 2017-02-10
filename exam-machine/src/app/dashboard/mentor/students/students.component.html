@@ -1,3 +1,4 @@
+<section>
 <h1>Students</h1>
 <h2>Search, filter, change the class of students.</h2>
 
@@ -7,14 +8,42 @@
   <clr-dg-column [clrDgField]="'class'">Cohort</clr-dg-column>
   <clr-dg-column>Actions</clr-dg-column>
 
-  <clr-dg-row *clrDgItems="let user of users">
-    <clr-dg-cell>{{user.name}}</clr-dg-cell>
-    <clr-dg-cell>{{user.class}}</clr-dg-cell>
-    <clr-dg-cell>{{user.cohort}}</clr-dg-cell>
+  <clr-dg-row *clrDgItems="let student of users">
+    <clr-dg-cell>{{student.user_name}}</clr-dg-cell>
+    <clr-dg-cell>{{student.class_name}}</clr-dg-cell>
+    <clr-dg-cell>{{student.cohort_name}}</clr-dg-cell>
     <clr-dg-cell class="centered">
-      <button class="btn btn-sm btn-link" (click)="changeClass()">Edit</button>
+      <button class="btn btn-sm btn-link" (click)="edit_modal = true">Edit</button>
+      <button class="btn btn-sm btn-link" (click)="delete_modal = true" (click)="getStudentIdToDelete(student.user_id)">Delete</button>
     </clr-dg-cell>
   </clr-dg-row>
 
-  <clr-dg-footer>{{users.length}} students</clr-dg-footer>
+  <clr-dg-footer>students</clr-dg-footer>
 </clr-datagrid>
+
+<clr-modal [(clrModalOpen)]="delete_modal">
+    <div class="modal-body">
+      <p>
+        Are you sure you want to delete: {{studentIdToDelete}}
+      </p>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="delete_modal = false">Cancel</button>
+        <button type="button" class="btn btn-primary" (click)="delete_modal = false" (click)="deleteStudent()">Delete</button>
+    </div>
+</clr-modal>
+
+<clr-modal [(clrModalOpen)]="edit_modal">
+    <div class="modal-body">
+      <select  #cohortNameId id="exampleSelect2">
+        <option *ngFor="let cohort of cohorts">{{cohort.cohort_name}}</option>
+      </select>
+      <input type=text/>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="edit_modal = false">Cancel</button>
+        <button type="button" class="btn btn-primary" (click)="edit_modal = false" (click)="deleteStudent()">Delete</button>
+    </div>
+</clr-modal>
+
+</section>
