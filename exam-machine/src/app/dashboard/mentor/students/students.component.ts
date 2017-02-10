@@ -11,56 +11,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class StudentsComponent implements OnInit {
 
-  users = [
-    {
-      id: '1',
-      name: 'Joey Jo',
-      cohort: 'Zerda',
-      class: 'Lasers'
-    },
-    {
-      id: '2',
-      name: 'Angelika Kovacs',
-      cohort: 'Zerda',
-      class: 'Lasers'
-    },
-    {
-      id: '4',
-      name: 'Gomix Bela',
-      cohort: 'Zerda',
-      class: 'Lasers'
-    },
-    {
-      id: '26',
-      name: 'Random Student',
-      cohort: 'Zerda',
-      class: 'Lasers'
-    },
-    {
-      id: '28',
-      name: 'Green Fox',
-      cohort: 'Zerda',
-      class: 'Lasers'
-    },
-    {
-      id: '30',
-      name: 'Kis Vuk',
-      cohort: 'Zerda',
-      class: 'Lasers'
-    },
-    {
-      id: '31',
-      name: 'Typescript Addict',
-      cohort: 'Zerda',
-      class: 'Lasers'
-    },
-    {
-      id: '33',
-      name: 'Lazy Designer',
-      cohort: 'Zerda',
-      class: 'Lasers'
-    }
-  ];
+  users = [];
 
   currentUser;
   username;
