@@ -15,8 +15,7 @@ var DataService = (function () {
         this.headers = new Headers({ 'Content-Type': 'application/json' });
     }
     DataService.prototype.userLogin = function (email, password) {
-        return this.http.post('https://five-pisces.gomix.me/user/login', { user_email: email, user_password: password }, { headers: this.headers })
-            .map(function (res) { return res.json(); });
+        return this.http.post('https://five-pisces.gomix.me/user/login', { user_email: email, user_password: password }, { headers: this.headers });
     };
     DataService.prototype.userToken = function (token) {
         return this.http.post('https://five-pisces.gomix.me/token', { headers: token });

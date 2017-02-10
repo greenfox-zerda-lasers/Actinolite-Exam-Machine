@@ -32,11 +32,15 @@ export class LoginComponent implements OnInit {
       .catch(this.handleError);
   }
   navigate() {
+    console.log('Token from header: ', this.response.headers.get('token'))
+    console.log('Response status: ', this.response.json())
     this.dataService.token = this.response.token;
-    if (this.response.result === 'success') {
-      this.setClassSuccess(this.response.message);
+    // this.response.map((res) => res.json());
+    if (this.response.json().result === 'success') {
+      this.setClassSuccess(this.response.json().message);
       this.setStyle();
-      console.log("login.component.ts navigate: ",this.dataService.token);
+      console.log("login.component.ts navigate: ",this.dataService.token,"reapon: ",this.response.json());
+
       this.dataService.userToken(this.dataService.token).toPromise();
       this.router.navigateByUrl('/dashboard');
     } else if (this.response.result === 'fail') {

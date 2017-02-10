@@ -30,11 +30,13 @@ var LoginComponent = (function () {
             .catch(this.handleError);
     };
     LoginComponent.prototype.navigate = function () {
+        console.log('Token from header: ', this.response.headers.get('token'));
+        console.log('Response status: ', this.response.json());
         this.dataService.token = this.response.token;
-        if (this.response.result === 'success') {
-            this.setClassSuccess(this.response.message);
+        if (this.response.json().result === 'success') {
+            this.setClassSuccess(this.response.json().message);
             this.setStyle();
-            console.log("login.component.ts navigate: ", this.dataService.token);
+            console.log("login.component.ts navigate: ", this.dataService.token, "reapon: ", this.response.json());
             this.dataService.userToken(this.dataService.token).toPromise();
             this.router.navigateByUrl('/dashboard');
         }

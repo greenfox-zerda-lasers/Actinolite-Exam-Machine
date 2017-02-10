@@ -15,7 +15,7 @@ export class DataService {
 
   userLogin(email, password) {
     return this.http.post('https://five-pisces.gomix.me/user/login', {user_email: email, user_password: password}, {headers: this.headers})
-      .map((res) => res.json());
+      // .map((res) => res.json());
   }
 
   userToken(token) {
