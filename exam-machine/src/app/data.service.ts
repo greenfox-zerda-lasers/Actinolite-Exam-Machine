@@ -50,7 +50,7 @@ export class DataService {
   }
 
   deleteClass(id) {
-    return this.http.delete(this.currentURL + '/dashboard/classes' + id)
+    return this.http.delete(this.currentURL + '/dashboard/classes/' + id)
       .map((res) => res.json())
   }
 
@@ -70,7 +70,7 @@ export class DataService {
   }
 
   deleteCohort(name) {
-    return this.http.delete(this.currentURL + '/dashboard/cohorts' + name )
+    return this.http.delete(this.currentURL + '/dashboard/cohorts/' + name )
       .map((res) => res.json())
   }
 
@@ -78,6 +78,12 @@ export class DataService {
     return this.http.get(this.currentURL + '/dashboard/students')
       .map((res) => res.json())
   }
+
+  deleteStudent(userId) {
+    return this.http.delete(this.currentURL + '/dashboard/students/' + userId )
+      .map((res) => res.json())
+  }
+
 
   fetchUnassigned() {
     return this.http.get(this.currentURL + '/dashboard/unassigned')

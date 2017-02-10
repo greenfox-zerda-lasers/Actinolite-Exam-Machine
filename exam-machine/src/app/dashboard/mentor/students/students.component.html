@@ -1,20 +1,63 @@
+<section>
 <h1>Students</h1>
 <h2>Search, filter, change the class of students.</h2>
 
 <clr-datagrid>
   <clr-dg-column [clrDgField]="'name'">Student name</clr-dg-column>
-  <clr-dg-column [clrDgField]="'cohort'">Cohort</clr-dg-column>
-  <clr-dg-column [clrDgField]="'class'">Class</clr-dg-column>
+  <clr-dg-column [clrDgField]="'cohort'">Class</clr-dg-column>
+  <clr-dg-column [clrDgField]="'class'">Cohort</clr-dg-column>
   <clr-dg-column>Actions</clr-dg-column>
 
-  <clr-dg-row *clrDgItems="let user of users">
-    <clr-dg-cell>{{user.name}}</clr-dg-cell>
-    <clr-dg-cell>{{user.cohort}}</clr-dg-cell>
-    <clr-dg-cell>{{user.class}}</clr-dg-cell>
+  <clr-dg-row *clrDgItems="let student of users">
+    <clr-dg-cell>{{student.user_name}}</clr-dg-cell>
+    <clr-dg-cell>{{student.class_name}}</clr-dg-cell>
+    <clr-dg-cell>{{student.cohort_name}}</clr-dg-cell>
     <clr-dg-cell class="centered">
-      <button class="btn btn-sm btn-link" (click)="changeClass()">Edit</button>
+      <button class="btn btn-sm btn-link" (click)="opened = true">Edit class</button>
+      <button class="btn btn-sm btn-link" (click)="delete_modal = true" (click)="getStudentIdToDelete(student.user_id)">Delete</button>
     </clr-dg-cell>
   </clr-dg-row>
 
-  <clr-dg-footer>{{users.length}} students</clr-dg-footer>
+  <clr-dg-footer>students</clr-dg-footer>
 </clr-datagrid>
+
+<clr-modal [(clrModalOpen)]="delete_modal">
+    <div class="modal-body">
+      <p>
+        Are you sure you want to delete: {{studentIdToDelete}}
+      </p>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="delete_modal = false">Cancel</button>
+        <button type="button" class="btn btn-primary" (click)="delete_modal = false" (click)="deleteStudent()">Delete</button>
+    </div>
+</clr-modal>
+
+<clr-modal [(clrModalOpen)]="opened" [clrModalStaticBackdrop]="true">
+    <h3 class="modal-title">Select a class for this student</h3>
+    <div class="modal-body">
+      <div>
+        <label>Select a cohort</label>
+        <div class="select">
+          <select  #selectCohort (change)="setCohort($event.target.value)">
+            <option *ngFor="let cohort of cohorts">{{cohort.cohort_name}}</option>
+          </select>
+        </div>
+      </div>
+      <div>
+        <label>Select a class</label>
+        <div class="select">
+          <select #selectClass>
+            <option *ngFor="let class of classes | FilterPipe:current_cohort">{{class.class_name}}</option>
+          </select>
+        </div>
+      </div>
+      <input type="text" />
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-link" type="button" (click)="opened = false">Cancel</button>
+      <button class="btn btn-primary" type="button" (click)="setClass(selectClass.value)" (click)="opened = false">Edit</button>
+    </div>
+  </clr-modal>
+
+</section>
