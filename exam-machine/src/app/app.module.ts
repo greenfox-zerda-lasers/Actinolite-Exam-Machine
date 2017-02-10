@@ -5,6 +5,7 @@ import { HttpModule } from '@angular/http';
 import { ClarityModule } from 'clarity-angular';
 import { RouterModule } from '@angular/router';
 
+import { FilterPipe } from './dashboard/mentor/exams/classfilter.pipe';
 import { ActivateService } from './activate.service';
 
 import 'rxjs/add/operator/map';
@@ -41,6 +42,7 @@ import { ExamstartComponent } from './dashboard/student/examstart/examstart.comp
     ResultsComponent,
     UnassignedComponent,
     ExamstartComponent,
+    FilterPipe
   ],
   imports: [
     BrowserModule,

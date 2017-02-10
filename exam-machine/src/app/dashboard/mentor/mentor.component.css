@@ -89,6 +89,14 @@ button {
   padding: 0 10px 0 10px;
   position: absolute;
   right: 0;
+  top: -10px;
+}
+
+.archive {
+  padding: 0 10px 0 10px;
+  position: absolute;
+  right: 130px;
+  top: -10px;
 }
 
 clr-datagrid {
@@ -102,4 +110,12 @@ clr-datagrid {
   height: 35px;
   font-size: 12px;
   line-height: 35px;
+}
+
+label {
+  line-height: 35px;
+}
+
+.submission {
+  min-width: 250px;
 }

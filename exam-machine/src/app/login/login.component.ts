@@ -34,8 +34,9 @@ export class LoginComponent implements OnInit {
 
   navigate() {
     if (this.response.result === 'success') {
-      localStorage.setItem("user", this.response.user_id);
-      localStorage.setItem("type", this.response.user_type);
+      localStorage.setItem("userid", this.response.user_id);
+      localStorage.setItem("usertype", this.response.user_type);
+      localStorage.setItem("username", this.response.user_name);
       this.setStyle();
       this.setSpinner();
       this.setClassSuccess(this.response.message);
@@ -62,7 +63,7 @@ export class LoginComponent implements OnInit {
   }
 
   setSpinner() {
-      this.loadingSpinner = '';
+    this.loadingSpinner = '';
   }
 
   setStyle() {
