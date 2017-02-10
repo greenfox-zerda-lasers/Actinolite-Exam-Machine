@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { UnassignedComponent } from './unassigned/unassigned.component';
 import { Router } from '@angular/router';
 import { DataService } from '../../data.service';
+import 'rxjs/add/operator/toPromise';
 
 @Component({
   selector: 'app-mentor',
@@ -14,15 +16,35 @@ import { DataService } from '../../data.service';
   ]
 })
 export class MentorComponent implements OnInit {
+
+  // @ViewChild('assign')
+  // private assignComponent: UnassignedComponent;
+
   name = localStorage.getItem("username");
+  unassignedParent = [];
+
+  reRender(event) {
+    if (event = 'render') {
+      this.renderUnassigned()
+    }
+  };
+
+  renderUnassigned() {
+    console.log('rendering parent')
+    this.dataService.fetchUnassigned()
+      .toPromise()
+      .then((data) => this.unassignedParent = data.students)
+      // .then((data) => localStorage.setItem('unassigned', data.students))
+  };
 
   navigate(page) {
     this.router.navigateByUrl('/dashboard/mentor' + page);
-  }
+  };
 
   constructor(private router: Router, private dataService: DataService) { }
 
   ngOnInit() {
+    this.renderUnassigned();
     this.router.navigateByUrl('/dashboard/mentor/cohorts');
   }
 

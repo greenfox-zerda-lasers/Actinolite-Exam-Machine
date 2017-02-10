@@ -10,16 +10,34 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { DataService } from '../../data.service';
+import 'rxjs/add/operator/toPromise';
 var MentorComponent = (function () {
     function MentorComponent(router, dataService) {
         this.router = router;
         this.dataService = dataService;
         this.name = localStorage.getItem("username");
+        this.unassignedParent = [];
     }
+    MentorComponent.prototype.reRender = function (event) {
+        if (event = 'render') {
+            this.renderUnassigned();
+        }
+    };
+    ;
+    MentorComponent.prototype.renderUnassigned = function () {
+        var _this = this;
+        console.log('rendering parent');
+        this.dataService.fetchUnassigned()
+            .toPromise()
+            .then(function (data) { return _this.unassignedParent = data.students; });
+    };
+    ;
     MentorComponent.prototype.navigate = function (page) {
         this.router.navigateByUrl('/dashboard/mentor' + page);
     };
+    ;
     MentorComponent.prototype.ngOnInit = function () {
+        this.renderUnassigned();
         this.router.navigateByUrl('/dashboard/mentor/cohorts');
     };
     return MentorComponent;

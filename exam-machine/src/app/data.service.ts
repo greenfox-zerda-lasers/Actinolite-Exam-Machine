@@ -85,7 +85,7 @@ export class DataService {
   }
 
   assignStudentToClass(studentid, classid) {
-    return this.http.post(this.currentURL + '/dashboard/students', {user_id: studentid, class_id: classid}, {headers: this.headers})
+    return this.http.put(this.currentURL + '/dashboard/students', {user_id: studentid, class_id: classid}, {headers: this.headers})
       .map((res) => res.json())
   }
 
