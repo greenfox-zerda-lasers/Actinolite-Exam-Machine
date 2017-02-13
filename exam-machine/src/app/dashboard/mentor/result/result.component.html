@@ -11,10 +11,10 @@
 
     <clr-dg-row *clrDgItems="let result of results">
       <clr-dg-cell>{{result.user_name}}</clr-dg-cell>
-      <clr-dg-cell>{{result.exam_auto_score}}/{{result.exam_max_score}}</clr-dg-cell>
-      <clr-dg-cell>{{result.exam_subj_score}}/{{result.exam_subj_max}}</clr-dg-cell>
+      <clr-dg-cell>{{result.exam_auto_score}}/{{result.exam_auto_score_max}}</clr-dg-cell>
+      <clr-dg-cell>{{result.exam_subj_score}}/{{result.exam_subj_score_max}}</clr-dg-cell>
       <clr-dg-cell>{{result.exam_auto_score + result.exam_subj_score}}</clr-dg-cell>
-      <clr-dg-cell>{{(result.exam_auto_score + result.exam_subj_score)/(result.exam_max_score + result.exam_subj_max)}}</clr-dg-cell>
+      <clr-dg-cell>{{(result.exam_auto_score + result.exam_subj_score)/(result.exam_auto_score_max + result.exam_subj_score_max)}}</clr-dg-cell>
       <clr-dg-cell><button class="btn btn-link modify">Edit</button></clr-dg-cell>
     </clr-dg-row>
 
