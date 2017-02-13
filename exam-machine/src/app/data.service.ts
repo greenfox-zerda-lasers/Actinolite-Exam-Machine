@@ -84,7 +84,6 @@ export class DataService {
       .map((res) => res.json())
   }
 
-
   fetchUnassigned() {
     return this.http.get(this.currentURL + '/dashboard/unassigned')
       .map((res) => res.json())
@@ -100,6 +99,11 @@ export class DataService {
       .map((res) => res.json())
   }
 
+  fetchArchived() {
+    return this.http.get(this.currentURL + '/dashboard/archived')
+      .map((res) => res.json())
+  }
+
   addNewExam(name, description, type, repo, duration, classname, userid) {
     return this.http.post(this.currentURL + '/dashboard/exams', {exam_name: name, exam_desc: description, exam_type: type, exam_duration: duration, exam_repo: repo, exam_creator_id: userid, class_name: classname}, {headers: this.headers})
       .map((res) => res.json())
@@ -107,6 +111,11 @@ export class DataService {
 
   setExamStatus(id, status) {
     return this.http.put(this.currentURL + '/dashboard/exams', {exam_id: id, exam_status: status}, {headers: this.headers})
+      .map((res) => res.json())
+  }
+
+  getResultsById(id) {
+    return this.http.get(this.currentURL + '/dashboard/result/' + id, {headers: this.headers})
       .map((res) => res.json())
   }
 

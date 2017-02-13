@@ -1,0 +1,27 @@
+<section>
+  <h1>Archived exams and workshops</h1>
+
+  <clr-datagrid>
+    <clr-dg-column [clrDgField]="'name'">Name</clr-dg-column>
+    <clr-dg-column [clrDgField]="'mentor'">Created by</clr-dg-column>
+    <clr-dg-column [clrDgField]="'class'">Class</clr-dg-column>
+    <clr-dg-column [clrDgField]="'type'">Type</clr-dg-column>
+    <clr-dg-column [clrDgField]="'status'">Status</clr-dg-column>
+    <clr-dg-column>Action</clr-dg-column>
+
+    <clr-dg-row *clrDgItems="let exam of exams">
+      <clr-dg-cell>{{exam.exam_name}}</clr-dg-cell>
+      <clr-dg-cell>{{exam.user_name}}</clr-dg-cell>
+      <clr-dg-cell>{{exam.class_name}}</clr-dg-cell>
+      <clr-dg-cell>{{exam.exam_type}}</clr-dg-cell>
+      <clr-dg-cell>{{exam.exam_status}}</clr-dg-cell>
+      <clr-dg-cell class="centered">
+        <button class="btn btn-sm btn-info-outline results" (click)="current_id = exam.exam_id" (click)="navigate('/result')">Results</button>
+        <button class="btn btn-sm btn-warning-outline" (click)="current_id = exam.exam_id" (click)="activate = true">Reactivate</button>
+      </clr-dg-cell>
+    </clr-dg-row>
+
+    <clr-dg-footer>{{exams.length}} exams</clr-dg-footer>
+  </clr-datagrid>
+
+</section>

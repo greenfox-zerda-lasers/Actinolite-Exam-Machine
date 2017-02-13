@@ -84,12 +84,20 @@ var DataService = (function () {
         return this.http.get(this.currentURL + '/dashboard/exams')
             .map(function (res) { return res.json(); });
     };
+    DataService.prototype.fetchArchived = function () {
+        return this.http.get(this.currentURL + '/dashboard/archived')
+            .map(function (res) { return res.json(); });
+    };
     DataService.prototype.addNewExam = function (name, description, type, repo, duration, classname, userid) {
         return this.http.post(this.currentURL + '/dashboard/exams', { exam_name: name, exam_desc: description, exam_type: type, exam_duration: duration, exam_repo: repo, exam_creator_id: userid, class_name: classname }, { headers: this.headers })
             .map(function (res) { return res.json(); });
     };
     DataService.prototype.setExamStatus = function (id, status) {
         return this.http.put(this.currentURL + '/dashboard/exams', { exam_id: id, exam_status: status }, { headers: this.headers })
+            .map(function (res) { return res.json(); });
+    };
+    DataService.prototype.getResultsById = function (id) {
+        return this.http.get(this.currentURL + '/dashboard/result/' + id, { headers: this.headers })
             .map(function (res) { return res.json(); });
     };
     return DataService;

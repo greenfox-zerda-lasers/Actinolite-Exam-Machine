@@ -1,7 +1,7 @@
 <section>
   <h1>Exams and workshops</h1>
 
-  <button class="btn btn-info-outline archive">View Archive</button>
+  <button class="btn btn-info-outline archive" (click)="navigate('/archive')">View Archive</button>
   <button class="btn btn-primary add" (click)="opened = true">Create new</button>
 
   <div id="top-alert-fade" class="alert-container" [ngStyle]="{'top': top}">
@@ -30,7 +30,7 @@
       <clr-dg-cell>{{exam.exam_status}}</clr-dg-cell>
       <clr-dg-cell class="centered">
         <button *ngIf="exam.exam_status == 'draft'" class="btn btn-sm btn-primary" (click)="live = true" (click)="current_id = exam.exam_id">Go live!</button>
-        <button *ngIf="exam.exam_status == 'returned'" class="btn btn-sm btn-info-outline results" (click)="current_id = exam.exam_id">Results</button>
+        <button *ngIf="exam.exam_status == 'returned'" class="btn btn-sm btn-info-outline results" (click)="resultId(exam.exam_id)" (click)="navigate('/result')">Results</button>
         <button *ngIf="exam.exam_status == 'live'" class="btn btn-sm btn-warning results" (click)="current_id = exam.exam_id">Run</button>
         <button *ngIf="exam.exam_status == 'running'" class="btn btn-sm btn-outline disabled">Wait</button>
         <button *ngIf="exam.exam_status != 'running' && exam.exam_status != 'archived'" class="btn btn-sm btn-link" (click)="current_id = exam.exam_id" (click)="archive = true">Archive</button>
