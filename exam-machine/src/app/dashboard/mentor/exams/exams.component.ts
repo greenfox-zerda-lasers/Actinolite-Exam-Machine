@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from '../../../data.service';
+import { Router } from '@angular/router';
 import { AlertService } from '../../../alert.service';
 import 'rxjs/add/operator/toPromise';
 
@@ -55,14 +56,6 @@ export class ExamsComponent implements OnInit {
       .catch(this.handleError)
   };
 
-  activateExam() {
-    this.dataService.setExamStatus(this.current_id, "draft")
-      .toPromise()
-      .then((data) => this.response = data)
-      .then(() => this.displayResponse())
-      .catch(this.handleError)
-  }
-
   submitExam(name, description, duration, repo, classname) {
     this.dataService.addNewExam(name, description, this.examType, repo, duration, classname, localStorage.getItem("userid"))
       .toPromise()
@@ -93,14 +86,22 @@ export class ExamsComponent implements OnInit {
 
   setType(value) {
     this.examType = value;
+  };
+
+  resultId(value) {
+    localStorage.setItem("examid", value);
   }
+
+  navigate(page) {
+    this.router.navigateByUrl('/dashboard/mentor' + page);
+  };
 
   private handleError(error: any): Promise<any> {
     console.error('An error occurred', error);
     return Promise.reject(error.message || error);
   };
 
-  constructor(private dataService: DataService, private alert: AlertService) { }
+  constructor(private dataService: DataService, private alert: AlertService, private router: Router) { }
 
   ngOnInit() {
     this.renderExams();

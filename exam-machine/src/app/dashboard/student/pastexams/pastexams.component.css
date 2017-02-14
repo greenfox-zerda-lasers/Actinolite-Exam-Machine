@@ -1,0 +1,13 @@
+section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.noexam {
+  font-size: 14px;
+  line-height: 24px;
+  color: #9a9a9a;
+  text-align: center;
+}

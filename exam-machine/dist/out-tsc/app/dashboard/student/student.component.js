@@ -20,7 +20,7 @@ var StudentComponent = (function () {
         this.router.navigateByUrl('/dashboard/student' + page);
     };
     StudentComponent.prototype.ngOnInit = function () {
-        this.router.navigateByUrl('/dashboard/student/examstart');
+        this.router.navigateByUrl('/dashboard/student/start');
     };
     return StudentComponent;
 }());

@@ -24,9 +24,12 @@ import { CohortsComponent } from './dashboard/mentor/cohorts/cohorts.component';
 import { ClassesComponent } from './dashboard/mentor/classes/classes.component';
 import { StudentsComponent } from './dashboard/mentor/students/students.component';
 import { ExamsComponent } from './dashboard/mentor/exams/exams.component';
-import { ResultsComponent } from './dashboard/mentor/results/results.component';
 import { UnassignedComponent } from './dashboard/mentor/unassigned/unassigned.component';
 import { ExamstartComponent } from './dashboard/student/examstart/examstart.component';
+import { ArchiveComponent } from './dashboard/mentor/archive/archive.component';
+import { ResultComponent } from './dashboard/mentor/result/result.component';
+import { PastexamsComponent } from './dashboard/student/pastexams/pastexams.component';
+import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
 var AppModule = (function () {
     function AppModule() {
     }
@@ -46,10 +49,13 @@ AppModule = __decorate([
             ClassesComponent,
             StudentsComponent,
             ExamsComponent,
-            ResultsComponent,
             UnassignedComponent,
             ExamstartComponent,
-            FilterPipe
+            FilterPipe,
+            ArchiveComponent,
+            ResultComponent,
+            PastexamsComponent,
+            PagenotfoundComponent
         ],
         imports: [
             BrowserModule,
@@ -69,12 +75,15 @@ AppModule = __decorate([
                                 { path: 'classes', component: ClassesComponent },
                                 { path: 'students', component: StudentsComponent },
                                 { path: 'exams', component: ExamsComponent },
-                                { path: 'results', component: ResultsComponent }
+                                { path: 'result', component: ResultComponent },
+                                { path: 'archive', component: ArchiveComponent },
                             ] },
                         { path: 'student', component: StudentComponent, children: [
                                 { path: '', redirectTo: 'student', pathMatch: 'full' },
-                                { path: 'examstart', component: ExamstartComponent }
-                            ] }
+                                { path: 'start', component: ExamstartComponent },
+                                { path: 'previous', component: PastexamsComponent },
+                            ] },
+                        { path: '**', component: PagenotfoundComponent }
                     ],
                 }
             ])

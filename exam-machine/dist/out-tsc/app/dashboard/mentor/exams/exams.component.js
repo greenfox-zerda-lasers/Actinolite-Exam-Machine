@@ -9,12 +9,14 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 import { Component } from '@angular/core';
 import { DataService } from '../../../data.service';
+import { Router } from '@angular/router';
 import { AlertService } from '../../../alert.service';
 import 'rxjs/add/operator/toPromise';
 var ExamsComponent = (function () {
-    function ExamsComponent(dataService, alert) {
+    function ExamsComponent(dataService, alert, router) {
         this.dataService = dataService;
         this.alert = alert;
+        this.router = router;
         this.exams = [];
         this.classes = [];
         this.cohorts = [];
@@ -47,14 +49,6 @@ var ExamsComponent = (function () {
             .catch(this.handleError);
     };
     ;
-    ExamsComponent.prototype.activateExam = function () {
-        var _this = this;
-        this.dataService.setExamStatus(this.current_id, "draft")
-            .toPromise()
-            .then(function (data) { return _this.response = data; })
-            .then(function () { return _this.displayResponse(); })
-            .catch(this.handleError);
-    };
     ExamsComponent.prototype.submitExam = function (name, description, duration, repo, classname) {
         var _this = this;
         this.dataService.addNewExam(name, description, this.examType, repo, duration, classname, localStorage.getItem("userid"))
@@ -90,6 +84,14 @@ var ExamsComponent = (function () {
     ExamsComponent.prototype.setType = function (value) {
         this.examType = value;
     };
+    ;
+    ExamsComponent.prototype.resultId = function (value) {
+        localStorage.setItem("examid", value);
+    };
+    ExamsComponent.prototype.navigate = function (page) {
+        this.router.navigateByUrl('/dashboard/mentor' + page);
+    };
+    ;
     ExamsComponent.prototype.handleError = function (error) {
         console.error('An error occurred', error);
         return Promise.reject(error.message || error);
@@ -118,7 +120,7 @@ ExamsComponent = __decorate([
             AlertService
         ]
     }),
-    __metadata("design:paramtypes", [DataService, AlertService])
+    __metadata("design:paramtypes", [DataService, AlertService, Router])
 ], ExamsComponent);
 export { ExamsComponent };
 //# sourceMappingURL=../../../../../../src/app/dashboard/mentor/exams/exams.component.js.map

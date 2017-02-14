@@ -1,0 +1,65 @@
+section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.exam {
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  padding: 15px;
+  width: 70%;
+  min-width: 350px;
+  margin: 10px 0 10px 0;
+  border: 1px solid #aaaaaa;
+  border-radius: 5px;
+  position: relative;
+}
+
+h2 {
+  margin: 30px 0 15px 0;
+  font-size: 14px;
+  display: inline-block;
+  line-height: 14px;
+  color: #9a9a9a;
+}
+
+.noexam {
+  font-size: 14px;
+  line-height: 24px;
+  color: #9a9a9a;
+  text-align: center;
+}
+
+a {
+  box-sizing: border-box;
+  color: #313131;
+  background-color: #d4d4d4;
+  margin: 30px 0 30px 0;
+  padding: 10px;
+  border-radius: 3px;
+}
+
+.master {
+  align-self: center;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/*p {
+  margin-bottom: 15px;
+}*/
+
+input {
+  width: 100%;
+}
+
+button {
+  position: absolute;
+  right: 15px;
+  bottom: 15px;
+}
