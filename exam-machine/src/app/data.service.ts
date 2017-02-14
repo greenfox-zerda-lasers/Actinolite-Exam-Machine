@@ -119,4 +119,9 @@ export class DataService {
       .map((res) => res.json())
   }
 
+  setSubjectiveScore(examid, userid, value) {
+    return this.http.put(this.currentURL + '/dashboard/result/' + examid + '/' + userid, {score: value}, {headers: this.headers})
+      .map((res) => res.json())
+  }
+
 }

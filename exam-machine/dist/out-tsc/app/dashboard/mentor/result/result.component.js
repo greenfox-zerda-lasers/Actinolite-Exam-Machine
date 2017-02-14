@@ -24,13 +24,51 @@ var ResultComponent = (function () {
         var _this = this;
         this.dataService.getResultsById(this.current_id)
             .toPromise()
-            .then(function (data) { return _this.results = data.results; })
+            .then(function (data) { _this.results = data.results, _this.name = _this.results[0].exam_name, _this.max = _this.results[0].exam_subj_score_max; })
             .then(function () { return console.log(_this.results); });
+    };
+    ;
+    ResultComponent.prototype.calculatePercentage = function (autoscore, subjscore, automax, subjmax) {
+        Math.floor((autoscore + subjscore) / (automax + subjmax) * 100);
+    };
+    ;
+    ResultComponent.prototype.sendScore = function (value) {
+        var _this = this;
+        console.log(this.current_user);
+        if (value > this.max) {
+            this.response = { 'status': 'fail', 'message': 'Score can\'t be higher than the maximum!' };
+            this.alert.displayError(this, this.response.message, this.alert.setStyleTop(this));
+        }
+        else {
+            this.dataService.setSubjectiveScore(this.current_id, this.current_user, value)
+                .toPromise()
+                .then(function (data) { return _this.response = data; })
+                .then(function () { return _this.displayResponse(); })
+                .catch(this.handleError);
+        }
+    };
+    ;
+    ResultComponent.prototype.displayResponse = function () {
+        this.renderResults();
+        console.log('Rendering done, evaluating response');
+        if (this.response.status === 'success') {
+            this.alert.displaySuccess(this, this.response.message, this.alert.setStyleTop(this));
+        }
+        else if (this.response.status === 'fail') {
+            this.alert.displayError(this, this.response.message, this.alert.setStyleTop(this));
+        }
+        else {
+            this.alert.displayError(this, 'An unknown error occured.', this.alert.setStyleTop(this));
+        }
+    };
+    ;
+    ResultComponent.prototype.handleError = function (error) {
+        console.error('An error occurred', error);
+        return Promise.reject(error.message || error);
     };
     ;
     ResultComponent.prototype.ngOnInit = function () {
         this.current_id = localStorage.getItem('examid');
-        console.log(this.current_id);
         this.renderResults();
     };
     return ResultComponent;

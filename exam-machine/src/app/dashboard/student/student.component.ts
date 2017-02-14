@@ -24,7 +24,7 @@ export class StudentComponent implements OnInit {
   constructor(private router: Router, private dataService: DataService) { }
 
   ngOnInit() {
-    this.router.navigateByUrl('/dashboard/student/examstart');
+    this.router.navigateByUrl('/dashboard/student/start');
   }
 
 }

@@ -27,6 +27,7 @@ import { ExamstartComponent } from './dashboard/student/examstart/examstart.comp
 import { ArchiveComponent } from './dashboard/mentor/archive/archive.component';
 import { ResultComponent } from './dashboard/mentor/result/result.component';
 import { PastexamsComponent } from './dashboard/student/pastexams/pastexams.component';
+import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import { PastexamsComponent } from './dashboard/student/pastexams/pastexams.comp
     FilterPipe,
     ArchiveComponent,
     ResultComponent,
-    PastexamsComponent
+    PastexamsComponent,
+    PagenotfoundComponent
   ],
   imports: [
     BrowserModule,
@@ -71,11 +73,11 @@ import { PastexamsComponent } from './dashboard/student/pastexams/pastexams.comp
           ]},
           { path: 'student', component: StudentComponent, children: [
             { path: '', redirectTo: 'student', pathMatch: 'full' },
-            { path: 'examstart', component: ExamstartComponent },
-            { path: 'pastexams', component: PastexamsComponent }
-          ]}
-//        { path: 'unassigned', component: UnassignedComponent },
-          // { path: '**', component: PagenotfoundComponent }
+            { path: 'start', component: ExamstartComponent },
+            { path: 'previous', component: PastexamsComponent },
+            // { path: 'profile', component: ProfileComponent }
+          ]},
+          { path: '**', component: PagenotfoundComponent }
         ],
       }
     ])

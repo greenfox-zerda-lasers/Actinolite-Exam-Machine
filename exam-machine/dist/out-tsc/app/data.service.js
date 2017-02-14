@@ -100,6 +100,10 @@ var DataService = (function () {
         return this.http.get(this.currentURL + '/dashboard/result/' + id, { headers: this.headers })
             .map(function (res) { return res.json(); });
     };
+    DataService.prototype.setSubjectiveScore = function (examid, userid, value) {
+        return this.http.put(this.currentURL + '/dashboard/result/' + examid + '/' + userid, { score: value }, { headers: this.headers })
+            .map(function (res) { return res.json(); });
+    };
     return DataService;
 }());
 DataService = __decorate([

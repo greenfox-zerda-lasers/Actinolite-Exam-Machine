@@ -7,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PastexamsComponent implements OnInit {
 
+  previous = [];
+
   constructor() { }
 
   ngOnInit() {

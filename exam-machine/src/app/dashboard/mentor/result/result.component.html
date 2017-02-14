@@ -3,21 +3,39 @@
 
   <clr-datagrid>
     <clr-dg-column [clrDgField]="'name'">Name</clr-dg-column>
-    <clr-dg-column [clrDgField]="'exam'">Success/Total</clr-dg-column>
-    <clr-dg-column [clrDgField]="'class'">Subjective score</clr-dg-column>
-    <clr-dg-column [clrDgField]="'cohort'">Test score</clr-dg-column>
+    <clr-dg-column [clrDgField]="'class'">Class</clr-dg-column>
+    <clr-dg-column [clrDgField]="'cohort'">Cohort</clr-dg-column>
+    <clr-dg-column>Success/Total</clr-dg-column>
+    <clr-dg-column>Subjective score</clr-dg-column>
+    <clr-dg-column>Test score</clr-dg-column>
     <clr-dg-column>Percent</clr-dg-column>
-    <clr-dg-column>Actions</clr-dg-column>
 
     <clr-dg-row *clrDgItems="let result of results">
       <clr-dg-cell>{{result.user_name}}</clr-dg-cell>
-      <clr-dg-cell>{{result.exam_auto_score}}/{{result.exam_auto_score_max}}</clr-dg-cell>
-      <clr-dg-cell>{{result.exam_subj_score}}/{{result.exam_subj_score_max}}</clr-dg-cell>
-      <clr-dg-cell>{{result.exam_auto_score + result.exam_subj_score}}</clr-dg-cell>
-      <clr-dg-cell>{{(result.exam_auto_score + result.exam_subj_score)/(result.exam_auto_score_max + result.exam_subj_score_max)}}</clr-dg-cell>
-      <clr-dg-cell><button class="btn btn-link modify">Edit</button></clr-dg-cell>
+      <clr-dg-cell>{{result.class_name}}</clr-dg-cell>
+      <clr-dg-cell>{{result.cohort_name}}</clr-dg-cell>
+      <clr-dg-cell class="centered">{{result.exam_auto_score}} / {{result.exam_auto_score_max}}</clr-dg-cell>
+      <clr-dg-cell *ngIf="result.exam_subj_score <= 0" class="centered">
+        <button class="btn btn-sm btn-link" (click)="current_user=result.user_id" (click)="current_name=result.user_name" (click)="set = true">Set score</button>
+        / {{result.exam_subj_score_max}}</clr-dg-cell>
+      <clr-dg-cell *ngIf="result.exam_subj_score" class="centered">{{result.exam_subj_score}} / {{result.exam_subj_score_max}}</clr-dg-cell>
+      <clr-dg-cell>{{result.exam_auto_score + result.exam_subj_score}} / {{result.exam_auto_score_max + result.exam_subj_score_max}}</clr-dg-cell>
+      <clr-dg-cell class="centered" #score>
+        {{(result.exam_auto_score + result.exam_subj_score)/(result.exam_auto_score_max + result.exam_subj_score_max)*100}} %</clr-dg-cell>
     </clr-dg-row>
 
     <clr-dg-footer>{{results.length}} students</clr-dg-footer>
   </clr-datagrid>
+
+  <clr-modal [(clrModalOpen)]="set" [clrModalStaticBackdrop]="true">
+    <h3 class="modal-title">Set subjective score for {{current_name}}</h3>
+    <div class="modal-body">
+        <p>Subjective score can't be higher than {{max}}</p>
+        <input #score type="number" min="1" max="max" />
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-link" type="button" (click)="set = false">Cancel</button>
+        <button class="btn btn-primary" type="button" (click)="sendScore(score.value)" (click)="set = false">Set</button>
+    </div>
+  </clr-modal>
 </section>
