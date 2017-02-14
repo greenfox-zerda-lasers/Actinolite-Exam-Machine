@@ -3,9 +3,9 @@
 <h2>Search, filter, change the class of students.</h2>
 
 <clr-datagrid>
-  <clr-dg-column [clrDgField]="'name'">Student name</clr-dg-column>
-  <clr-dg-column [clrDgField]="'cohort'">Class</clr-dg-column>
-  <clr-dg-column [clrDgField]="'class'">Cohort</clr-dg-column>
+  <clr-dg-column [clrDgField]="'user_name'">Student name</clr-dg-column>
+  <clr-dg-column [clrDgField]="'class_name'">Class</clr-dg-column>
+  <clr-dg-column [clrDgField]="'cohort_name'">Cohort</clr-dg-column>
   <clr-dg-column>Actions</clr-dg-column>
 
   <clr-dg-row *clrDgItems="let student of users">
