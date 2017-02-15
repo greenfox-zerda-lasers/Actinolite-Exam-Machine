@@ -28,6 +28,8 @@ export class ResultComponent implements OnInit {
   current_user;
   current_name;
 
+  percents = [];
+
   response;
   top;
 
@@ -38,9 +40,12 @@ export class ResultComponent implements OnInit {
       .then(() => console.log(this.results))
   };
 
-  calculatePercentage(autoscore, subjscore, automax, subjmax) {
-    Math.floor((autoscore + subjscore)/(automax + subjmax)*100)
-  };
+  // calculatePercentage(arr) {
+  //   for (let item in arr) {
+  //     let percent = Math.floor((item.exam_auto_score + item.exam_subj_score)/(item.exam_subj_score_max + item.exam_auto_score_max)*100)
+  //     this.percents.push(percent);
+  //   }
+  // };
 
   sendScore(value) {
     console.log(this.current_user)

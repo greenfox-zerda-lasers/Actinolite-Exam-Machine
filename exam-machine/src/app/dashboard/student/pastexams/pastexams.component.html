@@ -1,7 +1,33 @@
 <section *ngIf="previous.length > 0">
-  Some previous results.
+  <h1>Results for previous exams and workshops</h1>
+  <clr-datagrid>
+    <clr-dg-column>Exam/workshop name</clr-dg-column>
+    <clr-dg-column>Test score obtained/max</clr-dg-column>
+    <clr-dg-column>Subjective score obtained/max</clr-dg-column>
+    <clr-dg-column>Percent</clr-dg-column>
+    <clr-dg-column>Result</clr-dg-column>
+
+    <clr-dg-row *ngFor="let result of previous">
+      <clr-dg-cell>{{result.exam_name}}</clr-dg-cell>
+      <clr-dg-cell class="centered">{{result.exam_auto_score}} / {{result.exam_auto_score_max}}</clr-dg-cell>
+      <clr-dg-cell class="centered">{{result.exam_subj_score}} / {{result.exam_subj_score_max}}</clr-dg-cell>
+      <clr-dg-cell>{{result.percent}} %</clr-dg-cell>
+      <clr-dg-cell class="centered">
+        <span *ngIf="result.exam_subj_score != ''">
+          <clr-icon *ngIf="result.percent < 60" shape="times" class="is-error"></clr-icon>
+          <clr-icon *ngIf="result.percent > 60 && result.percent < 80" shape="check"></clr-icon>
+          <clr-icon *ngIf="result.percent > 80" shape="check" class="is-success"></clr-icon>
+        </span>
+        <span *ngIf="result.exam_subj_score === ''">
+          Waiting
+        </span>
+      </clr-dg-cell>
+    </clr-dg-row>
+    <clr-dg-footer>{{previous.length}} results</clr-dg-footer>
+  </clr-datagrid>
+
 </section>
 
 <section *ngIf="previous.length <= 0">
-  <p class="noexam">There are no available exam or workshop results yet!</p>
+  <p class="noexam">There are no available results to display yet!</p>
 </section>

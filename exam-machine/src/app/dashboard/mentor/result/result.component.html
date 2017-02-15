@@ -1,6 +1,16 @@
 <section>
   <h1>Results of {{name}}</h1>
 
+  <div id="top-alert-fade" class="alert-container" [ngStyle]="{'top': top}">
+    <div [ngClass]="{'alert-danger': dangerAlert, 'alert-success': successAlert}" class="alert">
+      <div class="alert-item">
+        <span class="alert-text">
+          {{message}}
+        </span>
+      </div>
+    </div>
+  </div>
+
   <clr-datagrid>
     <clr-dg-column [clrDgField]="'name'">Name</clr-dg-column>
     <clr-dg-column [clrDgField]="'class'">Class</clr-dg-column>

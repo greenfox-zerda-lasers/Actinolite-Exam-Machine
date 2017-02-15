@@ -66,6 +66,7 @@ app.post('/user/login', function(req, res) {
   });
 });
 
+// COHORT requests
 
 app.post('/user/signup', function(req, res) {
  pool.connect(function(err, client, done) {
@@ -467,3 +468,4 @@ app.get('/dashboard/examstart/:id', function(req, res) {
 
 module.exports = app;
 app.listen(5000);
+
