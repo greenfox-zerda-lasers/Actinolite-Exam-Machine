@@ -44,6 +44,7 @@ a {
 
 .master {
   align-self: center;
+  margin-bottom: 20px;
 }
 
 a:hover {
@@ -58,8 +59,15 @@ input {
   width: 100%;
 }
 
+.bottom {
+  position: relative;
+  margin-top: 20px;
+  bottom: 15px;
+  min-height: 40px;
+}
+
 button {
   position: absolute;
   right: 15px;
-  bottom: 15px;
+  bottom: 0px;
 }

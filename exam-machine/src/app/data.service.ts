@@ -124,4 +124,19 @@ export class DataService {
       .map((res) => res.json())
   }
 
+  getExamById(userid) {
+    return this.http.get(this.currentURL + '/dashboard/examstart/' + userid, {headers: this.headers})
+      .map((res) => res.json())
+  }
+
+  submitExam(examid, userid, repo) {
+    return this.http.post(this.currentURL + '/dashboard/examstart', {exam_id: examid, user_id: userid, user_repo: repo}, {headers: this.headers})
+      .map((res) => res.json())
+  }
+
+  getPreviousById(userid) { // GET request, instead of argument, send token in header
+    return this.http.post(this.currentURL + '/dashboard/previous', {user_id: userid}, {headers: this.headers})
+      .map((res) => res.json())
+  }
+
 }

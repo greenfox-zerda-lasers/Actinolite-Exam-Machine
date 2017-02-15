@@ -104,6 +104,18 @@ var DataService = (function () {
         return this.http.put(this.currentURL + '/dashboard/result/' + examid + '/' + userid, { score: value }, { headers: this.headers })
             .map(function (res) { return res.json(); });
     };
+    DataService.prototype.getExamById = function (userid) {
+        return this.http.get(this.currentURL + '/dashboard/examstart/' + userid, { headers: this.headers })
+            .map(function (res) { return res.json(); });
+    };
+    DataService.prototype.submitExam = function (examid, userid, repo) {
+        return this.http.post(this.currentURL + '/dashboard/examstart', { exam_id: examid, user_id: userid, user_repo: repo }, { headers: this.headers })
+            .map(function (res) { return res.json(); });
+    };
+    DataService.prototype.getPreviousById = function (userid) {
+        return this.http.post(this.currentURL + '/dashboard/previous', { user_id: userid }, { headers: this.headers })
+            .map(function (res) { return res.json(); });
+    };
     return DataService;
 }());
 DataService = __decorate([

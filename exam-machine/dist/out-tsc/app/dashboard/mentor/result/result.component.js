@@ -19,6 +19,7 @@ var ResultComponent = (function () {
         this.exams = exams;
         this.results = [];
         this.name = 'Exam';
+        this.percents = [];
     }
     ResultComponent.prototype.renderResults = function () {
         var _this = this;
@@ -26,10 +27,6 @@ var ResultComponent = (function () {
             .toPromise()
             .then(function (data) { _this.results = data.results, _this.name = _this.results[0].exam_name, _this.max = _this.results[0].exam_subj_score_max; })
             .then(function () { return console.log(_this.results); });
-    };
-    ;
-    ResultComponent.prototype.calculatePercentage = function (autoscore, subjscore, automax, subjmax) {
-        Math.floor((autoscore + subjscore) / (automax + subjmax) * 100);
     };
     ;
     ResultComponent.prototype.sendScore = function (value) {
