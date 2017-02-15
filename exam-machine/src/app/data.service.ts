@@ -7,6 +7,8 @@ export class DataService {
 
   constructor(private http: Http) { }
 
+  token;
+
   private headers = new Headers({'Content-Type': 'application/json'});
 
   currentURL = 'https://exam-machine-backend.gomix.me';
@@ -14,14 +16,29 @@ export class DataService {
   // HTTP queries
 
   userLogin(email, password) {
+
     return this.http.post(this.currentURL + '/user/login', {user_email: email, user_password: password}, {headers: this.headers})
       .map((res) => res.json());
+
   }
 
+  userToken(token) {
+    var head = new Headers({'Content-Type': 'application/json'});
+    var content = ({
+      'token': token
+      });
+      head.append('token', token);
+    return this.http.post('https://five-pisces.gomix.me/token',content , {headers: head})
+
+  }
   userSignup(name, email, password) {
+
     return this.http.post(this.currentURL + '/user/signup', {user_name: name, user_email: email, user_password: password}, {headers: this.headers})
       .map((res) => res.json())
   }
+
+  getUserName(id) {
+    return this.http.post(this.currentURL + '/self', {user_id: id}, {headers: this.headers})
 
   fetchUsers() {
     return this.http.get(this.currentURL + '/users')
@@ -29,6 +46,7 @@ export class DataService {
   }
 
   fetchClasses() {
+
     return this.http.get(this.currentURL + '/dashboard/classes')
       .map((res) => res.json())
   }
