@@ -31,12 +31,34 @@ var verification = function (req, obj) {
     return result;
   }
 
+  var cohortExist = function (req, obj) {
+      var result = false;
+      obj.forEach(function(item) {
+        if (item.cohort_name === req.cohort_name) {
+          result = true;
+        }
+      });
+      return result;
+    }
+
+  var classExist = function (req, obj) {
+      var result = false;
+      obj.forEach(function(item){
+        if (item.class_name === req.class_name && item.cohort_id == req.cohort_id) {
+          result = true;
+        }
+      });
+      return result;
+    }
+
     return {
       emailExist: emailExist,
       verify: verification,
       emailValid: emailValidator,
       statusSuccess: statusSuccess,
-      statusErr: statusErr
+      statusErr: statusErr,
+      cohortExist: cohortExist,
+      classExist: classExist
     };
 })();
 
