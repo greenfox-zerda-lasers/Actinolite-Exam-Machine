@@ -66,7 +66,7 @@ export class ClassesComponent implements OnInit {
   }
 
   setClassForDelete(id, name) {
-    this.classIdToDelete = name;
+    this.classIdToDelete = id;
     this.classNameToDelete = name;
   }
 
