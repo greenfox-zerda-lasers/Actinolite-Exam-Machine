@@ -30,44 +30,51 @@ var pool = new pg.Pool(config);
 app.post('/user/login', function(req, res) {
    console.log('login request received');
    pool.connect(function(err, client, done) {
-    client.query('SELECT * FROM users', function(err, result) {
-    // console.log(result.rows);
-    // console.log('valami', req.body)
+    client.query('SELECT * FROM users WHERE user_email = ($1)', [req.body.user_email], function(err, result) {
       if (err) {
         console.log(err);
       }
-      else if (ver.verify(req.body, result.rows)){
-        res.json(ver.statusSuccess);
-      } else {
-        res.json(ver.statusErr);
+      else if (result.rows.length > 0) {
+        bcrypt.compare(req.body.user_password, result.rows[0].user_password, function(err, valid) {
+          if (valid === true ) {
+            res.json(ver.setStatusSuccess(result.rows[0]));
+          } else {
+            res.json(ver.statusErr);
+          }
+        });
       }
     });
     done();
   });
 });
 
-app.post('/user/signup', function(req, res) {
+
+pp.post('/user/signup', function(req, res) {
  pool.connect(function(err, client, done) {
    client.query('SELECT * FROM users', function(err, result) {
     if (err) {
       console.log(err);
     }
     if (ver.emailValid(req.body.user_email) === true && ver.emailExist(req.body, result.rows) === false) {
-      client.query('INSERT INTO users (user_email, user_name, user_password) VALUES ($1, $2, $3)', [req.body.user_email, req.body.user_name, req.body.user_password], function(err) {
-        if (err) {
-          console.log(err)
-        }
-        else {
-          client.query('SELECT user_id FROM users WHERE user_name=($1)', [req.body.user_name], function(err, result2) {
-            if (err) {
-              console.log(err);
+      bcrypt.genSalt(saltRounds, function(err, salt) {
+        bcrypt.hash(req.body.user_password, salt, function(err, hash) {
+          client.query('INSERT INTO users (user_email, user_name, user_password) VALUES ($1, $2, $3)', [req.body.user_email, req.body.user_name, hash], function(err) {
+          if (err) {
+            console.log(err)
+          }
+          else {
+            client.query('SELECT user_id FROM users WHERE user_name=($1)', [req.body.user_name], function(err, result2) {
+              if (err) {
+                console.log(err);
+              }
+              else {
+                client.query('INSERT INTO users_classes (user_id) VALUES ($1)', [result2.rows[0].user_id]);
+              }
+            })
+            res.json({result: "success", token: "A-Z", "id": 431});
             }
-            else {
-              client.query('INSERT INTO users_classes (user_id) VALUES ($1)', [result2.rows[0].user_id]);
-            }
-          })
-          res.json({result: "success", token: "A-Z", "id": 431});
-        }
+          });
+        });
       });
     } else {
       res.json({"result": "Fail", "message": "Email address already exists."});

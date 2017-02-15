@@ -3,6 +3,13 @@ var verificationModule = (function () {
 var statusSuccess = {result: "success", token: "", user_id: '', user_type: ''};
 var statusErr  = {result: "fail", message: "Invalid username or password"};
 
+var setStatusSuccess = function (obj) {
+  statusSuccess.user_id = obj.user_id;
+  statusSuccess.user_name = obj.user_name;
+  statusSuccess.user_type = obj.user_type;  // remove when we have token
+  return statusSuccess;
+}
+
 var verification = function (req, obj) {
   var result = false
   obj.forEach(function (item) {
