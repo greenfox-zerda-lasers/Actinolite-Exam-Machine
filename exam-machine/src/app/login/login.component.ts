@@ -27,34 +27,29 @@ export class LoginComponent implements OnInit {
   verifyUser(loginUser: string, loginPass: string) {
     this.dataService.userLogin(loginUser, loginPass)
       .toPromise()
-      .then((data) => this.response = data)
+      .then((data) => { this.response = data, localStorage.setItem('token', data.headers.get('token') })
       .then(() => this.navigate())
       .catch(this.handleError);
   }
-
   navigate() {
     if (this.response.result === 'success') {
-      localStorage.setItem("userid", this.response.user_id);
+//     console.log('Token from header: ', this.response.headers.get('token'))
+//     this.dataService.token = this.response.headers.get('token');
+//      localStorage.setItem("userid", this.response.user_id);
       localStorage.setItem("usertype", this.response.user_type);
-      localStorage.setItem("username", this.response.user_name);
+      localStorage.setItem("username", this.response.user_name); // server send username?
       this.setStyle();
-      this.setSpinner();
-      this.setClassSuccess(this.response.message);
-      console.log('login success');
-      this.authService.login();
-      setTimeout(() => {
-        this.router.navigateByUrl('/dashboard/' + this.response.user_type);
-      }, 1000);
+      // console.log("login.component.ts navigate: ",this.dataService.token);
+//       this.dataService.userToken(this.dataService.token).toPromise();
+      this.router.navigateByUrl('/dashboard');
     } else if (this.response.result === 'fail') {
-      this.setStyle();
-      this.setSpinner();
       this.setClassDanger(this.response.message);
+      this.setStyle();
       console.log(this.response.message);
     } else {
       console.log('login error');
-      this.setStyle();
-      this.setSpinner();
       this.setClassDanger('An unknown error occured.');
+      this.setStyle();
     }
   }
 

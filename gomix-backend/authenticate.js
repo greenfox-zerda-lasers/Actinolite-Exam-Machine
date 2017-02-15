@@ -1,38 +1,46 @@
 'use strict'
 
-var express = require('express');
-var app = express();
+  var pg = require('pg');
+  var pool = new pg.Pool(config);
+  var express = require('express');
+  var app = express();
+  var ver = require('./validators')
 
-var jwt = require('jsonwebtoken');
-var config = require('./config');
-app.set('tokenKey', config.secret);
-
-// var toToken = {
-//     email: "blabla@kutya.com",
-//     password: "pass",
-//     admin: 1
-// }
-// //Sample token for test purposes
-
-function createToken(toToken) {
-    var innertoken = toToken;
-    var token = jwt.sign(toToken, 'tokenKey', {
-        expiresIn: '1440'
-    });
-
-    return token;
-}
+  var jwt = require('jsonwebtoken');
+  var config = require('./config');
+  app.set('tokenKey', config.secret);
 
 
-function decodeToken(token) {
-    jwt.verify(token, 'tokenKey', function(err, decoded) {
-        if (err) {
-            thorw(err);
-        } else {
-            return decoded;
-        }
+  function createToken(toToken, id) {
+
+      var fullToken = {
+        user_email: toToken.user_email,
+        user_password: toToken.user_password,
+        user_id: id.id,
+        user_type: id.user_type
+      }
+      console.log(fullToken);
+      var token = jwt.sign(fullToken, 'tokenKey', {
+          expiresIn: '14400'
+      });
+
+      return token;
+  }
+  function decodeToken(token) {
+    var p = new Promise(function(resolve, reject){
+      jwt.verify(token, 'tokenKey', function(err, decoded) {
+          if (err) {
+              var rejectmessage = {status: "fail", message: "Something."}
+              reject(rejectmessage);
+          } else {
+                 resolve(decoded);
+          }
+       })
     })
-}
+    return p;
+  }
 
-
-// decodeToken(createToken(toToken));
+  module.exports ={
+    createToken: createToken,
+    decodeToken: decodeToken
+  };
