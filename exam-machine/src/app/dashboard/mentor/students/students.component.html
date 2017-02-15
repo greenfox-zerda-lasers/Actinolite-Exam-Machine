@@ -3,9 +3,9 @@
 <h2>Search, filter, change the class of students.</h2>
 
 <clr-datagrid>
-  <clr-dg-column [clrDgField]="'name'">Student name</clr-dg-column>
-  <clr-dg-column [clrDgField]="'cohort'">Class</clr-dg-column>
-  <clr-dg-column [clrDgField]="'class'">Cohort</clr-dg-column>
+  <clr-dg-column [clrDgField]="'user_name'">Student name</clr-dg-column>
+  <clr-dg-column [clrDgField]="'class_name'">Class</clr-dg-column>
+  <clr-dg-column [clrDgField]="'cohort_name'">Cohort</clr-dg-column>
   <clr-dg-column>Actions</clr-dg-column>
 
   <clr-dg-row *clrDgItems="let student of users">
@@ -14,7 +14,7 @@
     <clr-dg-cell>{{student.cohort_name}}</clr-dg-cell>
     <clr-dg-cell class="centered">
       <button class="btn btn-sm btn-link" (click)="opened = true">Edit class</button>
-      <button class="btn btn-sm btn-link" (click)="delete_modal = true" (click)="getStudentIdToDelete(student.user_id)">Delete</button>
+      <button class="btn btn-sm btn-link" (click)="delete_modal = true" (click)="getStudentToDelete(student.user_id, student.user_name)">Delete</button>
     </clr-dg-cell>
   </clr-dg-row>
 
@@ -24,7 +24,7 @@
 <clr-modal [(clrModalOpen)]="delete_modal">
     <div class="modal-body">
       <p>
-        Are you sure you want to delete: {{studentIdToDelete}}
+        Are you sure you want to delete: {{studentNameToDelete}} ?
       </p>
     </div>
     <div class="modal-footer">
@@ -38,21 +38,16 @@
     <div class="modal-body">
       <div>
         <label>Select a cohort</label>
-        <div class="select">
-          <select  #selectCohort (change)="setCohort($event.target.value)">
-            <option *ngFor="let cohort of cohorts">{{cohort.cohort_name}}</option>
-          </select>
-        </div>
+        <select  #selectCohort (change)="setCohort($event.target.value)">
+          <option *ngFor="let cohort of cohorts">{{cohort.cohort_name}}</option>
+        </select>
       </div>
       <div>
         <label>Select a class</label>
-        <div class="select">
-          <select #selectClass>
-            <option *ngFor="let class of classes | FilterPipe:current_cohort">{{class.class_name}}</option>
-          </select>
-        </div>
+        <select #selectClass>
+          <option *ngFor="let class of classes | FilterPipe:current_cohort">{{class.class_name}}</option>
+        </select>
       </div>
-      <input type="text" />
     </div>
     <div class="modal-footer">
       <button class="btn btn-link" type="button" (click)="opened = false">Cancel</button>

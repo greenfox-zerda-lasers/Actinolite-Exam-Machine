@@ -21,6 +21,7 @@ export class StudentsComponent implements OnInit {
   users;
   cohorts = [];
   studentIdToDelete;
+  studentNameToDelete;
   current_cohort;
   classes = [];
 
@@ -30,9 +31,11 @@ export class StudentsComponent implements OnInit {
       .then((data) => this.users = data.students );
   }
 
-  getStudentIdToDelete(value) {
-    this.studentIdToDelete = value;
+  getStudentToDelete(id, name) {
+    this.studentIdToDelete = id;
+    this.studentNameToDelete = name;
   }
+
 
   setCohort(value) {
     for (let cohort of this.cohorts) {
@@ -43,7 +46,6 @@ export class StudentsComponent implements OnInit {
   };
 
   deleteStudent() {
-    console.log('delete request sent');
     this.dataService.deleteStudent(this.studentIdToDelete)
       .toPromise()
       .then(() => this.renderStudents());
@@ -56,7 +58,6 @@ export class StudentsComponent implements OnInit {
     this.dataService.fetchClasses()
       .toPromise()
       .then((data) => {this.classes = data.classes, this.cohorts = data.cohorts, this.current_cohort = this.cohorts[0].cohort_id})
-      .then(() => console.log('classes: ', this.classes, 'Current cohort', this.current_cohort));
   }
 
 }

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from '../../../data.service';
+import { AlertService } from '../../../alert.service';
 import 'rxjs/add/operator/toPromise';
 
 @Component({
@@ -11,26 +12,45 @@ import 'rxjs/add/operator/toPromise';
     './classes.component.css'
   ],
   providers: [
-    DataService
+    DataService,
+    AlertService
   ]
 })
 
 export class ClassesComponent implements OnInit {
 
   classes;
-  classToDelete;
+  classIdToDelete;
   cohorts;
   cohortId;
   classIdToEdit;
   classNameToDelete;
+
+  response;
+  top; //alert show and hide
+
+  errorAlert:boolean = false;
+  successAlert:boolean = false;
+
+  displayResponse() {
+    this.renderClasses();
+    if (this.response.status === 'success') {
+      this.alert.displaySuccess(this, this.response.message, this.alert.setStyleTop(this));
+    } else if (this.response.status === 'fail') {
+      this.alert.displayError(this, this.response.message, this.alert.setStyleTop(this));
+    } else {
+      this.alert.displayError(this, 'An unknown error occured.', this.alert.setStyleTop(this));
+    }
+  };
 
   addNewClass(newClass: HTMLInputElement) {
     if (newClass.value.length > 0) {
         var newclass = newClass.value;
         this.dataService.addNewClass(newclass, this.cohortId)
           .toPromise()
+          .then((data) => this.response = data)
           .then(() => newClass.value = '')
-          .then(() => this.renderClasses());
+          .then(() => this.displayResponse());
     }
   }
 
@@ -45,17 +65,13 @@ export class ClassesComponent implements OnInit {
     console.log(this.cohortId);
   }
 
-  setClassForDelete(name) {
-    this.classToDelete = name;
-  }
-
-
-  setClassNameForDelete(name) {
+  setClassForDelete(id, name) {
+    this.classIdToDelete = id;
     this.classNameToDelete = name;
   }
 
-classNameInInput(element: HTMLInputElement, name) {
-  element.value = name;
+classNameInInput(input: HTMLInputElement, name) {
+  input.value = name;
 }
 
   setClassIdToEdit(value) {
@@ -66,13 +82,15 @@ classNameInInput(element: HTMLInputElement, name) {
     console.log(this.classIdToEdit);
     this.dataService.editClass(name, cohort, this.classIdToEdit)
       .toPromise()
-      .then(() => this.renderClasses());
+      .then((data) => this.response = data)
+      .then(() => this.displayResponse());
   }
 
   deleteClass() {
-    this.dataService.deleteClass(this.classToDelete)
+    this.dataService.deleteClass(this.classIdToDelete)
       .toPromise()
-      .then(() => this.renderClasses());
+      .then((data) => this.response = data)
+      .then(() => this.displayResponse());
   }
 
   renderClasses() {
@@ -82,7 +100,7 @@ classNameInInput(element: HTMLInputElement, name) {
       .then(() => console.log(this.classes, this.cohorts));
   }
 
-  constructor( private dataService: DataService ) { }
+  constructor( private dataService: DataService, private alert: AlertService ) { }
 
   ngOnInit() {
     this.renderClasses();
