@@ -31,12 +31,11 @@ var LoginComponent = (function () {
     };
     LoginComponent.prototype.navigate = function () {
         console.log('Token from header: ', this.response.headers.get('token'));
-        console.log('Response status: ', this.response.json());
-        this.dataService.token = this.response.token;
+        this.dataService.token = this.response.headers.get('token');
         if (this.response.json().result === 'success') {
             this.setClassSuccess(this.response.json().message);
             this.setStyle();
-            console.log("login.component.ts navigate: ", this.dataService.token, "reapon: ", this.response.json());
+            console.log("reapon: ", this.response.json().token);
             this.dataService.userToken(this.dataService.token).toPromise();
             this.router.navigateByUrl('/dashboard');
         }

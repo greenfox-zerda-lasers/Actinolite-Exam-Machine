@@ -18,7 +18,12 @@ var DataService = (function () {
         return this.http.post('https://five-pisces.gomix.me/user/login', { user_email: email, user_password: password }, { headers: this.headers });
     };
     DataService.prototype.userToken = function (token) {
-        return this.http.post('https://five-pisces.gomix.me/token', { headers: token });
+        var head = new Headers({ 'Content-Type': 'application/json' });
+        var content = ({
+            'token': token
+        });
+        head.append('token', token);
+        return this.http.post('https://five-pisces.gomix.me/token', content, { headers: head });
     };
     DataService.prototype.userSignup = function (name, email, password) {
         return this.http.post('https://five-pisces.gomix.me/user/signup', { user_name: name, user_email: email, user_password: password }, { headers: this.headers })

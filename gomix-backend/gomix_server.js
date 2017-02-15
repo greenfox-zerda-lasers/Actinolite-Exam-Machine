@@ -5,24 +5,12 @@ var bodyParser = require('body-parser');
 var app = express();
 var pg = require('pg');
 var cors = require('cors');
-// var mysql = require('mysql');
-//var pgp = require('pg-promise')();
 var ver = require('./validators')
 var auth = require('./authenticate')
 app.use(bodyParser.json());
 app.use(cors());
 
-// postgres experimental
 
-// var allowCrossDomain = function(req, res, next) {
-//     res.header('Access-Control-Allow-Origin', '*' );
-//     res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
-//     res.header('Access-Control-Allow-Headers', 'Content-Type');
-
-//     next();
-// }
-
-// app.use(allowCrossDomain);
 
 app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
@@ -44,27 +32,23 @@ var pool = new pg.Pool(config);
 
 
 app.post('/user/login', function(req, res) {
-   console.log('login request received');
+   // console.log('login request received');
    pool.connect(function(err, client, done) {
     client.query('SELECT * FROM users', function(err, result) {
-
     if (err) {
-
+        throw err
     }
       var resul = ver.verify(req.body, result.rows);
     if (resul.result){
-
        var tokenName = "token";
        var token = auth.createToken(req.body,resul);
        ver.statusSuccess.token = token;
-
-
+            res.body = resul;
+        console.log('resul:',res.body);
             res.setHeader('token',token )
-
-        console.log("response from server setHe; ",res.socket._httpMessage._headers.token);
+        // console.log("response from server setHe; ",res.socket._httpMessage._headers.token);
 
         res.json(ver.statusSuccess);
-        console.log('helloka')
 
     } else {
       res.json(ver.statusErr);
@@ -75,29 +59,12 @@ app.post('/user/login', function(req, res) {
 });
 
 app.post('/token', function(req, res) {
-  console.log("req.body.headers: ",req.body.headers);
-    auth.decodeToken(req.body.headers).then(function(decoded){console.log("decoded token in server.js: ",decoded)});
-    console.log("decoded token in server.js: ")
+  // console.log("req.headers: ",req.headers);
+    auth.decodeToken(req.headers.token).then(function(decoded){});
     var token = req.body.token || req.query.token || req.headers['x-access-token'];
-    // pool.query('SELECT * FROM users WHERE user_email= ?', [decoded.user_email], function(err, rows) {
-//         if (err) {
-//             throw (err);
-//             console.log(rows);
-//         }
-//               console.log("Here it fails...", rows);
 
-        // jwt.verify(token, app.get('superSecret'), function(err, decoded) {
-        //     if (err) {
-        //         return console.log('Token expired');
-        //         // thorw (err);
-        //     } else {
-        //         req.decoded = decoded;
-        //         console.log(req.decoded);
-        //         res.send();
-        //     }
-        // });
     })
-// })
+
 
 app.post('/user/signup', function(req, res) {
  pool.connect(function(err, client, done) {
@@ -116,51 +83,5 @@ app.post('/user/signup', function(req, res) {
   });
 });
 
-// app.use(function(req, res, next) {
-//   res.header("Access-Control-Allow-Origin", "*");
-//   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-//   next();
-// });
-
- // var con = mysql.createConnection({
- // host: 'sql11.freesqldatabase.com',
- // database: 'sql11155674',
- // user: "'sql11155674'",
- // password: 'EGts2DcSSA'
- // });
-
-// app.post('/user/login', function(req, res) {
-//   var users = con.query('SELECT * FROM users;', function(err, rows) {
-//     if (err) {
-//       console.log(err);
-//     }
-//     if (ver.verify(req.body, rows)) {
-//       console.log(ver.statusSuccess);
-//       res.json(ver.statusSuccess);
-//     } else{
-//       console.log(ver.statusErr);
-//       res.json(ver.statusErr);
-//       }
-//   });
-// });
-
-// app.post('/user/signup', function(req, res) {
-//   var users = con.query('SELECT * FROM users;', function(err, rows) {
-//     if (err) {
-//       console.log(err);
-//     }
-//     if (ver.valami(req.body.email) === true && ver.emailExist(req.body, rows) === false) {
-//         con.query('INSERT INTO users (email, name, password) VALUES ("' + req.body.email + '","' + req.body.name + '","' + req.body.password + '");');
-//         res.json({result: "success", token: "A-Z", "id": 431});
-//     } else {
-//       res.json({"result": "Fail", "message": "Email address already exists."});
-//     }
-//   });
-// });
-
-// listen for requests :)
-// var listener = app.listen(process.env.PORT, function () {
-//   console.log('Your app is listening on port ' + listener.address().port);
-// });
 module.exports = app;
 app.listen(5000);

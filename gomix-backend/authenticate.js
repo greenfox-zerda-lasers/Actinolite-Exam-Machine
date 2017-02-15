@@ -1,13 +1,10 @@
 'use strict'
-// var toToken = {
-//   email: "blabla@kutya.com",
-//   password: "pass",
-//   admin: 1
-// }
-// //Sample token for test purposes
 
+  var pg = require('pg');
+  var pool = new pg.Pool(config);
   var express = require('express');
   var app = express();
+  var ver = require('./validators')
 
   var jwt = require('jsonwebtoken');
   var config = require('./config');
@@ -15,14 +12,14 @@
 
 
   function createToken(toToken, id) {
-    console.log('tokenrequest is running');
 
       var fullToken = {
         user_email: toToken.user_email,
         user_password: toToken.user_password,
-        user_id: id.id
+        user_id: id.id,
+        user_type: id.user_type
       }
-
+      console.log(fullToken);
       var token = jwt.sign(fullToken, 'tokenKey', {
           expiresIn: '14400'
       });
@@ -31,16 +28,14 @@
   }
   function decodeToken(token) {
     var p = new Promise(function(resolve, reject){
-
       jwt.verify(token, 'tokenKey', function(err, decoded) {
-
           if (err) {
-              reject(err);
+              var rejectmessage = {status: "fail", message: "Something."}
+              reject(rejectmessage);
           } else {
-          console.log('decoded token in authenticate.js: ', decoded); //has to be removed later
-              resolve(decoded);
+                 resolve(decoded);
           }
-      })
+       })
     })
     return p;
   }

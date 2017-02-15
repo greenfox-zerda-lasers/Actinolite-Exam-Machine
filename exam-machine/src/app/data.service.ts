@@ -19,7 +19,12 @@ export class DataService {
   }
 
   userToken(token) {
-    return this.http.post('https://five-pisces.gomix.me/token', {headers: token})
+    var head = new Headers({'Content-Type': 'application/json'});
+    var content = ({
+      'token': token
+      });
+      head.append('token', token);
+    return this.http.post('https://five-pisces.gomix.me/token',content , {headers: head})
 
   }
   userSignup(name, email, password) {
