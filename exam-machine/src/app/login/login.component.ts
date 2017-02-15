@@ -27,22 +27,20 @@ export class LoginComponent implements OnInit {
   verifyUser(loginUser: string, loginPass: string) {
     this.dataService.userLogin(loginUser, loginPass)
       .toPromise()
-      .then((data) => this.response = data)
+      .then((data) => { this.response = data, localStorage.setItem('token', data.headers.get('token') })
       .then(() => this.navigate())
       .catch(this.handleError);
   }
   navigate() {
-    console.log('Token from header: ', this.response.headers.get('token'))
-    // console.log('Response status: ', this.response.json())
-    this.dataService.token = this.response.headers.get('token');
-    // this.response.map((res) => res.json());
-    if (this.response.json().result === 'success') {
-      this.setClassSuccess(this.response.json().message);
+    if (this.response.result === 'success') {
+//     console.log('Token from header: ', this.response.headers.get('token'))
+//     this.dataService.token = this.response.headers.get('token');
+//      localStorage.setItem("userid", this.response.user_id);
+      localStorage.setItem("usertype", this.response.user_type);
+      localStorage.setItem("username", this.response.user_name); // server send username?
       this.setStyle();
       // console.log("login.component.ts navigate: ",this.dataService.token);
-      console.log("reapon: ",this.response.json().token);
-
-      this.dataService.userToken(this.dataService.token).toPromise();
+//       this.dataService.userToken(this.dataService.token).toPromise();
       this.router.navigateByUrl('/dashboard');
     } else if (this.response.result === 'fail') {
       this.setClassDanger(this.response.message);
@@ -60,7 +58,7 @@ export class LoginComponent implements OnInit {
   }
 
   setSpinner() {
-      this.loadingSpinner = '';
+    this.loadingSpinner = '';
   }
 
   setStyle() {

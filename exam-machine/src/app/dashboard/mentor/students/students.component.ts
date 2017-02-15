@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import {DataService } from '../../../data.service';
+import { AlertService } from '../../../alert.service';
+import 'rxjs/add/operator/toPromise';
 
 @Component({
   selector: 'app-students',
@@ -7,77 +10,53 @@ import { Component, OnInit } from '@angular/core';
     '../../dashboard.component.css',
     '../mentor.component.css',
     './students.component.css'
+  ],
+  providers: [
+    DataService,
+    AlertService
   ]
 })
 export class StudentsComponent implements OnInit {
 
-  users = [
-    {
-      id: '1',
-      name: 'Joey Jo',
-      cohort: 'Zerda',
-      class: 'Lasers'
-    },
-    {
-      id: '2',
-      name: 'Angelika Kovacs',
-      cohort: 'Zerda',
-      class: 'Lasers'
-    },
-    {
-      id: '4',
-      name: 'Gomix Bela',
-      cohort: 'Zerda',
-      class: 'Lasers'
-    },
-    {
-      id: '26',
-      name: 'Random Student',
-      cohort: 'Zerda',
-      class: 'Lasers'
-    },
-    {
-      id: '28',
-      name: 'Green Fox',
-      cohort: 'Zerda',
-      class: 'Lasers'
-    },
-    {
-      id: '30',
-      name: 'Kis Vuk',
-      cohort: 'Zerda',
-      class: 'Lasers'
-    },
-    {
-      id: '31',
-      name: 'Typescript Addict',
-      cohort: 'Zerda',
-      class: 'Lasers'
-    },
-    {
-      id: '33',
-      name: 'Lazy Designer',
-      cohort: 'Zerda',
-      class: 'Lasers'
+  users;
+  cohorts = [];
+  studentIdToDelete;
+  current_cohort;
+  classes = [];
+
+  renderStudents() {
+    this.dataService.fetchStudents()
+      .toPromise()
+      .then((data) => this.users = data.students );
+  }
+
+  getStudentIdToDelete(value) {
+    this.studentIdToDelete = value;
+  }
+
+  setCohort(value) {
+    for (let cohort of this.cohorts) {
+      if (cohort.cohort_name === value) {
+        this.current_cohort = cohort.cohort_id;
+      }
     }
-  ];
+  };
 
-  currentUser;
-  username;
-
-  openModal() {
-
+  deleteStudent() {
+    console.log('delete request sent');
+    this.dataService.deleteStudent(this.studentIdToDelete)
+      .toPromise()
+      .then(() => this.renderStudents());
   }
 
-  changeClass() {
-
-    // offers to change the class of the current student
-    // sends PUT request to the USERS_CLASSES datatable to update student class
-  }
-
-  constructor() { }
+  constructor(private dataService: DataService, private alert: AlertService) { }
 
   ngOnInit() {
+    this.renderStudents();
+    this.dataService.fetchClasses()
+      .toPromise()
+      .then((data) => {this.classes = data.classes, this.cohorts = data.cohorts, this.current_cohort = this.cohorts[0].cohort_id})
+      .then(() => console.log('classes: ', this.classes, 'Current cohort', this.current_cohort));
   }
 
 }

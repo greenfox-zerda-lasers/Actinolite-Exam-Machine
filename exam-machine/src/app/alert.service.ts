@@ -3,29 +3,35 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class AlertService {
 
-  message: '';
-  showAlert:boolean = false;
-  dangerAlert:boolean = false;
+  errorAlert:boolean = false;
   successAlert:boolean = false;
 
-  toggleAlert() {
-    if (this.showAlert) {
-      this.showAlert = false;
-    } else {
-      this.showAlert = true;
-    }
+  setStyleTop(that) {
+    that.top = '50px';
+    setTimeout(() => {
+      that.top = '-50px';
+    }, 3000);
   }
 
-  setClassDanger(message) {
-    this.message = message;
-    this.dangerAlert = true;
-    this.successAlert = false;
+  setStyleHeight(that) {
+    that.height = 'auto';
+    setTimeout(() => {
+      that.height = '0px';
+    }, 3000);
   }
 
-  setClassSuccess(message) {
-    this.message = message;
-    this.successAlert = true;
-    this.dangerAlert = false;
+  displayError(that, message, func) {
+    that.message = message;
+    that.errorAlert = true;
+    that.successAlert = false;
+    func;
+  }
+
+  displaySuccess(that, message, func) {
+    that.message = message;
+    that.successAlert = true;
+    that.errorAlert = false;
+    func;
   }
 
   constructor() { }

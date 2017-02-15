@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { DataService } from '../../../data.service';
+import 'rxjs/add/operator/toPromise';
 
 @Component({
   selector: 'app-cohorts',
@@ -7,35 +9,63 @@ import { Component, OnInit } from '@angular/core';
     '../../dashboard.component.css',
     '../mentor.component.css',
     './cohorts.component.css'
+  ],
+  providers: [
+    DataService
   ]
 })
 
 export class CohortsComponent implements OnInit {
 
-  cohorts = [
-    {
-      name: "Zerda"
-    },
-    {
-      name: "Vellox"
-    },
-    {
-      name: "Boti"
-    }
-  ];
+  cohorts;
+  cohortToDelete;
+  cohortNameToDelete;
 
   addNewCohort(newCohort: HTMLInputElement) {
     if (newCohort.value.length > 0) {
-        var newcohort = {name: newCohort.value};
-        this.cohorts.push(newcohort);
+        var newcohort = newCohort.value;
+        this.dataService.addNewCohort(newcohort)
+          .toPromise()
+          .then(() => newCohort.value = '')
+          .then(() => this.renderCohorts());
     }
-    newCohort.value = "";
   }
 
+  renderCohorts() {
+    this.dataService.fetchCohorts()
+      .toPromise()
+      .then((data) => this.cohorts = data.cohorts)
+      .then(() => console.log(this.cohorts));
+  }
 
-  constructor() { }
+  setCohortForDelete(name) {
+    this.cohortToDelete = name;
+  }
+
+  setCohortNameForDelete(name) {
+    this.cohortNameToDelete = name;
+  }
+
+  setCohortNameInInput(element: HTMLInputElement, name) {
+    element.value = name;
+  }
+
+  editCohort(alma: HTMLInputElement) {
+    this.dataService.editCohort(alma.value, this.cohortToDelete)
+      .toPromise()
+      .then(() => this.renderCohorts());
+  }
+
+  deleteCohort() {
+    this.dataService.deleteCohort(this.cohortToDelete)
+      .toPromise()
+      .then(() => this.renderCohorts());
+  }
+
+  constructor( private dataService: DataService ) { }
 
   ngOnInit() {
+    this.renderCohorts();
   }
 
 }

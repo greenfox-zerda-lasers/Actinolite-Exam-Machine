@@ -1,12 +1,35 @@
-<section>
-  <h1>Javascript exam</h1>
-  <p class="description">
-    Please paste your Github repo you've forked.
-  </p>
-  <div class="repo">
-    <input #repoURL type = "text" placeholder="https://github.com/username/examrepo.git"/>
+<section *ngIf="exams">
+  <div class="exam" *ngFor="let exam of exams">
+    <h1>{{exam.exam_name}}</h1>
+    <p class="description">
+      {{exam.exam_description}}
+    </p>
+    <p class="master">
+      <a href="{{exam.master_repo}}">{{exam.master_repo}}</a>
+    </p>
+    <p>Maximum test score: {{exam.max_auto}}<br />
+    Maximum subjective score: {{exam.max_subj}}</p>
+    <div class="studentrepo">
+      <label>Please paste the link to your own repository here, then click submit!</label>
+      <input #repoURL type = "text" placeholder="https://github.com/username/examrepo.git"/>
+    </div>
+    <!-- <hr /> -->
+    <h2>Time remaining: {{exam.exam_duration}} minutes</h2>
+    <button class="btn btn-primary" (click)="student_repo=repoURL.value" (click)="open = true">Submit</button>
   </div>
-  <!-- <hr /> -->
-  <h2>Time remaining:</h2><span>90:00</span>
-  <button class="btn btn-primary">Submit</button>
+
+  <clr-modal [(clrModalOpen)]="open" [clrModalStaticBackdrop]="true">
+    <h3 class="modal-title">Are you sure you want to submit your repository?</h3>
+    <div class="modal-body">
+        <p>Be aware, that any changes after the submission time will be disregarded.</p>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-link" type="button" (click)="open = false">Cancel</button>
+        <button class="btn btn-primary" type="button" (click)="sendScore(score.value)" (click)="open = false">Submit</button>
+    </div>
+  </clr-modal>
+</section>
+
+<section *ngIf="exams.length <= 0">
+  <p class="noexam">There are no available exams or workshops right now!<br /> Please check back later.</p>
 </section>

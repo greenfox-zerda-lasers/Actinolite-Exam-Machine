@@ -15,7 +15,7 @@ import { DataService } from '../../data.service';
   ]
 })
 export class StudentComponent implements OnInit {
-  name = 'Student';
+  name = localStorage.getItem("username");
 
   navigate(page) {
     this.router.navigateByUrl('/dashboard/student' + page);
@@ -24,10 +24,7 @@ export class StudentComponent implements OnInit {
   constructor(private router: Router, private dataService: DataService) { }
 
   ngOnInit() {
-    this.router.navigateByUrl('/dashboard/student/examstart');
-    this.dataService.getUserName(localStorage.getItem("user"))
-    .toPromise()
-    .then((data) => this.name = data.user[0].user_name)
+    this.router.navigateByUrl('/dashboard/student/start');
   }
 
 }

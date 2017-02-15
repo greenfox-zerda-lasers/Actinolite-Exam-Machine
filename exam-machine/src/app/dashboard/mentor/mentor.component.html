@@ -4,9 +4,8 @@
   <a (click)="navigate('/classes')" class="nav-link">Classes</a>
   <a (click)="navigate('/students')" class="nav-link">Students</a>
   <a (click)="navigate('/exams')" class="nav-link">Exams</a>
-  <a (click)="navigate('/results')" class="nav-link">Results</a>
 </nav>
 <article>
-  <app-unassigned></app-unassigned>
+  <app-unassigned #assign *ngIf="unassignedParent.length > 0" (update)="reRender($event)"></app-unassigned>
   <router-outlet></router-outlet>
 </article>

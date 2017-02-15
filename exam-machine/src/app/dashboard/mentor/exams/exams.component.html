@@ -1,60 +1,145 @@
 <section>
-  <h1>Exams</h1>
+  <h1>Exams and workshops</h1>
 
-  <button class="btn btn-primary add" (click)="opened = true">Create new exam</button>
+  <button class="btn btn-info-outline archive" (click)="navigate('/archive')">View Archive</button>
+  <button class="btn btn-primary add" (click)="opened = true">Create new</button>
+
+  <div id="top-alert-fade" class="alert-container" [ngStyle]="{'top': top}">
+    <div [ngClass]="{'alert-danger': dangerAlert, 'alert-success': successAlert}" class="alert">
+      <div class="alert-item">
+        <span class="alert-text">
+          {{message}}
+        </span>
+      </div>
+    </div>
+  </div>
 
   <clr-datagrid>
     <clr-dg-column [clrDgField]="'name'">Name</clr-dg-column>
     <clr-dg-column [clrDgField]="'mentor'">Created by</clr-dg-column>
-    <clr-dg-column [clrDgField]="'cohort'">Class</clr-dg-column>
-    <clr-dg-column [clrDgField]="'class'">Status</clr-dg-column>
+    <clr-dg-column [clrDgField]="'class'">Class</clr-dg-column>
+    <clr-dg-column [clrDgField]="'type'">Type</clr-dg-column>
+    <clr-dg-column [clrDgField]="'status'">Status</clr-dg-column>
     <clr-dg-column>Action</clr-dg-column>
 
     <clr-dg-row *clrDgItems="let exam of exams">
       <clr-dg-cell>{{exam.exam_name}}</clr-dg-cell>
       <clr-dg-cell>{{exam.user_name}}</clr-dg-cell>
       <clr-dg-cell>{{exam.class_name}}</clr-dg-cell>
+      <clr-dg-cell>{{exam.exam_type}}</clr-dg-cell>
       <clr-dg-cell>{{exam.exam_status}}</clr-dg-cell>
       <clr-dg-cell class="centered">
-        <button class="btn btn-sm btn-link">Edit status</button>
-        <button class="btn btn-sm btn-link">Delete</button>
+        <button *ngIf="exam.exam_status == 'draft'" class="btn btn-sm btn-primary" (click)="live = true" (click)="current_id = exam.exam_id">Go live!</button>
+        <button *ngIf="exam.exam_status == 'returned'" class="btn btn-sm btn-info-outline results" (click)="resultId(exam.exam_id)" (click)="navigate('/result')">Results</button>
+        <button *ngIf="exam.exam_status == 'live'" class="btn btn-sm btn-warning results" (click)="current_id = exam.exam_id">Run</button>
+        <button *ngIf="exam.exam_status == 'running'" class="btn btn-sm btn-outline disabled">Wait</button>
+        <button *ngIf="exam.exam_status != 'running' && exam.exam_status != 'archived'" class="btn btn-sm btn-link" (click)="current_id = exam.exam_id" (click)="archive = true">Archive</button>
+        <button *ngIf="exam.exam_status == 'archived'" class="btn btn-sm btn-warning-outline" (click)="current_id = exam.exam_id" (click)="activate = true">Reactivate</button>
       </clr-dg-cell>
     </clr-dg-row>
 
-    <clr-dg-footer>{{exams_length}} exams</clr-dg-footer>
+    <clr-dg-footer>{{exams.length}} exams</clr-dg-footer>
   </clr-datagrid>
+
   <clr-modal [(clrModalOpen)]="opened" [clrModalStaticBackdrop]="true">
+    <h3 class="modal-title">Create a new exam or workshop</h3>
     <div class="modal-body">
-      <label>Cohorts</label>
-      <div class="select">
-        <select id="exampleSelect1">
-          <option *ngFor="let cohort of cohorts">{{cohort.cohort_name}}</option>
+      <div>
+        <label>Name</label>
+        <input #examName class="submission" type="text" placeholder="eg. Java exam"/>
+      </div>
+      <div>
+        <label>Type</label>
+        <select #examType (change)="setType($event.target.value)">
+          <option>exam</option>
+          <option>workshop</option>
         </select>
       </div>
-      <label>Classes</label>
-      <div class="select">
-        <select id="exampleSelect1">
-          <option *ngFor="let exam of exams">{{exam.class}}</option>
-        </select>
+      <div>
+        <label>Description</label>
+        <a href="..." role="tooltip" aria-haspopup="true" class="tooltip tooltip-md tooltip-bottom-right">
+          <clr-icon shape="info-circle"></clr-icon>
+          <span class="tooltip-content">Max.160 characters allowed!</span>
+        </a>
+        <textarea #examDesc rows="3"></textarea>
       </div>
-      <div class= "form-group">
-        <label for="class-name">Class name</label>
-        <input type="text" id="class-name" size="25"><br />
-        <label for="description">Description</label>
-        <textarea id="description" rows="4"></textarea>
-        <label for="github-url">Github URL</label>
-        <input type="url" id="github-url" size="25"><br />
-        <label for=duration>Duration</label>
+      <div>
+        <label>Select a cohort</label>
         <div class="select">
-          <select id="duration">
-            <option></option>
+          <select  #selectCohort (change)="setCohort($event.target.value)">
+            <option *ngFor="let cohort of cohorts">{{cohort.cohort_name}}</option>
           </select>
         </div>
       </div>
+      <div>
+        <label>Select a class</label>
+        <div class="select">
+          <select #selectClass>
+            <option *ngFor="let class of classes | FilterPipe:current_cohort">{{class.class_name}}</option>
+          </select>
+        </div>
+      </div>
+      <div>
+        <label>GitHub URL:</label>
+        <input #masterRepo class="submission" type="text" placeholder="http://github.com/..." />
+      </div>
+      <div>
+        <label>Duration</label>
+        <select #examDuration>
+          <option>90</option>
+          <option>105</option>
+          <option>120</option>
+          <option>135</option>
+          <option>150</option>
+          <option>165</option>
+          <option>180</option>
+          <option>195</option>
+          <option>210</option>
+          <option>225</option>
+          <option>240</option>
+          <option>300</option>
+          <option>360</option>
+        </select>
+        <span>minutes</span>
+      </div>
     </div>
     <div class="modal-footer">
-      <button type="button" class="btn btn-outline" (click)="opened = false">Cancel</button>
-      <button type="button" class="btn btn-primary" (click)="opened = false">Create exam</button>
+      <button type="button" class="btn btn-warning-outline" (click)="opened = false">Cancel</button>
+      <button type="button" class="btn btn-primary" (click)="opened = false" (click)="submitExam(examName.value, examDesc.value, examDuration.value, masterRepo.value, selectClass.value)">Create exam</button>
     </div>
   </clr-modal>
+
+  <clr-modal [(clrModalOpen)]="live" [clrModalStaticBackdrop]="true">
+    <h3 class="modal-title">Set this exam to live?</h3>
+    <div class="modal-body">
+        <p>By clicking "OK", you will make this exam visible to every student that is assigned to the class of this exam.</p>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-link" type="button" (click)="live = false">Cancel</button>
+        <button class="btn btn-primary" type="button" (click)="setLive()" (click)="live = false">Ok</button>
+    </div>
+  </clr-modal>
+
+  <clr-modal [(clrModalOpen)]="archive" [clrModalStaticBackdrop]="true">
+    <h3 class="modal-title">Archive this exam/workshop?</h3>
+    <div class="modal-body">
+        <p>By clicking "OK", this exam/workshop will no longer be visible in this table. You can access it through the archive. You will be able to restore its status to draft.</p>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-link" type="button" (click)="archive = false">Cancel</button>
+        <button class="btn btn-primary" type="button" (click)="archiveExam()" (click)="archive = false">Ok</button>
+    </div>
+  </clr-modal>
+
+  <clr-modal [(clrModalOpen)]="activate" [clrModalStaticBackdrop]="true">
+    <h3 class="modal-title">Activate this exam/workshop?</h3>
+    <div class="modal-body">
+        <p>This exam/workshop will go back to being a draft. You cannot edit any other properties of it after reactivating.</p>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-link" type="button" (click)="activate = false">Cancel</button>
+        <button class="btn btn-primary" type="button" (click)="activateExam()" (click)="activate = false">Ok</button>
+    </div>
+  </clr-modal>
+
 </section>

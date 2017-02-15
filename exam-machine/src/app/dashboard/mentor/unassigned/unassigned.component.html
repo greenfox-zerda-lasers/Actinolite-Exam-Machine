@@ -1,16 +1,54 @@
-<h1>Unassigned students</h1>
-<h2>Recently registered students, who are not assigned to any class yet. Let's fix that!</h2>
+<section>
+  <div id="top-alert-fade" class="alert-container" [ngStyle]="{'top': top}">
+    <div [ngClass]="{'alert-danger': dangerAlert, 'alert-success': successAlert}" class="alert">
+      <div class="alert-item">
+        <span class="alert-text">
+          {{message}}
+        </span>
+      </div>
+    </div>
+  </div>
 
-<clr-datagrid>
+  <h1>Unassigned students</h1>
+  <h2>Recently registered students, who are not assigned to any class yet. Let's fix that!</h2>
+
+  <clr-datagrid>
     <clr-dg-column [clrDgField]="'name'">Student name</clr-dg-column>
     <clr-dg-column>Actions</clr-dg-column>
 
-    <clr-dg-row *clrDgItems="let user of unassigned">
-        <clr-dg-cell>{{user.name}}</clr-dg-cell>
-        <clr-dg-cell class="centered">
-          <button class="btn btn-sm btn-link" (click)="changeClass()">Set class</button>
-        </clr-dg-cell>
+    <clr-dg-row *clrDgItems="let student of unassigned">
+      <clr-dg-cell>{{student.user_name}}</clr-dg-cell>
+      <clr-dg-cell class="centered">
+        <button class="btn btn-sm btn-link" (click)="opened = true" (click)="setStudent(student.user_id)">Set class</button>
+      </clr-dg-cell>
     </clr-dg-row>
 
     <clr-dg-footer>{{unassigned.length}} students</clr-dg-footer>
-</clr-datagrid>
+  </clr-datagrid>
+
+  <clr-modal [(clrModalOpen)]="opened" [clrModalStaticBackdrop]="true">
+    <h3 class="modal-title">Select a class for this student</h3>
+    <div class="modal-body">
+      <div>
+        <label>Select a cohort</label>
+        <div class="select">
+          <select  #selectCohort (change)="setCohort($event.target.value)">
+            <option *ngFor="let cohort of cohorts">{{cohort.cohort_name}}</option>
+          </select>
+        </div>
+      </div>
+      <div>
+        <label>Select a class</label>
+        <div class="select">
+          <select #selectClass>
+            <option *ngFor="let class of classes | FilterPipe:current_cohort">{{class.class_name}}</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-link" type="button" (click)="opened = false">Cancel</button>
+      <button class="btn btn-primary" type="button" (click)="setClass(selectClass.value)" (click)="opened = false">Ok</button>
+    </div>
+  </clr-modal>
+</section>
