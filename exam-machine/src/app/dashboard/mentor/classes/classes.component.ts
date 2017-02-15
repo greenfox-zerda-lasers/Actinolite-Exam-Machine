@@ -20,7 +20,7 @@ import 'rxjs/add/operator/toPromise';
 export class ClassesComponent implements OnInit {
 
   classes;
-  classToDelete;
+  classIdToDelete;
   cohorts;
   cohortId;
   classIdToEdit;
@@ -48,6 +48,7 @@ export class ClassesComponent implements OnInit {
         var newclass = newClass.value;
         this.dataService.addNewClass(newclass, this.cohortId)
           .toPromise()
+          .then((data) => this.response = data)
           .then(() => newClass.value = '')
           .then(() => this.displayResponse());
     }
@@ -64,17 +65,13 @@ export class ClassesComponent implements OnInit {
     console.log(this.cohortId);
   }
 
-  setClassForDelete(name) {
-    this.classToDelete = name;
-  }
-
-
-  setClassNameForDelete(name) {
+  setClassForDelete(id, name) {
+    this.classIdToDelete = name;
     this.classNameToDelete = name;
   }
 
-classNameInInput(element: HTMLInputElement, name) {
-  element.value = name;
+classNameInInput(input: HTMLInputElement, name) {
+  input.value = name;
 }
 
   setClassIdToEdit(value) {
@@ -90,8 +87,9 @@ classNameInInput(element: HTMLInputElement, name) {
   }
 
   deleteClass() {
-    this.dataService.deleteClass(this.classToDelete)
+    this.dataService.deleteClass(this.classIdToDelete)
       .toPromise()
+      .then((data) => this.response = data)
       .then(() => this.displayResponse());
   }
 

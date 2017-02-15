@@ -21,7 +21,7 @@
         <clr-dg-cell>{{cohort.cohort_name}}</clr-dg-cell>
         <clr-dg-cell class="centered">
           <button class="btn btn-link modify" (click)="setCohortNameInInput(newCohortName, cohort.cohort_name)" (click)="setCohortForDelete(cohort.cohort_id)" (click)="update = true">Edit</button>
-          <button class="btn btn-link modify" (click)="setCohortNameForDelete(cohort.cohort_name)" (click)="setCohortForDelete(cohort.cohort_id)" (click)="active = true">Delete</button>
+          <button class="btn btn-link modify" (click)="setCohortForDelete(cohort.cohort_id, cohort.cohort_name)" (click)="active = true">Delete</button>
         </clr-dg-cell>
       </clr-dg-row>
 
@@ -29,19 +29,23 @@
   </clr-datagrid>
 
   <clr-modal [(clrModalOpen)]="opened">
+    <h3 class="modal-title">Create a new cohort</h3>
     <div class="modal-body">
-      <h1>Create cohort:</h1>
-      <input (keydown.enter)="addNewCohort(newCohort)" (keyup.enter)="opened = false" #newCohort type="text" placeholder ="Cohort name"/>
+      <div>
+        <label>Name: </label>
+        <input (keydown.enter)="addNewCohort(newCohort)" (keyup.enter)="opened = false" #newCohort type="text" placeholder ="Cohort"/>
+      </div>
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-primary" (click)="opened = false">Cancel</button>
         <button type="button" class="btn btn-primary" (click)="opened = false" (click)="addNewCohort(newCohort)">Add</button>
     </div>
   </clr-modal>
+
   <clr-modal [(clrModalOpen)]="active">
     <div class="modal-body">
       <p>
-        Are you sure you want to delete the cohort: {{cohortNameToDelete}}
+        Are you sure you want to delete the cohort: {{cohortNameToDelete}} ?
       </p>
     </div>
     <div class="modal-footer">
@@ -49,9 +53,14 @@
       <button type="button" class="btn btn-primary" (click)="active = false" (click) = "deleteCohort()">Yes</button>
     </div>
   </clr-modal>
+
   <clr-modal [(clrModalOpen)]="update">
+    <h3 class="modal-title">Edit cohort</h3>
     <div class="modal-body">
-      <input #newCohortName type="text" placeholder="New cohort name" />
+      <div>
+        <label>Name: </label>
+        <input #newCohortName type="text"/>
+      </div>
     </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-primary" (click)="update = false">Cancel</button>

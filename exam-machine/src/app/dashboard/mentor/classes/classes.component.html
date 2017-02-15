@@ -25,7 +25,7 @@
         <clr-dg-cell>{{class.cohort_name}}</clr-dg-cell>
         <clr-dg-cell class="centered">
           <button class="btn btn-link modify" (click)="classNameInInput(newClassName, class.class_name)" (click)="edit_modal = true" (click)="setClassIdToEdit(class.class_id)" (click)="getCohortId(cohortNameId.value)">Edit</button>
-          <button class="btn btn-link modify" (click)="setClassNameForDelete(class.class_name)" (click)="setClassForDelete(class.class_id)" (click)="active = true">Delete</button>
+          <button class="btn btn-link modify" (click)="setClassForDelete(class.class_id, class.class_name)" (click)="active = true">Delete</button>
         </clr-dg-cell>
 
     </clr-dg-row>
@@ -34,15 +34,20 @@
   </clr-datagrid>
 
   <clr-modal [(clrModalOpen)]="opened">
+    <h3 class="modal-title">Create a class</h3>
     <div class="modal-body">
-      <div class="select">
-        <select #selectCohorts id="exampleSelect2" (click)="getCohortId(selectCohorts.value)">
+      <div>
+        <label>Selec a cohort :</label>
+        <select #selectCohorts (click)="getCohortId(selectCohorts.value)">
           <option *ngFor="let cohort of cohorts">
             {{cohort.cohort_name}}
           </option>
         </select>
       </div>
-      <input #className type="text" (keyup.enter)="opened = false" (keyup.enter)="addNewClass(className)" placeholder ="Class name"/>
+      <div>
+        <label>Name: </label>
+        <input #className type="text" (keyup.enter)="opened = false" (keyup.enter)="addNewClass(className)" placeholder="Class"/>
+      </div>
     </div>
     <div class="modal-footer">
       <button type="button" class="btn btn-primary" (click)="opened = false">Cancel</button>
@@ -53,7 +58,7 @@
   <clr-modal [(clrModalOpen)]="active">
     <div class="modal-body">
       <p>
-        Are you sure you want to delete the class: {{classNameToDelete}}
+        Are you sure you want to delete the class: {{classNameToDelete}} ?
       </p>
     </div>
     <div class="modal-footer">
@@ -63,11 +68,18 @@
   </clr-modal>
 
   <clr-modal [(clrModalOpen)]="edit_modal">
+    <h3 class="modal-titel">Edit class</h3>
     <div class="modal-body">
-      <select  #cohortNameId id="exampleSelect2" (click)="getCohortId(cohortNameId.value)">
-        <option *ngFor="let cohort of cohorts">{{cohort.cohort_name}}</option>
-      </select>
-      <input #newClassName type="text" (keyup.enter)="opened = false" placeholder ="Class name"/>
+      <div>
+        <label>Select a cohort: </label>
+        <select  #cohortNameId (click)="getCohortId(cohortNameId.value)">
+          <option *ngFor="let cohort of cohorts">{{cohort.cohort_name}}</option>
+        </select>
+      </div>
+      <div>
+        <label>Class name:</label>
+        <input #newClassName type="text" (keyup.enter)="opened = false"/>
+      </div>
     </div>
     <div class="modal-footer">
       <button type="button" class="btn btn-primary" (click)="edit_modal = false">Cancel</button>

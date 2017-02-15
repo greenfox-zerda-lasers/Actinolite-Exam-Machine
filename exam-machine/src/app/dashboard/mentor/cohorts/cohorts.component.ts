@@ -20,7 +20,7 @@ import 'rxjs/add/operator/toPromise';
 export class CohortsComponent implements OnInit {
 
   cohorts;
-  cohortToDelete;
+  cohortIdToDelete;
   cohortNameToDelete;
 
   response;
@@ -57,27 +57,25 @@ export class CohortsComponent implements OnInit {
       .then((data) => this.cohorts = data.cohorts);
   }
 
-  setCohortForDelete(name) {
-    this.cohortToDelete = name;
-  }
-
-  setCohortNameForDelete(name) {
+  setCohortForDelete(id, name) {
+    this.cohortIdToDelete = id;
     this.cohortNameToDelete = name;
   }
+
 
   setCohortNameInInput(element: HTMLInputElement, name) {
     element.value = name;
   }
 
-  editCohort(alma: HTMLInputElement) {
-    this.dataService.editCohort(alma.value, this.cohortToDelete)
+  editCohort(input: HTMLInputElement) {
+    this.dataService.editCohort(input.value, this.cohortIdToDelete)
       .toPromise()
       .then((data) => this.response = data)
       .then(() => this.displayResponse());
   }
 
   deleteCohort() {
-    this.dataService.deleteCohort(this.cohortToDelete)
+    this.dataService.deleteCohort(this.cohortIdToDelete)
       .toPromise()
       .then((data) => this.response = data)
       .then(() => this.displayResponse());
