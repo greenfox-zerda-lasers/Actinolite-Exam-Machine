@@ -31,6 +31,7 @@ export class DataService {
     return this.http.post('https://five-pisces.gomix.me/token',content , {headers: head})
 
   }
+
   userSignup(name, email, password) {
 
     return this.http.post(this.currentURL + '/user/signup', {user_name: name, user_email: email, user_password: password}, {headers: this.headers})
@@ -39,6 +40,7 @@ export class DataService {
 
   getUserName(id) {
     return this.http.post(this.currentURL + '/self', {user_id: id}, {headers: this.headers})
+  }
 
   fetchUsers() {
     return this.http.get(this.currentURL + '/users')

@@ -27,7 +27,7 @@ export class LoginComponent implements OnInit {
   verifyUser(loginUser: string, loginPass: string) {
     this.dataService.userLogin(loginUser, loginPass)
       .toPromise()
-      .then((data) => { this.response = data, localStorage.setItem('token', data.headers.get('token') })
+      .then((data) => {this.response = data, localStorage.setItem('token', data.headers.get('token'))})
       .then(() => this.navigate())
       .catch(this.handleError);
   }
