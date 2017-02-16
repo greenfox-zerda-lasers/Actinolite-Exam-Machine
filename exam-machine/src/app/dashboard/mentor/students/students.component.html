@@ -1,4 +1,4 @@
-<section>
+<section *ngIf="users.length > 0">
 <h1>Students</h1>
 <h2>Search, filter, change the class of students.</h2>
 
@@ -18,7 +18,7 @@
     </clr-dg-cell>
   </clr-dg-row>
 
-  <clr-dg-footer>students</clr-dg-footer>
+  <clr-dg-footer>{{users.length}} students</clr-dg-footer>
 </clr-datagrid>
 
 <clr-modal [(clrModalOpen)]="delete_modal">
@@ -55,4 +55,7 @@
     </div>
   </clr-modal>
 
+</section>
+<section *ngIf="users.length <= 0">
+  No students to render.
 </section>

@@ -10,66 +10,57 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { DataService } from '../data.service';
-import { AuthGuardService } from '../auth-guard.service';
+import { AlertService } from '../alert.service';
+import { LoginService } from '../login.service';
 import 'rxjs/add/operator/toPromise';
 var LoginComponent = (function () {
-    function LoginComponent(dataService, router, authService) {
+    function LoginComponent(dataService, router, loginService, alert) {
         this.dataService = dataService;
         this.router = router;
-        this.authService = authService;
+        this.loginService = loginService;
+        this.alert = alert;
         this.loadingSpinner = '';
         this.dangerAlert = false;
         this.successAlert = false;
     }
     LoginComponent.prototype.verifyUser = function (loginUser, loginPass) {
         var _this = this;
-        this.dataService.userLogin(loginUser, loginPass)
-            .toPromise()
-            .then(function (data) { return _this.response = data; })
-            .then(function () { return _this.navigate(); })
-            .catch(this.handleError);
+        this.loginService.login(loginUser, loginPass)
+            .then(function () { return _this.navigate(); });
     };
+    ;
     LoginComponent.prototype.navigate = function () {
-        if (this.response.result === 'success') {
-            localStorage.setItem("usertype", this.response.user_type);
-            localStorage.setItem("username", this.response.user_name);
-            this.setStyle();
+        if (this.loginService.response.status === 'success') {
+            console.log('login success');
+            if (this.loginService.response.user_admin === "t") {
+                localStorage.setItem('usertype', 'mentor');
+            }
+            else {
+                localStorage.setItem('usertype', 'student');
+            }
+            ;
+            localStorage.setItem("username", this.loginService.response.user_name);
+            this.alert.displaySuccess(this, this.loginService.response.message, this.alert.setStyleHeight(this));
             this.router.navigateByUrl('/dashboard');
         }
-        else if (this.response.result === 'fail') {
-            this.setClassDanger(this.response.message);
-            this.setStyle();
-            console.log(this.response.message);
+        else if (this.loginService.response.status === 'fail') {
+            this.alert.displayError(this, this.loginService.response.message, this.alert.setStyleHeight(this));
+            console.log(this.loginService.response.message);
         }
         else {
+            this.alert.displayError(this, 'An unknown error occured', this.alert.setStyleHeight(this));
             console.log('login error');
-            this.setClassDanger('An unknown error occured.');
-            this.setStyle();
         }
     };
+    ;
     LoginComponent.prototype.setSpinnerWithEnter = function () {
         this.loadingSpinner = 'spinner spinner-sm';
     };
+    ;
     LoginComponent.prototype.setSpinner = function () {
         this.loadingSpinner = '';
     };
-    LoginComponent.prototype.setStyle = function () {
-        this.height = 'auto';
-    };
-    LoginComponent.prototype.setClassDanger = function (message) {
-        this.message = message;
-        this.dangerAlert = true;
-        this.successAlert = false;
-    };
-    LoginComponent.prototype.setClassSuccess = function (message) {
-        this.message = message;
-        this.successAlert = true;
-        this.dangerAlert = false;
-    };
-    LoginComponent.prototype.handleError = function (error) {
-        console.error('An error occurred', error);
-        return Promise.reject(error.message || error);
-    };
+    ;
     LoginComponent.prototype.ngOnInit = function () {
     };
     return LoginComponent;
@@ -81,10 +72,14 @@ LoginComponent = __decorate([
         styleUrls: ['./login.component.css'],
         providers: [
             DataService,
-            AuthGuardService
+            AlertService,
+            LoginService
         ]
     }),
-    __metadata("design:paramtypes", [DataService, Router, AuthGuardService])
+    __metadata("design:paramtypes", [DataService,
+        Router,
+        LoginService,
+        AlertService])
 ], LoginComponent);
 export { LoginComponent };
 //# sourceMappingURL=../../../../src/app/login/login.component.js.map

@@ -1,7 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { DataService } from '../data.service';
-import { AuthGuardService } from '../auth-guard.service';
+import { AlertService } from '../alert.service';
+import { LoginService } from '../login.service';
 import 'rxjs/add/operator/toPromise';
 
 @Component({
@@ -10,80 +11,60 @@ import 'rxjs/add/operator/toPromise';
   styleUrls: ['./login.component.css'],
   providers: [
     DataService,
-    AuthGuardService
+    AlertService,
+    LoginService
   ]
 })
 
 export class LoginComponent implements OnInit {
 
   loadingSpinner = '';
-  message: '';
   dangerAlert:boolean = false;
   successAlert:boolean = false;
 
-  response;
   height;
 
   verifyUser(loginUser: string, loginPass: string) {
-    this.dataService.userLogin(loginUser, loginPass)
-      .toPromise()
-      .then((data) => this.response = data)
-      // .then(() => localStorage.setItem('token', this.response.headers.get('token')))
+    this.loginService.login(loginUser, loginPass)
       .then(() => this.navigate())
-      .catch(this.handleError);
-  }
+  }; // at this point, token is already in the localStorage
+
   navigate() {
-    if (this.response.result === 'success') {
-//     console.log('Token from header: ', this.response.headers.get('token'))
-//     this.dataService.token = this.response.headers.get('token');
-//      localStorage.setItem("userid", this.response.user_id);
-      localStorage.setItem("usertype", this.response.user_type);
-      localStorage.setItem("username", this.response.user_name); // server send username?
-      this.setStyle();
-      // console.log("login.component.ts navigate: ",this.dataService.token);
-//       this.dataService.userToken(this.dataService.token).toPromise();
+    if (this.loginService.response.status === 'success') {
+      console.log('login success')
+      if (this.loginService.response.user_admin === "t") {
+        localStorage.setItem('usertype', 'mentor');
+      }
+      else {
+        localStorage.setItem('usertype', 'student');
+      };
+      localStorage.setItem("username", this.loginService.response.user_name);
+      this.alert.displaySuccess(this, this.loginService.response.message, this.alert.setStyleHeight(this));
       this.router.navigateByUrl('/dashboard');
-    } else if (this.response.result === 'fail') {
-      this.setClassDanger(this.response.message);
-      this.setStyle();
-      console.log(this.response.message);
-    } else {
-      console.log('login error');
-      this.setClassDanger('An unknown error occured.');
-      this.setStyle();
     }
-  }
+    else if (this.loginService.response.status === 'fail') {
+      this.alert.displayError(this, this.loginService.response.message, this.alert.setStyleHeight(this));
+      console.log(this.loginService.response.message);
+    }
+    else {
+      this.alert.displayError(this, 'An unknown error occured', this.alert.setStyleHeight(this));
+      console.log('login error');
+    }
+  };
 
   setSpinnerWithEnter() {
     this.loadingSpinner = 'spinner spinner-sm';
-  }
+  };
 
   setSpinner() {
     this.loadingSpinner = '';
-  }
+  };
 
-  setStyle() {
-    this.height = 'auto';
-  }
-
-  setClassDanger(message) {
-    this.message = message;
-    this.dangerAlert = true;
-    this.successAlert = false;
-  }
-
-  setClassSuccess(message) {
-    this.message = message;
-    this.successAlert = true;
-    this.dangerAlert = false;
-  }
-
-  private handleError(error: any): Promise<any> {
-    console.error('An error occurred', error);
-    return Promise.reject(error.message || error);
-  }
-
-  constructor(private dataService: DataService, private router: Router, private authService: AuthGuardService) { }
+  constructor(
+    private dataService: DataService,
+    private router: Router,
+    private loginService: LoginService,
+    private alert:AlertService) { }
 
   ngOnInit() {
   }

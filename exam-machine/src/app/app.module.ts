@@ -6,7 +6,7 @@ import { ClarityModule } from 'clarity-angular';
 import { RouterModule } from '@angular/router';
 
 import { FilterPipe } from './dashboard/mentor/exams/classfilter.pipe';
-import { ActivateService } from './activate.service';
+import { AuthGuard } from './auth-guard.service';
 
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
@@ -61,30 +61,33 @@ import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
       { path: 'signup', component: SignupComponent },
       { path: 'dashboard', component: DashboardComponent,
         children: [
-          { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+          { path: '', redirectTo: 'dashboard', canActivate: [AuthGuard], pathMatch: 'full' },
           { path: 'mentor', component: MentorComponent, children: [
-            { path: '', redirectTo: 'mentor', pathMatch: 'full' },
+            { path: '', redirectTo: 'mentor', canActivateChild: [AuthGuard], pathMatch: 'full' },
             { path: 'cohorts', component: CohortsComponent },
             { path: 'classes', component: ClassesComponent },
-            { path: 'students', component: StudentsComponent },
+            { path: 'roster', component: StudentsComponent },
             { path: 'exams', component: ExamsComponent },
             { path: 'result', component: ResultComponent },
             { path: 'archive', component: ArchiveComponent },
           ]},
           { path: 'student', component: StudentComponent, children: [
-            { path: '', redirectTo: 'student', pathMatch: 'full' },
+            { path: '', redirectTo: 'student', canActivateChild: [AuthGuard], pathMatch: 'full' },
             { path: 'start', component: ExamstartComponent },
             { path: 'previous', component: PastexamsComponent },
             // { path: 'profile', component: ProfileComponent }
           ]},
           { path: '**', component: PagenotfoundComponent }
         ],
-      }
+      },
+      { path: '**', component: PagenotfoundComponent }
     ])
   ],
   entryComponents: [
   ],
-  providers: [],
+  providers: [
+    AuthGuard
+  ],
   bootstrap: [AppComponent]
 })
 

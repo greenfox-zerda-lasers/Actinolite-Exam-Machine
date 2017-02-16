@@ -1,25 +1,24 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/observable/of';
-import 'rxjs/add/operator/do';
-import 'rxjs/add/operator/delay';
+import { CanActivate, CanActivateChild, Router } from '@angular/router';
+import { LoginService } from './login.service';
+import { ActivateService } from './activate.service';
 
 @Injectable()
 
-export class AuthGuardService {
+export class AuthGuard implements CanActivate, CanActivateChild {
 
-  isLoggedIn: boolean = false;
+  constructor(
+    private loginService: LoginService,
+    private activateService: ActivateService,
+    private router: Router) { }
 
-  // redirectUrl: string;
+  canActivate() {
+    return this.loginService.isLoggedIn();
+  };
 
-  login(): Observable<boolean> {
-    return Observable.of(true).delay(1000).do(val => this.isLoggedIn = true);
-  }
-
-  logout(): void {
-    this.isLoggedIn = false;
-  }
-
-  constructor() { }
+  canActivateChild() {
+    this.activateService.setAuth();
+    return this.activateService.checkAuth();
+  };
 
 }

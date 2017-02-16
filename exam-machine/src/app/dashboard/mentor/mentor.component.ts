@@ -17,9 +17,6 @@ import 'rxjs/add/operator/toPromise';
 })
 export class MentorComponent implements OnInit {
 
-  // @ViewChild('assign')
-  // private assignComponent: UnassignedComponent;
-
   name = localStorage.getItem("username");
   unassignedParent = [];
 
@@ -34,12 +31,10 @@ export class MentorComponent implements OnInit {
     this.dataService.fetchUnassigned()
       .toPromise()
       .then((data) => this.unassignedParent = data.students)
-      // .then((data) => localStorage.setItem('unassigned', data.students))
   };
 
   navigate(page) {
     this.router.navigateByUrl('/dashboard/mentor' + page);
-    // this.renderUnassigned();
   };
 
   constructor(private router: Router, private dataService: DataService) { }

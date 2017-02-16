@@ -1,5 +1,8 @@
 <section>
   <h1>Error 404</h1>
   <h2>Page not found</h2>
-  <p (click)="navigate()">Back to the dashboard.</p>
+  <p (click)="navigate()">Let's go back!</p>
 </section>
+<div class="logo" *ngIf="isRoot()">
+  <h1>Exam<strong>Machine</strong></h1>
+</div>

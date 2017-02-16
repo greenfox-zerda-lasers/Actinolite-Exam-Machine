@@ -18,7 +18,7 @@ import 'rxjs/add/operator/toPromise';
 })
 export class StudentsComponent implements OnInit {
 
-  users;
+  users = [];
   cohorts = [];
   studentIdToDelete;
   studentNameToDelete;
@@ -29,13 +29,12 @@ export class StudentsComponent implements OnInit {
     this.dataService.fetchStudents()
       .toPromise()
       .then((data) => this.users = data.students );
-  }
+  };
 
   getStudentToDelete(id, name) {
     this.studentIdToDelete = id;
     this.studentNameToDelete = name;
-  }
-
+  };
 
   setCohort(value) {
     for (let cohort of this.cohorts) {
@@ -49,7 +48,7 @@ export class StudentsComponent implements OnInit {
     this.dataService.deleteStudent(this.studentIdToDelete)
       .toPromise()
       .then(() => this.renderStudents());
-  }
+  };
 
   constructor(private dataService: DataService, private alert: AlertService) { }
 
