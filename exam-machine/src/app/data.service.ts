@@ -7,19 +7,21 @@ export class DataService {
 
   constructor(private http: Http) { }
 
-  token;
+  result;
 
   private headers = new Headers({'Content-Type': 'application/json'});
 
-  currentURL = 'https://exam-machine-backend.gomix.me';
+  currentURL = 'https://exam-machine-backend.gomix.me'; // rewrite in login service too!
 
   // HTTP queries
 
   userLogin(email, password) {
-
-    return this.http.post(this.currentURL + '/user/login', {user_email: email, user_password: password}, {headers: this.headers})
-      .map((res) => res.json());
-
+    return this.http.post(this.currentURL + '/login', {user_email: email, user_password: password}, {headers: this.headers})
+      .toPromise()
+      .then((res) => {
+        localStorage.setItem('token', res.headers.get('token')),
+        this.result = res.json()
+      })
   }
 
   userToken(token) {
@@ -29,12 +31,10 @@ export class DataService {
       });
       head.append('token', token);
     return this.http.post('https://five-pisces.gomix.me/token',content , {headers: head})
-
   }
 
   userSignup(name, email, password) {
-
-    return this.http.post(this.currentURL + '/user/signup', {user_name: name, user_email: email, user_password: password}, {headers: this.headers})
+    return this.http.post(this.currentURL + '/signup', {user_name: name, user_email: email, user_password: password}, {headers: this.headers})
       .map((res) => res.json())
   }
 

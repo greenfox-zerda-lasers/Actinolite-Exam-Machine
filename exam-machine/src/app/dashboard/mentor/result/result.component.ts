@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from '../../../data.service';
 import { AlertService } from '../../../alert.service';
+import { CalculateService } from '../../../calculate.service';
 import { ExamsComponent } from './../exams/exams.component';
 import 'rxjs/add/operator/toPromise';
 
@@ -15,6 +16,7 @@ import 'rxjs/add/operator/toPromise';
   providers: [
     DataService,
     AlertService,
+    CalculateService,
     ExamsComponent
   ]
 })
@@ -37,15 +39,9 @@ export class ResultComponent implements OnInit {
     this.dataService.getResultsById(this.current_id)
       .toPromise()
       .then((data) => {this.results = data.results, this.name=this.results[0].exam_name, this.max=this.results[0].exam_subj_score_max})
+      .then(() => (this.calculate.addPercents(this.results)))
       .then(() => console.log(this.results))
   };
-
-  // calculatePercentage(arr) {
-  //   for (let item in arr) {
-  //     let percent = Math.floor((item.exam_auto_score + item.exam_subj_score)/(item.exam_subj_score_max + item.exam_auto_score_max)*100)
-  //     this.percents.push(percent);
-  //   }
-  // };
 
   sendScore(value) {
     console.log(this.current_user)
@@ -79,7 +75,7 @@ export class ResultComponent implements OnInit {
     return Promise.reject(error.message || error);
   };
 
-  constructor(private dataService:DataService, private alert:AlertService, private exams:ExamsComponent) { }
+  constructor(private dataService:DataService, private alert:AlertService, private calculate:CalculateService, private exams:ExamsComponent) { }
 
   ngOnInit() {
     this.current_id = localStorage.getItem('examid');
