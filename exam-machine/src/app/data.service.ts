@@ -7,24 +7,12 @@ export class DataService {
 
   constructor(private http: Http) { }
 
-  result;
-
-  private headers = new Headers({'Content-Type': 'application/json'});
-
   currentURL = 'https://exam-machine-backend.gomix.me'; // rewrite in login service too!
 
   // HTTP queries
 
-  userLogin(email, password) {
-    return this.http.post(this.currentURL + '/login', {user_email: email, user_password: password}, {headers: this.headers})
-      .toPromise()
-      .then((res) => {
-        localStorage.setItem('token', res.headers.get('token')),
-        this.result = res.json()
-      })
-  };
-
   addTokenToHeader() {
+    let headers = new Headers({'Content-Type': 'application/json'});
     this.headers.append('token', localStorage.getItem('token'));
   };
 
