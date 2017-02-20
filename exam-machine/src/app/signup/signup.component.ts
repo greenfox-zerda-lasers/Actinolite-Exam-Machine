@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { DataService } from '../data.service';
 import { AlertService } from '../alert.service';
+import { LoginService } from '../login.service';
 import 'rxjs/add/operator/toPromise';
 
 @Component({
@@ -10,7 +11,8 @@ import 'rxjs/add/operator/toPromise';
   styleUrls: ['./signup.component.css'],
   providers: [
     DataService,
-    AlertService
+    AlertService,
+    LoginService
   ]
 })
 
@@ -27,7 +29,7 @@ export class SignupComponent implements OnInit {
       this.dataService.userSignup(newName, newEmail, newPass)
       .toPromise()
       .then((data) => this.response = data)
-      .then(() => this.navigate())
+      .then(() => this.evaluate())
       .catch(this.handleError)
     } else {
       this.alert.displayError(this, 'Input fields can not be empty.', this.alert.setStyleHeight(this));
@@ -40,17 +42,43 @@ export class SignupComponent implements OnInit {
     }
   };
 
-  navigate() {
-    if (this.response.result === 'success') {
+  evaluate() {
+    if (this.response.status === 'success') {
       console.log('signup success');
       this.alert.displaySuccess(this, this.response.message, this.alert.setStyleHeight(this));
-      this.router.navigateByUrl('/');
-    } else if (this.response.result === 'Fail') {
+      this.loginService.login(newEmail, newPass)
+        .then(() => this.navigate())
+    }
+    else if (this.response.status === 'Fail') {
       console.log(this.response.message);
       this.alert.displayError(this, this.response.message, this.alert.setStyleHeight(this));
-    } else {
+    }
+    else {
       console.log('signup error');
       this.alert.displayError(this, 'An unknown error occured.', this.alert.setStyleHeight(this));
+    }
+  };
+
+  navigate() {
+    if (this.loginService.response.status === 'success') {
+      console.log('login success')
+      if (this.loginService.response.user_admin === "t") {
+        localStorage.setItem('usertype', 'mentor');
+      }
+      else {
+        localStorage.setItem('usertype', 'student');
+      };
+      localStorage.setItem("username", this.loginService.response.user_name);
+      this.alert.displaySuccess(this, this.loginService.response.message, this.alert.setStyleHeight(this));
+      this.router.navigateByUrl('/dashboard');
+    }
+    else if (this.loginService.response.status === 'fail') {
+      this.alert.displayError(this, this.loginService.response.message, this.alert.setStyleHeight(this));
+      console.log(this.loginService.response.message);
+    }
+    else {
+      this.alert.displayError(this, 'An unknown error occured', this.alert.setStyleHeight(this));
+      console.log('login error');
     }
   };
 
@@ -70,7 +98,8 @@ export class SignupComponent implements OnInit {
   constructor(
     private dataService: DataService,
     private router: Router,
-    private alert: AlertService) { }
+    private alert: AlertService,
+    private loginService: LoginService) { }
 
   ngOnInit() {
 

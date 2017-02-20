@@ -17,7 +17,6 @@ export class AuthGuard implements CanActivate, CanActivateChild {
   };
 
   canActivateChild() {
-    this.activateService.setAuth();
     return this.activateService.checkAuth();
   };
 

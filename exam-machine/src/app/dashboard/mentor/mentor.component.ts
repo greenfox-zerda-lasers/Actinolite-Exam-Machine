@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { UnassignedComponent } from './unassigned/unassigned.component';
 import { Router } from '@angular/router';
 import { DataService } from '../../data.service';
+import { ActivateService } from '../../activate.service';
 import 'rxjs/add/operator/toPromise';
 
 @Component({
@@ -12,7 +13,8 @@ import 'rxjs/add/operator/toPromise';
     './mentor.component.css'
   ],
   providers: [
-    DataService
+    DataService,
+    ActivateService
   ]
 })
 export class MentorComponent implements OnInit {
@@ -39,9 +41,12 @@ export class MentorComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private dataService: DataService) { }
+    private dataService: DataService,
+    private activateService: ActivateService) { }
 
   ngOnInit() {
+    this.activateService.setAuth();
+    console.log(this.activateService.checkAuth())
     this.renderUnassigned();
     this.router.navigateByUrl('/dashboard/mentor/cohorts');
   }

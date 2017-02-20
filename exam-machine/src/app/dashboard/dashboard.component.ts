@@ -23,6 +23,10 @@ export class DashboardComponent implements OnInit {
     this.router.navigateByUrl('/');
   };
 
+  checkAuth() {
+    this.activateService.checkAuth();
+  };
+
   constructor(
     private router: Router,
     private dataService: DataService,
@@ -31,8 +35,9 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit() {
     this.router.navigateByUrl('/dashboard/' + localStorage.getItem('usertype'));
-
-    console.log(this.loginService.isLoggedIn());
+    this.activateService.setAuth();
+    // console.log(this.loginService.isLoggedIn());
+    // console.log(localStorage.getItem('usertype'))
     // console.log(this.router.url);
   }
 

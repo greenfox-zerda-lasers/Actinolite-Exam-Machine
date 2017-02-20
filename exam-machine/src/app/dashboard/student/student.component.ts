@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { DataService } from '../../data.service';
+import { ActivateService } from '../../activate.service';
 
 @Component({
   selector: 'app-student',
@@ -11,7 +12,8 @@ import { DataService } from '../../data.service';
     './student.component.css'
   ],
   providers: [
-    DataService
+    DataService,
+    ActivateService
   ]
 })
 export class StudentComponent implements OnInit {
@@ -21,9 +23,13 @@ export class StudentComponent implements OnInit {
     this.router.navigateByUrl('/dashboard/student' + page);
   }
 
-  constructor(private router: Router, private dataService: DataService) { }
+  constructor(
+    private router: Router,
+    private dataService: DataService,
+    private activateService: ActivateService) { }
 
   ngOnInit() {
+    this.activateService.setAuth();
     this.router.navigateByUrl('/dashboard/student/start');
   }
 
