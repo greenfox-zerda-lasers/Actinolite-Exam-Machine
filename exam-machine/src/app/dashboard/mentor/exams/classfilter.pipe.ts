@@ -9,5 +9,5 @@ export class FilterPipe {
     return value.filter((item)=> {
       return item.cohort_id === cohort;
     });
-  }
+  };
 }

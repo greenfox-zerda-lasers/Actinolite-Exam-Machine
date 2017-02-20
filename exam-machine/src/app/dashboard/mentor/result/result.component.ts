@@ -75,7 +75,11 @@ export class ResultComponent implements OnInit {
     return Promise.reject(error.message || error);
   };
 
-  constructor(private dataService:DataService, private alert:AlertService, private calculate:CalculateService, private exams:ExamsComponent) { }
+  constructor(
+    private dataService:DataService,
+    private alert:AlertService,
+    private calculate:CalculateService,
+    private exams:ExamsComponent) { }
 
   ngOnInit() {
     this.current_id = localStorage.getItem('examid');

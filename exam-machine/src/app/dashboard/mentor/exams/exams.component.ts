@@ -90,7 +90,7 @@ export class ExamsComponent implements OnInit {
 
   resultId(value) {
     localStorage.setItem("examid", value);
-  }
+  };
 
   navigate(page) {
     this.router.navigateByUrl('/dashboard/mentor' + page);
@@ -101,7 +101,10 @@ export class ExamsComponent implements OnInit {
     return Promise.reject(error.message || error);
   };
 
-  constructor(private dataService: DataService, private alert: AlertService, private router: Router) { }
+  constructor(
+    private dataService: DataService,
+    private alert: AlertService,
+    private router: Router) { }
 
   ngOnInit() {
     this.renderExams();

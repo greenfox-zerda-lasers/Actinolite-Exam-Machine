@@ -45,14 +45,14 @@ export class ClassesComponent implements OnInit {
 
   addNewClass(newClass: HTMLInputElement) {
     if (newClass.value.length > 0) {
-        var newclass = newClass.value;
-        this.dataService.addNewClass(newclass, this.cohortId)
-          .toPromise()
-          .then((data) => this.response = data)
-          .then(() => newClass.value = '')
-          .then(() => this.displayResponse());
+      var newclass = newClass.value;
+      this.dataService.addNewClass(newclass, this.cohortId)
+        .toPromise()
+        .then((data) => this.response = data)
+        .then(() => newClass.value = '')
+        .then(() => this.displayResponse());
     }
-  }
+  };
 
   getCohortId(name) {
     var thisCohortId;
@@ -63,20 +63,20 @@ export class ClassesComponent implements OnInit {
     });
     this.cohortId = thisCohortId;
     console.log(this.cohortId);
-  }
+  };
 
   setClassForDelete(id, name) {
     this.classIdToDelete = id;
     this.classNameToDelete = name;
-  }
+  };
 
-classNameInInput(input: HTMLInputElement, name) {
-  input.value = name;
-}
+  classNameInInput(input: HTMLInputElement, name) {
+    input.value = name;
+  };
 
   setClassIdToEdit(value) {
     this.classIdToEdit = value;
-  }
+  };
 
   editClass(name, cohort) {
     console.log(this.classIdToEdit);
@@ -84,23 +84,25 @@ classNameInInput(input: HTMLInputElement, name) {
       .toPromise()
       .then((data) => this.response = data)
       .then(() => this.displayResponse());
-  }
+  };
 
   deleteClass() {
     this.dataService.deleteClass(this.classIdToDelete)
       .toPromise()
       .then((data) => this.response = data)
       .then(() => this.displayResponse());
-  }
+  };
 
   renderClasses() {
     this.dataService.fetchClasses()
       .toPromise()
       .then((data) => { this.classes = data.classes, this.cohorts = data.cohorts })
       .then(() => console.log(this.classes, this.cohorts));
-  }
+  };
 
-  constructor( private dataService: DataService, private alert: AlertService ) { }
+  constructor(
+    private dataService: DataService,
+    private alert: AlertService ) { }
 
   ngOnInit() {
     this.renderClasses();

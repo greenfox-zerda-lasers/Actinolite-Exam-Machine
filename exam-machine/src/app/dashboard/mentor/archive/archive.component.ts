@@ -64,7 +64,10 @@ export class ArchiveComponent implements OnInit {
     return Promise.reject(error.message || error);
   };
 
-  constructor(private dataService:DataService, private alert:AlertService, private router: Router) { }
+  constructor(
+    private dataService:DataService,
+    private alert:AlertService,
+    private router: Router) { }
 
   ngOnInit() {
     this.renderExams();

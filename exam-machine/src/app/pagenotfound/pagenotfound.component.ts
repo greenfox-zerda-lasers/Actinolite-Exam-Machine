@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 export class PagenotfoundComponent implements OnInit {
 
   navigate() {
-    if (this.router.url === '/dashboard/' + this.router.url) {
+    if (this.router.url.includes('dashboard')) {
       this.router.navigateByUrl('/dashboard/' + localStorage.getItem('usertype'))
     }
     else {
@@ -18,15 +18,16 @@ export class PagenotfoundComponent implements OnInit {
   };
 
   isRoot() {
-    if (this.router.url != '/dashboard/' + this.router.url) {
-      return true
-    }
-    else {
+    if (this.router.url.includes('dashboard')) {
       return false
     }
-  }
+    else {
+      return true
+    }
+  };
 
-  constructor(private router: Router) { }
+  constructor(
+    private router: Router) { }
 
   ngOnInit() {
   }

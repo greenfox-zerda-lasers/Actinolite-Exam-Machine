@@ -59,7 +59,9 @@ export class ExamstartComponent implements OnInit {
     return Promise.reject(error.message || error);
   };
 
-  constructor(private dataService:DataService, private alert:AlertService) { }
+  constructor(
+    private dataService:DataService,
+    private alert:AlertService) { }
 
   ngOnInit() {
     this.renderExams();
