@@ -10,7 +10,8 @@ export class DataService {
   currentURL = 'https://trytorefaktor.gomix.me'; // rewrite in login service too!
 
   headers = new Headers({'Content-Type': 'application/json', 'token': localStorage.getItem('token')});
-  // HTTP queries
+  
+// HTTP queries
 
   addTokenToHeader() {
     this.headers.append('token', localStorage.getItem('token'));

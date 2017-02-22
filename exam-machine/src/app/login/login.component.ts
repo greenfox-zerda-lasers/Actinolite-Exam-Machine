@@ -26,6 +26,7 @@ export class LoginComponent implements OnInit {
 
   verifyUser(loginUser: string, loginPass: string) {
     this.loginService.login(loginUser, loginPass)
+      .then(() => this.setSpinner())
       .then(() => this.navigate())
   }; // at this point, token is already in the localStorage
 

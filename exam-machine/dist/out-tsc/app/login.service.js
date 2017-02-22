@@ -14,7 +14,7 @@ var LoginService = (function () {
         this.http = http;
         this.loggedIn = false;
         this.headers = new Headers({ 'Content-Type': 'application/json' });
-        this.currentURL = 'https://exam-machine-backend.gomix.me';
+        this.currentURL = 'https://trytorefaktor.gomix.me';
         this.loggedIn = !!localStorage.getItem('token');
     }
     LoginService.prototype.login = function (email, password) {
