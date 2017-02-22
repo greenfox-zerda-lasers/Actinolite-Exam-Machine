@@ -11,7 +11,7 @@ export class DataService {
 
   private headers = new Headers({'Content-Type': 'application/json'});
 
-  currentURL = 'https://exam-machine-backend.gomix.me'; // rewrite in login service too!
+  currentURL = 'https://trytorefaktor.gomix.me'; // rewrite in login service too!
 
   // HTTP queries
 
