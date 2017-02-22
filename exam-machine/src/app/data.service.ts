@@ -7,36 +7,35 @@ export class DataService {
 
   constructor(private http: Http) { }
 
-  currentURL = 'https://exam-machine-backend.gomix.me'; // rewrite in login service too!
+  currentURL = 'https://trytorefaktor.gomix.me'; // rewrite in login service too!
 
+  headers = new Headers({'Content-Type': 'application/json', 'token': localStorage.getItem('token')});
   // HTTP queries
 
   addTokenToHeader() {
-    let headers = new Headers({'Content-Type': 'application/json'});
     this.headers.append('token', localStorage.getItem('token'));
   };
 
   userSignup(name, email, password) {
-    return this.http.post(this.currentURL + '/signup', {user_name: name, user_email: email, user_password: password}, {headers: this.headers})
+    return this.http.post(this.currentURL + '/signup', {user_name: name, user_email: email, user_password: password})
       .map((res) => res.json())
   };
 
-  getUserName(id) {
-    return this.http.post(this.currentURL + '/self', {user_id: id}, {headers: this.headers})
-  };
+  // getUserName(id) {
+  //   return this.http.post(this.currentURL + '/self', {user_id: id}, {headers: this.headers})
+  // };
 
   fetchUsers() {
-    return this.http.get(this.currentURL + '/users')
+    return this.http.get(this.currentURL + '/users', {headers: this.headers})
       .map((res) => res.json())
   };
 
   fetchClasses() {
-    return this.http.get(this.currentURL + '/dashboard/classes')
+    return this.http.get(this.currentURL + '/dashboard/classes', {headers: this.headers})
       .map((res) => res.json())
   };
 
   addNewClass(name, cohortId) {
-    console.log('add new class request sent');
     return this.http.post(this.currentURL + '/dashboard/classes', {class_name: name, cohort_id: cohortId}, {headers: this.headers})
       .map((res) => res.json())
   };
@@ -52,12 +51,12 @@ export class DataService {
   };
 
   deleteClass(id) {
-    return this.http.delete(this.currentURL + '/dashboard/classes/' + id)
+    return this.http.delete(this.currentURL + '/dashboard/classes/' + id, {headers: this.headers})
       .map((res) => res.json())
   };
 
   fetchCohorts() {
-    return this.http.get(this.currentURL + '/dashboard/cohorts')
+    return this.http.get(this.currentURL + '/dashboard/cohorts', {headers: this.headers})
       .map((res) => res.json())
   };
 
@@ -72,22 +71,22 @@ export class DataService {
   };
 
   deleteCohort(name) {
-    return this.http.delete(this.currentURL + '/dashboard/cohorts/' + name )
+    return this.http.delete(this.currentURL + '/dashboard/cohorts/' + name, {headers: this.headers})
       .map((res) => res.json())
   };
 
   fetchStudents() {
-    return this.http.get(this.currentURL + '/dashboard/students')
+    return this.http.get(this.currentURL + '/dashboard/students', {headers: this.headers})
       .map((res) => res.json())
   };
 
   deleteStudent(userId) {
-    return this.http.delete(this.currentURL + '/dashboard/students/' + userId )
+    return this.http.delete(this.currentURL + '/dashboard/students/' + userId, {headers: this.headers})
       .map((res) => res.json())
   };
 
   fetchUnassigned() {
-    return this.http.get(this.currentURL + '/dashboard/unassigned')
+    return this.http.get(this.currentURL + '/dashboard/unassigned', {headers: this.headers})
       .map((res) => res.json())
   };
 
@@ -97,17 +96,17 @@ export class DataService {
   };
 
   fetchExams() {
-    return this.http.get(this.currentURL + '/dashboard/exams')
+    return this.http.get(this.currentURL + '/dashboard/exams', {headers: this.headers})
       .map((res) => res.json())
   };
 
   fetchArchived() {
-    return this.http.get(this.currentURL + '/dashboard/archived')
+    return this.http.get(this.currentURL + '/dashboard/archived', {headers: this.headers})
       .map((res) => res.json())
   };
 
-  addNewExam(name, description, type, repo, duration, classname, userid) {
-    return this.http.post(this.currentURL + '/dashboard/exams', {exam_name: name, exam_desc: description, exam_type: type, exam_duration: duration, exam_repo: repo, exam_creator_id: userid, class_name: classname}, {headers: this.headers})
+  addNewExam(name, description, type, repo, duration, classname) {
+    return this.http.post(this.currentURL + '/dashboard/exams', {exam_name: name, exam_desc: description, exam_type: type, exam_duration: duration, exam_repo: repo, class_name: classname}, {headers: this.headers})
       .map((res) => res.json())
   };
 
@@ -137,7 +136,6 @@ export class DataService {
   };
 
   getPreviousById(userid) { // GET request, instead of argument, send token in header
-    // this.addTokenToHeader();
     return this.http.post(this.currentURL + '/dashboard/previous', {user_id: userid}, {headers: this.headers})
       .map((res) => res.json())
   };

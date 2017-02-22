@@ -23,8 +23,8 @@ export class DashboardComponent implements OnInit {
     this.router.navigateByUrl('/');
   };
 
-  checkAuth() {
-    this.activateService.checkAuth();
+  check() {
+    return this.activateService.checkAuth();
   };
 
   constructor(
@@ -35,10 +35,7 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit() {
     this.router.navigateByUrl('/dashboard/' + localStorage.getItem('usertype'));
-    this.activateService.setAuth();
-    // console.log(this.loginService.isLoggedIn());
-    // console.log(localStorage.getItem('usertype'))
-    // console.log(this.router.url);
+    console.log(this.activateService.checkAuth());
   }
 
 }

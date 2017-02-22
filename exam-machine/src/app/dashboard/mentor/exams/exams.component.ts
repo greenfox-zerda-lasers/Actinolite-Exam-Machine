@@ -57,7 +57,7 @@ export class ExamsComponent implements OnInit {
   };
 
   submitExam(name, description, duration, repo, classname) {
-    this.dataService.addNewExam(name, description, this.examType, repo, duration, classname, localStorage.getItem("userid"))
+    this.dataService.addNewExam(name, description, this.examType, repo, duration, classname)
       .toPromise()
       .then((data) => this.response = data)
       .then(() => this.displayResponse())

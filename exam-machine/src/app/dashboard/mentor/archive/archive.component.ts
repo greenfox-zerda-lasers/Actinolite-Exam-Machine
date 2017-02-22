@@ -36,6 +36,7 @@ export class ArchiveComponent implements OnInit {
   };
 
   activateExam() {
+    console.log('setting exam status')
     this.dataService.setExamStatus(this.current_id, "draft")
       .toPromise()
       .then((data) => this.response = data)

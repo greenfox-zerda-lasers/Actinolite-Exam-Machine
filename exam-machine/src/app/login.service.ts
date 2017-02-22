@@ -5,11 +5,11 @@ import { Http, Headers } from '@angular/http';
 
 export class LoginService {
 
-  private loggedIn: boolean = false;
+  private loggedIn:boolean = false;
 
   private headers = new Headers({'Content-Type': 'application/json'});
 
-  currentURL = 'https://exam-machine-backend.gomix.me'; // rewrite in data service too!
+  currentURL = 'https://trytorefaktor.gomix.me'; // rewrite in data service too!
   response;
 
   login(email, password) {

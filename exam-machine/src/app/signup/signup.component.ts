@@ -29,7 +29,7 @@ export class SignupComponent implements OnInit {
       this.dataService.userSignup(newName, newEmail, newPass)
       .toPromise()
       .then((data) => this.response = data)
-      .then(() => this.evaluate())
+      .then(() => this.evaluate(newEmail, newPass))
       .catch(this.handleError)
     } else {
       this.alert.displayError(this, 'Input fields can not be empty.', this.alert.setStyleHeight(this));
@@ -42,7 +42,7 @@ export class SignupComponent implements OnInit {
     }
   };
 
-  evaluate() {
+  evaluate(newEmail, newPass) {
     if (this.response.status === 'success') {
       console.log('signup success');
       this.alert.displaySuccess(this, this.response.message, this.alert.setStyleHeight(this));

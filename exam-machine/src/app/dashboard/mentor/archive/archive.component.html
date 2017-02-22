@@ -24,4 +24,15 @@
     <clr-dg-footer>{{exams.length}} exams</clr-dg-footer>
   </clr-datagrid>
 
+  <clr-modal [(clrModalOpen)]="activate" [clrModalStaticBackdrop]="true">
+    <h3 class="modal-title">Activate this exam/workshop?</h3>
+    <div class="modal-body">
+        <p>This exam/workshop will go back to being a draft. You cannot edit any other properties of it after reactivating.</p>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-link" type="button" (click)="activate = false">Cancel</button>
+        <button class="btn btn-primary" type="button" (click)="activateExam()" (click)="activate = false">Ok</button>
+    </div>
+  </clr-modal>
+
 </section>
