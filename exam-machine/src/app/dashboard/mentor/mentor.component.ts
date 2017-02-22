@@ -39,16 +39,21 @@ export class MentorComponent implements OnInit {
     this.router.navigateByUrl('/dashboard/mentor' + page);
   };
 
+  check() {
+    return this.activateService.checkAuth();
+  };
+
   constructor(
     private router: Router,
     private dataService: DataService,
     private activateService: ActivateService) { }
 
   ngOnInit() {
-    this.activateService.setAuth();
+    if (this.check()) {
+      this.router.navigateByUrl('/dashboard/mentor/cohorts');
+      this.renderUnassigned();
+    };
     console.log(this.activateService.checkAuth())
-    this.renderUnassigned();
-    this.router.navigateByUrl('/dashboard/mentor/cohorts');
   }
 
 }

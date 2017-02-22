@@ -7,17 +7,13 @@ export class ActivateService {
 
   private isAuth:boolean = true;
 
-  setAuth() {
+  checkAuth() {
     if (this.router.url.includes(localStorage.getItem('usertype'))) {
-      this.isAuth = true;
+      return true;
     }
     else {
-      this.isAuth = false;
+      return false;
     }
-  };
-
-  checkAuth() {
-    return this.isAuth;
   };
 
   constructor(

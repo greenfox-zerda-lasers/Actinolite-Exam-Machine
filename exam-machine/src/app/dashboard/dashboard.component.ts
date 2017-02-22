@@ -35,6 +35,7 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit() {
     this.router.navigateByUrl('/dashboard/' + localStorage.getItem('usertype'));
+    console.log(localStorage.getItem('usertype'));
     console.log(this.activateService.checkAuth());
   }
 

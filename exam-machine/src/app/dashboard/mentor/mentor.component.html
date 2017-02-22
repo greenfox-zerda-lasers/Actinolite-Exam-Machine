@@ -1,4 +1,4 @@
-<nav class="sidenav">
+<nav class="sidenav" *ngIf="check()">
   <h1 class="navi-name">Hi, <strong>{{name}}</strong>!</h1>
   <a (click)="navigate('/cohorts')" class="nav-link">Cohorts</a>
   <a (click)="navigate('/classes')" class="nav-link">Classes</a>

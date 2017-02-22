@@ -21,7 +21,11 @@ export class StudentComponent implements OnInit {
 
   navigate(page) {
     this.router.navigateByUrl('/dashboard/student' + page);
-  }
+  };
+
+  check() {
+    return this.activateService.checkAuth();
+  };
 
   constructor(
     private router: Router,
@@ -29,8 +33,9 @@ export class StudentComponent implements OnInit {
     private activateService: ActivateService) { }
 
   ngOnInit() {
-    this.activateService.setAuth();
-    this.router.navigateByUrl('/dashboard/student/start');
+    if (this.check()) {
+      this.router.navigateByUrl('/dashboard/student/start');
+    }    
   }
 
 }
