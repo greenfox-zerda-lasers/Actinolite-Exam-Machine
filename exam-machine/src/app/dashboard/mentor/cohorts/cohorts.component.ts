@@ -49,39 +49,40 @@ export class CohortsComponent implements OnInit {
           .then(() => newCohort.value = '')
           .then(() => this.displayResponse());
     }
-  }
+  };
 
   renderCohorts() {
     this.dataService.fetchCohorts()
       .toPromise()
       .then((data) => this.cohorts = data.cohorts);
-  }
+  };
 
   setCohortForDelete(id, name) {
     this.cohortIdToDelete = id;
     this.cohortNameToDelete = name;
-  }
-
+  };
 
   setCohortNameInInput(element: HTMLInputElement, name) {
     element.value = name;
-  }
+  };
 
   editCohort(input: HTMLInputElement) {
     this.dataService.editCohort(input.value, this.cohortIdToDelete)
       .toPromise()
       .then((data) => this.response = data)
       .then(() => this.displayResponse());
-  }
+  };
 
   deleteCohort() {
     this.dataService.deleteCohort(this.cohortIdToDelete)
       .toPromise()
       .then((data) => this.response = data)
       .then(() => this.displayResponse());
-  }
+  };
 
-  constructor( private dataService: DataService, private alert: AlertService ) { }
+  constructor(
+    private dataService: DataService,
+    private alert: AlertService ) { }
 
   ngOnInit() {
     this.renderCohorts();

@@ -1,4 +1,4 @@
-<header>
+<header *ngIf="check() === true">
   <h1>Exam<strong>Machine</strong></h1>
   <button class="btn btn-outline" (click)="logOut()">Log out</button>
 </header>

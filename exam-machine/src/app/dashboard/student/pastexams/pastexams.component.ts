@@ -36,7 +36,10 @@ export class PastexamsComponent implements OnInit {
     return Promise.reject(error.message || error);
   };
 
-  constructor(private dataService: DataService, private alert: AlertService, private calculate:CalculateService) {
+  constructor(
+    private dataService: DataService,
+    private alert: AlertService,
+    private calculate:CalculateService) {
   }
 
   ngOnInit() {

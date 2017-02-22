@@ -5,10 +5,7 @@ import { Router } from '@angular/router';
 
 export class ActivateService {
 
-  constructor(
-    private router: Router) { }
-
-  private isAuth:boolean = false;
+  private isAuth:boolean = true;
 
   setAuth() {
     if (this.router.url.includes(localStorage.getItem('usertype'))) {
@@ -22,5 +19,10 @@ export class ActivateService {
   checkAuth() {
     return this.isAuth;
   };
+
+  constructor(
+    private router: Router) {
+      this.isAuth = !!localStorage.getItem('token');
+    }
 
 }

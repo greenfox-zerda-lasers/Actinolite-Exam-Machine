@@ -50,7 +50,9 @@ export class StudentsComponent implements OnInit {
       .then(() => this.renderStudents());
   };
 
-  constructor(private dataService: DataService, private alert: AlertService) { }
+  constructor(
+    private dataService: DataService,
+    private alert: AlertService) { }
 
   ngOnInit() {
     this.renderStudents();

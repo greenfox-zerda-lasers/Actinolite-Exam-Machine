@@ -5,7 +5,7 @@ import { Http, Headers } from '@angular/http';
 
 export class LoginService {
 
-  private loggedIn: boolean = false;
+  private loggedIn:boolean = false;
 
   private headers = new Headers({'Content-Type': 'application/json'});
 

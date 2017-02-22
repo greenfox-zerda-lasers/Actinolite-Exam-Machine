@@ -44,7 +44,7 @@ export class UnassignedComponent implements OnInit {
     this.dataService.fetchClasses()
       .toPromise()
       .then((data) => {this.classes = data.classes, this.cohorts = data.cohorts, this.current_cohort = this.cohorts[0].cohort_id})
-  }
+  };
 
   setStudent(id) {
     this.current_student = id;

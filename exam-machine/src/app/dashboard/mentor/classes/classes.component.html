@@ -19,15 +19,13 @@
     <clr-dg-column [clrDgField]="'cohort_name'">Cohort name</clr-dg-column>
     <clr-dg-column>Actions</clr-dg-column>
 
-
     <clr-dg-row *clrDgItems="let class of classes; let i = index">
-        <clr-dg-cell>{{class.class_name}}</clr-dg-cell>
-        <clr-dg-cell>{{class.cohort_name}}</clr-dg-cell>
-        <clr-dg-cell class="centered">
-          <button class="btn btn-link modify" (click)="classNameInInput(newClassName, class.class_name)" (click)="edit_modal = true" (click)="setClassIdToEdit(class.class_id)" (click)="getCohortId(cohortNameId.value)">Edit</button>
-          <button class="btn btn-link modify" (click)="setClassForDelete(class.class_id, class.class_name)" (click)="active = true">Delete</button>
-        </clr-dg-cell>
-
+      <clr-dg-cell>{{class.class_name}}</clr-dg-cell>
+      <clr-dg-cell>{{class.cohort_name}}</clr-dg-cell>
+      <clr-dg-cell class="centered">
+        <button class="btn btn-link modify" (click)="classNameInInput(newClassName, class.class_name)" (click)="edit_modal = true" (click)="setClassIdToEdit(class.class_id)" (click)="getCohortId(cohortNameId.value)">Edit</button>
+        <button class="btn btn-link modify" (click)="setClassForDelete(class.class_id, class.class_name)" (click)="active = true">Delete</button>
+      </clr-dg-cell>
     </clr-dg-row>
 
     <clr-dg-footer>classes</clr-dg-footer>
