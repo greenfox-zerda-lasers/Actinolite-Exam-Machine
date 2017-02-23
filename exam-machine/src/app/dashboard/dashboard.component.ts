@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { DataService } from '../data.service';
-import { LoginService } from '../login.service';
-import { ActivateService } from '../activate.service';
+import { DataService } from '../services/data.service';
+import { LoginService } from '../services/login.service';
+import { ActivateService } from '../services/activate.service';
 
 @Component({
   selector: 'app-dashboard',

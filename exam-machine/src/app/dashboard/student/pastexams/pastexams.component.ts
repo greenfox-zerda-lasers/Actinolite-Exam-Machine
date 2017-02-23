@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { DataService } from '../../../data.service';
-import { AlertService } from '../../../alert.service';
-import { CalculateService } from '../../../calculate.service';
+import { DataService } from '../../../services/data.service';
+import { AlertService } from '../../../services/alert.service';
+import { CalculateService } from '../../../services/calculate.service';
 import 'rxjs/add/operator/toPromise';
 
 @Component({

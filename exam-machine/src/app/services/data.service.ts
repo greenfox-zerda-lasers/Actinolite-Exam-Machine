@@ -10,16 +10,11 @@ export class DataService {
   currentURL = 'https://trytorefaktor.gomix.me'; // rewrite in login service too!
 
   headers = new Headers({'Content-Type': 'application/json', 'token': localStorage.getItem('token')});
-  
+
 // HTTP queries
 
   addTokenToHeader() {
     this.headers.append('token', localStorage.getItem('token'));
-  };
-
-  userSignup(name, email, password) {
-    return this.http.post(this.currentURL + '/signup', {user_name: name, user_email: email, user_password: password})
-      .map((res) => res.json())
   };
 
   // getUserName(id) {
@@ -113,6 +108,11 @@ export class DataService {
 
   setExamStatus(id, status) {
     return this.http.put(this.currentURL + '/dashboard/exams', {exam_id: id, exam_status: status}, {headers: this.headers})
+      .map((res) => res.json())
+  };
+
+  startJob(examid) {
+    return this.http.post(this.currentURL, {exam_id: examid}, {headers: this.headers})
       .map((res) => res.json())
   };
 

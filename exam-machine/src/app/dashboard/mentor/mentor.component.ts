@@ -1,8 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { UnassignedComponent } from './unassigned/unassigned.component';
 import { Router } from '@angular/router';
-import { DataService } from '../../data.service';
-import { ActivateService } from '../../activate.service';
+import { DataService } from '../../services/data.service';
+import { ActivateService } from '../../services/activate.service';
 import 'rxjs/add/operator/toPromise';
 
 @Component({

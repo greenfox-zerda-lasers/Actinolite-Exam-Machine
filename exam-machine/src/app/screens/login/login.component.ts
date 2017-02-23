@@ -1,8 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
-import { DataService } from '../data.service';
-import { AlertService } from '../alert.service';
-import { LoginService } from '../login.service';
+import { AlertService } from '../../services/alert.service';
+import { LoginService } from '../../services/login.service';
 import 'rxjs/add/operator/toPromise';
 
 @Component({
@@ -10,7 +9,6 @@ import 'rxjs/add/operator/toPromise';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
   providers: [
-    DataService,
     AlertService,
     LoginService
   ]
@@ -19,7 +17,7 @@ import 'rxjs/add/operator/toPromise';
 export class LoginComponent implements OnInit {
 
   loadingSpinner = '';
-  dangerAlert:boolean = false;
+  errorAlert:boolean = false;
   successAlert:boolean = false;
 
   height;
@@ -62,7 +60,6 @@ export class LoginComponent implements OnInit {
   };
 
   constructor(
-    private dataService: DataService,
     private router: Router,
     private loginService: LoginService,
     private alert:AlertService) { }

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { DataService } from '../../data.service';
-import { ActivateService } from '../../activate.service';
+import { DataService } from '../../services/data.service';
+import { ActivateService } from '../../services/activate.service';
 
 @Component({
   selector: 'app-student',
@@ -35,7 +35,7 @@ export class StudentComponent implements OnInit {
   ngOnInit() {
     if (this.check()) {
       this.router.navigateByUrl('/dashboard/student/start');
-    }    
+    }
   }
 
 }

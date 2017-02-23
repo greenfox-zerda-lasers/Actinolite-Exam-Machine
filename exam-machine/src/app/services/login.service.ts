@@ -26,6 +26,20 @@ export class LoginService {
       })
   };
 
+  signup(name, email, password) {
+    return this.http.post(this.currentURL + '/signup', {user_name: name, user_email: email, user_password: password})
+      .toPromise()
+      .then((res) => {
+        localStorage.setItem('token', res.headers.get('token')),
+        this.response = res.json()
+      })
+      .then(() => {
+        if (this.response.status === "success") {
+          this.loggedIn = true;
+        }
+      })
+  };
+
   logout() {
     localStorage.clear();
     this.loggedIn = false;

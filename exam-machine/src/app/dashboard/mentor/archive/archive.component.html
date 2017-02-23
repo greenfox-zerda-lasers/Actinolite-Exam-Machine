@@ -1,6 +1,16 @@
 <section>
   <h1>Archived exams and workshops</h1>
 
+  <div id="top-alert-fade" class="alert-container" [ngStyle]="{'top': top}">
+    <div [ngClass]="{'alert-danger': dangerAlert, 'alert-success': successAlert}" class="alert">
+      <div class="alert-item">
+        <span class="alert-text">
+          {{message}}
+        </span>
+      </div>
+    </div>
+  </div>
+
   <clr-datagrid>
     <clr-dg-column [clrDgField]="'name'">Name</clr-dg-column>
     <clr-dg-column [clrDgField]="'mentor'">Created by</clr-dg-column>

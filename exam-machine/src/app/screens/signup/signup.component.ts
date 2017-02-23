@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { DataService } from '../data.service';
-import { AlertService } from '../alert.service';
-import { LoginService } from '../login.service';
+import { AlertService } from '../../services/alert.service';
+import { LoginService } from '../../services/login.service';
 import 'rxjs/add/operator/toPromise';
 
 @Component({
@@ -10,7 +9,6 @@ import 'rxjs/add/operator/toPromise';
   templateUrl: './signup.component.html',
   styleUrls: ['./signup.component.css'],
   providers: [
-    DataService,
     AlertService,
     LoginService
   ]
@@ -18,7 +16,7 @@ import 'rxjs/add/operator/toPromise';
 
 export class SignupComponent implements OnInit {
 
-  dangerAlert:boolean = false;
+  errorAlert:boolean = false;
   successAlert:boolean = false;
 
   height;
@@ -26,11 +24,8 @@ export class SignupComponent implements OnInit {
 
   sendUserData(newName: string, newEmail: string, newPass: string) {
     if (this.nonEmpty(newName) && this.nonEmpty(newEmail) && this.nonEmpty(newPass)) {
-      this.dataService.userSignup(newName, newEmail, newPass)
-      .toPromise()
-      .then((data) => this.response = data)
-      .then(() => this.evaluate(newEmail, newPass))
-      .catch(this.handleError)
+      this.loginService.signup(newName, newEmail, newPass)
+        .then(() => this.navigate())
     } else {
       this.alert.displayError(this, 'Input fields can not be empty.', this.alert.setStyleHeight(this));
     }
@@ -39,23 +34,6 @@ export class SignupComponent implements OnInit {
   nonEmpty(str) {
     if (str) {
       return true
-    }
-  };
-
-  evaluate(newEmail, newPass) {
-    if (this.response.status === 'success') {
-      console.log('signup success');
-      this.alert.displaySuccess(this, this.response.message, this.alert.setStyleHeight(this));
-      this.loginService.login(newEmail, newPass)
-        .then(() => this.navigate())
-    }
-    else if (this.response.status === 'Fail') {
-      console.log(this.response.message);
-      this.alert.displayError(this, this.response.message, this.alert.setStyleHeight(this));
-    }
-    else {
-      console.log('signup error');
-      this.alert.displayError(this, 'An unknown error occured.', this.alert.setStyleHeight(this));
     }
   };
 
@@ -86,7 +64,7 @@ export class SignupComponent implements OnInit {
     if (newPass != rePass) {
       this.alert.displayError(this, 'Passwords don\'t match!', this.alert.setStyleHeight(this));
     } else {
-      this.alert.displayError(this, 'Passwords match!', this.alert.setStyleHeight(this));
+      this.alert.displaySuccess(this, 'Passwords match!', this.alert.setStyleHeight(this));
     }
   };
 
@@ -96,7 +74,7 @@ export class SignupComponent implements OnInit {
   };
 
   constructor(
-    private dataService: DataService,
+    // private dataService: DataService,
     private router: Router,
     private alert: AlertService,
     private loginService: LoginService) { }
