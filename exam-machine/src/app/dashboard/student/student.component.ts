@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { DataService } from '../../data.service';
-import { ActivateService } from '../../activate.service';
+import { DataService } from '../../services/data.service';
+import { ActivateService } from '../../services/activate.service';
 
 @Component({
   selector: 'app-student',
@@ -21,7 +21,11 @@ export class StudentComponent implements OnInit {
 
   navigate(page) {
     this.router.navigateByUrl('/dashboard/student' + page);
-  }
+  };
+
+  check() {
+    return this.activateService.checkAuth();
+  };
 
   constructor(
     private router: Router,
@@ -29,8 +33,9 @@ export class StudentComponent implements OnInit {
     private activateService: ActivateService) { }
 
   ngOnInit() {
-    this.activateService.setAuth();
-    this.router.navigateByUrl('/dashboard/student/start');
+    if (this.check()) {
+      this.router.navigateByUrl('/dashboard/student/start');
+    }
   }
 
 }

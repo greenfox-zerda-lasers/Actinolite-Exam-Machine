@@ -6,18 +6,17 @@ import { ClarityModule } from 'clarity-angular';
 import { RouterModule } from '@angular/router';
 
 import { FilterPipe } from './dashboard/mentor/exams/classfilter.pipe';
-import { AuthGuard } from './auth-guard.service';
+import { AuthGuard } from './services/auth-guard.service';
 
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
 
 import { AppComponent } from './app.component';
-import { LoginComponent } from './login/login.component';
-import { SignupComponent } from './signup/signup.component';
+import { LoginComponent } from './screens/login/login.component';
+import { SignupComponent } from './screens/signup/signup.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { MentorComponent } from './dashboard/mentor/mentor.component';
 import { StudentComponent } from './dashboard/student/student.component';
-import { LoadingComponent } from './loading/loading.component';
 import { CohortsComponent } from './dashboard/mentor/cohorts/cohorts.component';
 import { ClassesComponent } from './dashboard/mentor/classes/classes.component';
 import { StudentsComponent } from './dashboard/mentor/students/students.component';
@@ -27,7 +26,8 @@ import { ExamstartComponent } from './dashboard/student/examstart/examstart.comp
 import { ArchiveComponent } from './dashboard/mentor/archive/archive.component';
 import { ResultComponent } from './dashboard/mentor/result/result.component';
 import { PastexamsComponent } from './dashboard/student/pastexams/pastexams.component';
-import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
+import { PagenotfoundComponent } from './screens/pagenotfound/pagenotfound.component';
+import { UnauthorizedComponent } from './screens/unauthorized/unauthorized.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +37,6 @@ import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
     DashboardComponent,
     MentorComponent,
     StudentComponent,
-    LoadingComponent,
     CohortsComponent,
     ClassesComponent,
     StudentsComponent,
@@ -48,7 +47,8 @@ import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
     ArchiveComponent,
     ResultComponent,
     PastexamsComponent,
-    PagenotfoundComponent
+    PagenotfoundComponent,
+    UnauthorizedComponent
   ],
   imports: [
     BrowserModule,
@@ -80,7 +80,8 @@ import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
           { path: '**', component: PagenotfoundComponent }
         ],
       },
-      { path: '**', component: PagenotfoundComponent }
+      { path: '**', component: PagenotfoundComponent },
+      { path: 'unauthorized', component: UnauthorizedComponent }
     ])
   ],
   entryComponents: [

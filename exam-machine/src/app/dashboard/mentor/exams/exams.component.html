@@ -5,7 +5,7 @@
   <button class="btn btn-primary add" (click)="opened = true">Create new</button>
 
   <div id="top-alert-fade" class="alert-container" [ngStyle]="{'top': top}">
-    <div [ngClass]="{'alert-danger': dangerAlert, 'alert-success': successAlert}" class="alert">
+    <div [ngClass]="{'alert-danger': errorAlert, 'alert-success': successAlert}" class="alert">
       <div class="alert-item">
         <span class="alert-text">
           {{message}}
@@ -128,6 +128,17 @@
     <div class="modal-footer">
         <button class="btn btn-link" type="button" (click)="archive = false">Cancel</button>
         <button class="btn btn-primary" type="button" (click)="archiveExam()" (click)="archive = false">Ok</button>
+    </div>
+  </clr-modal>
+
+  <clr-modal [(clrModalOpen)]="run" [clrModalStaticBackdrop]="true">
+    <h3 class="modal-title">Start running the tests?</h3>
+    <div class="modal-body">
+        <p>While the test are running, you will be unable to interact with this exam.</p>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-link" type="button" (click)="run = false">Cancel</button>
+        <button class="btn btn-primary" type="button" (click)="runExam()" (click)="run = false">Ok</button>
     </div>
   </clr-modal>
 

@@ -1,6 +1,6 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { DataService } from '../../../data.service';
-import { AlertService } from '../../../alert.service';
+import { DataService } from '../../../services/data.service';
+import { AlertService } from '../../../services/alert.service';
 import { MentorComponent } from './../mentor.component';
 import 'rxjs/add/operator/toPromise';
 

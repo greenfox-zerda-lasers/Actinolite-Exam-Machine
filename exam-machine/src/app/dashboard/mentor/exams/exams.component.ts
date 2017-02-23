@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { DataService } from '../../../data.service';
 import { Router } from '@angular/router';
-import { AlertService } from '../../../alert.service';
+import { DataService } from '../../../services/data.service';
+import { AlertService } from '../../../services/alert.service';
 import 'rxjs/add/operator/toPromise';
 
 @Component({
@@ -63,6 +63,14 @@ export class ExamsComponent implements OnInit {
       .then(() => this.displayResponse())
       .catch(this.handleError)
   };
+
+  runExam() {
+    this.dataService.startJob(this.current_id)
+      .toPromise()
+      .then((data) => this.response = data)
+      .then(() => this.displayResponse())
+      .catch(this.handleError)
+  }
 
   displayResponse() {
     this.renderExams();
