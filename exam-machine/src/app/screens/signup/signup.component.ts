@@ -74,7 +74,6 @@ export class SignupComponent implements OnInit {
   };
 
   constructor(
-    // private dataService: DataService,
     private router: Router,
     private alert: AlertService,
     private loginService: LoginService) { }

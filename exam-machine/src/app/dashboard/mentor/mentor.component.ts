@@ -33,6 +33,7 @@ export class MentorComponent implements OnInit {
     this.dataService.fetchUnassigned()
       .toPromise()
       .then((data) => this.unassignedParent = data.students)
+      .then(() => console.log(this.unassignedParent))
   };
 
   navigate(page) {

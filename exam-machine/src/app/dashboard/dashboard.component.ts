@@ -24,7 +24,7 @@ export class DashboardComponent implements OnInit {
   };
 
   check() {
-    return this.activateService.checkAuth();
+    return this.loginService.isLoggedIn();
   };
 
   constructor(

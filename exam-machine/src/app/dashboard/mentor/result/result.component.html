@@ -36,7 +36,7 @@
         <span *ngIf="result.exam_subj_score">
           <clr-icon *ngIf="result.percent < 60" shape="times" class="is-error"></clr-icon>
           <clr-icon *ngIf="result.percent > 60 && result.percent < 80" shape="check"></clr-icon>
-          <clr-icon *ngIf="result.percent > 80" shape="check" class="is-success"></clr-icon>
+          <clr-icon *ngIf="result.percent >= 80" shape="check" class="is-success"></clr-icon>
         </span>
         <span *ngIf="result.exam_subj_score === ''">
           Waiting

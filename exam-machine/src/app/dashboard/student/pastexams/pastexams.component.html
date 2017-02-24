@@ -1,7 +1,7 @@
 <section *ngIf="previous.length > 0">
 
   <h1>Results for previous exams and workshops</h1>
-  
+
   <clr-datagrid>
     <clr-dg-column>Exam/workshop name</clr-dg-column>
     <clr-dg-column>Test score obtained/max</clr-dg-column>
@@ -18,7 +18,7 @@
         <span *ngIf="result.exam_subj_score != ''">
           <clr-icon *ngIf="result.percent < 60" shape="times" class="is-error"></clr-icon>
           <clr-icon *ngIf="result.percent > 60 && result.percent < 80" shape="check"></clr-icon>
-          <clr-icon *ngIf="result.percent > 80" shape="check" class="is-success"></clr-icon>
+          <clr-icon *ngIf="result.percent >= 80" shape="check" class="is-success"></clr-icon>
         </span>
         <span *ngIf="result.exam_subj_score === ''">
           Waiting
