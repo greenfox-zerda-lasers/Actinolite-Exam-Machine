@@ -17,6 +17,7 @@ export class LoginService {
       .toPromise()
       .then((res) => {
         localStorage.setItem('token', res.headers.get('token')),
+        console.log(localStorage.getItem('token')),
         this.response = res.json()
       })
       .then(() => {
@@ -31,6 +32,7 @@ export class LoginService {
       .toPromise()
       .then((res) => {
         localStorage.setItem('token', res.headers.get('token')),
+        console.log(localStorage.getItem('token')),
         this.response = res.json()
       })
       .then(() => {
@@ -41,6 +43,7 @@ export class LoginService {
   };
 
   logout() {
+    localStorage.clear();
     localStorage.clear();
     this.loggedIn = false;
   };
