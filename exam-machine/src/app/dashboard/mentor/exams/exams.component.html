@@ -31,7 +31,7 @@
       <clr-dg-cell class="centered">
         <button *ngIf="exam.exam_status == 'draft'" class="btn btn-sm btn-primary" (click)="live = true" (click)="current_id = exam.exam_id">Go live!</button>
         <button *ngIf="exam.exam_status == 'returned'" class="btn btn-sm btn-info-outline results" (click)="resultId(exam.exam_id)" (click)="navigate('/result')">Results</button>
-        <button *ngIf="exam.exam_status == 'live'" class="btn btn-sm btn-warning results" (click)="current_id = exam.exam_id">Run</button>
+        <button *ngIf="exam.exam_status == 'live'" class="btn btn-sm btn-warning results" (click)="current_id = exam.exam_id" (click)="run = true">Run</button>
         <button *ngIf="exam.exam_status == 'running'" class="btn btn-sm btn-outline disabled">Wait</button>
         <button *ngIf="exam.exam_status != 'running' && exam.exam_status != 'archived'" class="btn btn-sm btn-link" (click)="current_id = exam.exam_id" (click)="archive = true">Archive</button>
         <button *ngIf="exam.exam_status == 'archived'" class="btn btn-sm btn-warning-outline" (click)="current_id = exam.exam_id" (click)="activate = true">Reactivate</button>

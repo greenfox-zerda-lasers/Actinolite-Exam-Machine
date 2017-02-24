@@ -70,7 +70,7 @@ export class ExamsComponent implements OnInit {
       .then((data) => this.response = data)
       .then(() => this.displayResponse())
       .catch(this.handleError)
-  }
+  };
 
   displayResponse() {
     this.renderExams();

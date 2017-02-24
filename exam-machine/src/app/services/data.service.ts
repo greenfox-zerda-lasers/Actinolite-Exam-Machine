@@ -11,15 +11,11 @@ export class DataService {
 
   headers = new Headers({'Content-Type': 'application/json', 'token': localStorage.getItem('token')});
 
-// HTTP queries
+  // HTTP queries
 
   addTokenToHeader() {
     this.headers.append('token', localStorage.getItem('token'));
   };
-
-  // getUserName(id) {
-  //   return this.http.post(this.currentURL + '/self', {user_id: id}, {headers: this.headers})
-  // };
 
   fetchUsers() {
     return this.http.get(this.currentURL + '/users', {headers: this.headers})
@@ -112,7 +108,7 @@ export class DataService {
   };
 
   startJob(examid) {
-    return this.http.post(this.currentURL, {exam_id: examid}, {headers: this.headers})
+    return this.http.post(this.currentURL + '/startjob', {exam_id: examid}, {headers: this.headers})
       .map((res) => res.json())
   };
 
